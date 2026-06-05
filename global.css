@@ -1,0 +1,185 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+@theme {
+  --font-sans: "Poppins-Regular";
+  --font-poppins: "Poppins-Regular";
+  --font-poppins-medium: "Poppins-Medium";
+  --font-poppins-semibold: "Poppins-SemiBold";
+  --font-poppins-bold: "Poppins-Bold";
+
+  --color-lingua-purple: #6c4ef5;
+  --color-lingua-deep-purple: #5b3bf6;
+  --color-lingua-blue: #4d8bff;
+  --color-lingua-green: #21c16b;
+
+  --color-success: #21c16b;
+  --color-warning: #ffc800;
+  --color-streak: #ff8a00;
+  --color-error: #ff4d4f;
+  --color-info: #4d8bff;
+
+  --color-text-primary: #0d132b;
+  --color-text-secondary: #6b7280;
+  --color-border: #e5e7eb;
+  --color-surface: #f6f7fb;
+  --color-background: #ffffff;
+
+  --radius-lingua-xs: 8px;
+  --radius-lingua-sm: 12px;
+  --radius-lingua-md: 16px;
+  --radius-lingua-lg: 20px;
+  --radius-lingua-xl: 28px;
+  --radius-lingua-full: 999px;
+}
+
+@layer base {
+  * {
+    font-family: "Poppins-Regular";
+  }
+}
+
+@utility screen {
+  flex: 1;
+  background-color: var(--color-background);
+}
+
+@utility surface {
+  background-color: var(--color-surface);
+}
+
+@utility card {
+  background-color: var(--color-background);
+  border-color: var(--color-border);
+  border-width: 1px;
+  border-radius: var(--radius-lingua-md);
+  padding: 24px;
+}
+
+@utility card-soft {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  border-width: 1px;
+  border-radius: var(--radius-lingua-md);
+}
+
+@utility pill {
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lingua-full);
+}
+
+@utility btn {
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: var(--radius-lingua-md);
+  background-color: var(--color-lingua-purple);
+}
+
+@utility btn-secondary {
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: var(--radius-lingua-md);
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  border-width: 1px;
+}
+
+@utility section-label {
+  color: var(--color-lingua-deep-purple);
+  font-family: "Poppins-Bold";
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+}
+
+@utility label {
+  color: var(--color-text-secondary);
+  font-family: "Poppins-SemiBold";
+  font-size: 13px;
+  line-height: 1.4;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+}
+
+@utility h1 {
+  color: var(--color-text-primary);
+  font-family: "Poppins-Bold";
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: 0px;
+}
+
+@utility h2 {
+  color: var(--color-text-primary);
+  font-family: "Poppins-SemiBold";
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: 0px;
+}
+
+@utility h3 {
+  color: var(--color-text-primary);
+  font-family: "Poppins-SemiBold";
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: 0px;
+}
+
+@utility h4 {
+  color: var(--color-text-primary);
+  font-family: "Poppins-Medium";
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: 0px;
+}
+
+@utility body-lg {
+  color: var(--color-text-primary);
+  font-family: "Poppins-Regular";
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: 0px;
+}
+
+@utility body-md {
+  color: var(--color-text-primary);
+  font-family: "Poppins-Regular";
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0px;
+}
+
+@utility body-sm {
+  color: var(--color-text-secondary);
+  font-family: "Poppins-Regular";
+  font-size: 13px;
+  line-height: 1.6;
+  letter-spacing: 0px;
+}
+
+@utility caption {
+  color: var(--color-text-secondary);
+  font-family: "Poppins-Regular";
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0px;
+}
+
+@utility btn-text {
+  color: var(--color-background);
+  font-family: "Poppins-Bold";
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: 0px;
+}
