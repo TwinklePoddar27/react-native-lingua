@@ -70,7 +70,7 @@ export default function OnboardingScreen() {
 
         {/* Get Started Button */}
         <View className="mt-8 w-full">
-          <Link href="/" asChild>
+          <Link href="/signup" asChild>
             <TouchableOpacity
               activeOpacity={0.86}
               className="w-full flex h-[60px] flex-row items-center justify-center rounded-[18px] bg-lingua-deep-purple relative"
