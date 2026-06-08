@@ -30,11 +30,11 @@ function InitialLayout() {
     const inAuthGroup = segments[0] === "signin" || segments[0] === "signup" || segments[0] === "onboarding";
 
     if (isSignedIn && inAuthGroup) {
-      router.replace("/");
+      router.replace("/index");
     } else if (!isSignedIn && !inAuthGroup) {
       router.replace("/onboarding");
     }
-  }, [isSignedIn, isLoaded, segments]);
+  }, [isSignedIn, isLoaded, segments, router]);
 
   return <Slot />;
 }

@@ -1,0 +1,58 @@
+import { Language } from "../types/learning";
+
+export const languages: Language[] = [
+  {
+    id: "es",
+    name: "Spanish",
+    nativeName: "Español",
+    code: "es",
+    flagIcon: "https://flagcdn.com/w160/es.png",
+    description: "Learn one of the most widely spoken languages in the world, full of vibrant culture and expressions.",
+    learnersCount: "28.4M learners",
+  },
+  {
+    id: "fr",
+    name: "French",
+    nativeName: "Français",
+    code: "fr",
+    flagIcon: "https://flagcdn.com/w160/fr.png",
+    description: "Dive into the language of love, fashion, gastronomy, and international diplomacy.",
+    learnersCount: "19.4M learners",
+  },
+  {
+    id: "ja",
+    name: "Japanese",
+    nativeName: "日本語",
+    code: "ja",
+    flagIcon: "https://flagcdn.com/w160/jp.png",
+    description: "Explore the fascinating blend of ancient traditions and modern pop culture/tech.",
+    learnersCount: "12.7M learners",
+  },
+  {
+    id: "ko",
+    name: "Korean",
+    nativeName: "한국어",
+    code: "ko",
+    flagIcon: "https://flagcdn.com/w160/kr.png",
+    description: "Learn Hangul, K-pop phrases, and dive into South Korea's cinematic and tech wonders.",
+    learnersCount: "9.3M learners",
+  },
+  {
+    id: "de",
+    name: "German",
+    nativeName: "Deutsch",
+    code: "de",
+    flagIcon: "https://flagcdn.com/w160/de.png",
+    description: "Unlock business, science, literature, and the engineering powerhouse of Europe.",
+    learnersCount: "8.1M learners",
+  },
+  {
+    id: "zh",
+    name: "Chinese",
+    nativeName: "中文",
+    code: "zh",
+    flagIcon: "https://flagcdn.com/w160/cn.png",
+    description: "Speak the most populous language, opening door to history, commerce, and culture.",
+    learnersCount: "7.4M learners",
+  },
+];

@@ -18,7 +18,7 @@ export default function OnboardingScreen() {
               resizeMode="contain"
             />
             <Text className="font-poppins-bold text-[24px] text-text-primary">
-              lingua
+              muolingo
             </Text>
           </View>
         </View>

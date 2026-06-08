@@ -53,7 +53,7 @@ export default function VerificationModal({
         if (onVerify) {
           onVerify(code.join(""));
         } else {
-          router.push("/");
+          router.push("/index");
           onRequestClose?.();
         }
       }, 250);
