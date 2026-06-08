@@ -50,6 +50,9 @@ export const useAppOAuth = (options: { strategy: "oauth_google" | "oauth_faceboo
 
       return new Promise<any>((resolve, reject) => {
         const pollTimer = setInterval(async () => {
+          let shouldProcess = false;
+          let popupUrl = "";
+
           try {
             if (popup.closed) {
               clearInterval(pollTimer);
@@ -57,11 +60,21 @@ export const useAppOAuth = (options: { strategy: "oauth_google" | "oauth_faceboo
               return;
             }
 
-            if (popup.location.href.startsWith(oauthRedirectUrl) || popup.location.href.includes("rotating_token_nonce")) {
-              const popupUrl = popup.location.href;
-              clearInterval(pollTimer);
-              popup.close();
+            const href = popup.location.href;
+            if (href.startsWith(oauthRedirectUrl) || href.includes("rotating_token_nonce")) {
+              shouldProcess = true;
+              popupUrl = href;
+            }
+          } catch (e) {
+            // Ignore cross-origin errors during polling
+            return;
+          }
 
+          if (shouldProcess) {
+            clearInterval(pollTimer);
+            popup.close();
+
+            try {
               const urlObj = new URL(popupUrl);
               const rotatingTokenNonce = urlObj.searchParams.get("rotating_token_nonce") || "";
 
@@ -82,9 +95,9 @@ export const useAppOAuth = (options: { strategy: "oauth_google" | "oauth_faceboo
                 signUp,
                 setActive: setSignInActive,
               });
+            } catch (err) {
+              reject(err);
             }
-          } catch {
-            // Ignore cross-origin errors during polling
           }
         }, 500);
       });
