@@ -4,6 +4,9 @@ import mascotLogo from "@/assets/images/moscot-logo.png";
 import mascotWelcome from "@/assets/images/mascot-welcome.png";
 import streakFire from "@/assets/images/streak-fire.png";
 import treasure from "@/assets/images/treasure.png";
+import logoGoogle from "@/assets/images/logo-google.png";
+import logoFacebook from "@/assets/images/logo-facebook.png";
+import logoApple from "@/assets/images/logo-apple.png";
 
 export const images = {
   earth,
@@ -12,4 +15,7 @@ export const images = {
   mascotWelcome,
   streakFire,
   treasure,
+  logoGoogle,
+  logoFacebook,
+  logoApple,
 } as const;

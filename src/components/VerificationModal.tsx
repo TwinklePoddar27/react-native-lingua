@@ -16,20 +16,29 @@ type Props = {
   visible: boolean;
   onRequestClose?: () => void;
   email?: string;
+  onVerify?: (code: string) => void;
+  error?: string;
 };
 
 export default function VerificationModal({
   visible,
   onRequestClose,
   email,
+  onVerify,
+  error,
 }: Props) {
   const router = useRouter();
   const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
-  const refs = useRef<Array<TextInput | null>>([]);
+  const refs = useRef<(TextInput | null)[]>([]);
   const [focusedIdx, setFocusedIdx] = useState(-1);
 
   useEffect(() => {
-    if (!visible) setCode(["", "", "", "", "", ""]);
+    if (!visible) {
+      const timer = setTimeout(() => {
+        setCode(["", "", "", "", "", ""]);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
   }, [visible]);
 
   useEffect(() => {
@@ -41,11 +50,15 @@ export default function VerificationModal({
   useEffect(() => {
     if (code.every((c) => c.length === 1)) {
       setTimeout(() => {
-        router.push("/");
-        onRequestClose?.();
+        if (onVerify) {
+          onVerify(code.join(""));
+        } else {
+          router.push("/");
+          onRequestClose?.();
+        }
       }, 250);
     }
-  }, [code, onRequestClose, router]);
+  }, [code, router, onVerify, onRequestClose]);
 
   function handleChange(text: string, idx: number) {
     const digit = text.replace(/[^0-9]/g, "").slice(-1);
@@ -80,7 +93,7 @@ export default function VerificationModal({
                 We sent a 6-digit code to {email ?? "your email"}. Enter it below.
               </Text>
 
-              <View className="flex-row justify-center gap-3 mb-6">
+              <View className="flex-row justify-center gap-2 mb-4">
                 {code.map((c, i) => (
                   <TextInput
                     key={i}
@@ -100,7 +113,7 @@ export default function VerificationModal({
                     style={[
                       styles.input,
                       {
-                        borderColor: focusedIdx === i ? "#6c4ef5" : "#E5E7EB",
+                        borderColor: error ? "#ef4444" : (focusedIdx === i ? "#6c4ef5" : "#E5E7EB"),
                       },
                     ]}
                     returnKeyType="done"
@@ -109,6 +122,12 @@ export default function VerificationModal({
                   />
                 ))}
               </View>
+              
+              {error ? (
+                <Text className="text-red-500 text-[13px] text-center mb-4">
+                  {error}
+                </Text>
+              ) : null}
 
               <View className="flex-row justify-end">
                 <TouchableOpacity
@@ -153,7 +172,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   input: {
-    width: 48,
+    flex: 1,
+    maxWidth: 44,
     height: 48,
     borderRadius: 8,
     borderWidth: 2,
