@@ -1,6 +1,120 @@
 import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, useWindowDimensions } from "react-native";
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
+import { SymbolView } from "expo-symbols";
+
+type TabButtonProps = {
+  route: any;
+  isFocused: boolean;
+  onPress: () => void;
+  tabWidth: number;
+};
+
+const getIconName = (name: string, active: boolean): any => {
+  switch (name) {
+    case "index":
+      return { ios: active ? "house.fill" : "house", android: "home", web: "home" };
+    case "learn":
+      return { ios: active ? "book.fill" : "book", android: "menu_book", web: "menu_book" };
+    case "ai-teacher":
+      return { ios: active ? "robot.fill" : "robot", android: "smart_toy", web: "smart_toy" };
+    case "chat":
+      return { ios: active ? "bubble.left.fill" : "bubble.left", android: "chat_bubble", web: "chat_bubble" };
+    case "profile":
+      return { ios: active ? "person.fill" : "person", android: "person", web: "person" };
+    default:
+      return { ios: "questionmark", android: "help", web: "help" };
+  }
+};
+
+const getLabel = (name: string) => {
+  switch (name) {
+    case "index":
+      return "Home";
+    case "learn":
+      return "Learn";
+    case "ai-teacher":
+      return "AI Teacher";
+    case "chat":
+      return "Chat";
+    case "profile":
+      return "Profile";
+    default:
+      return name;
+  }
+};
+
+function TabButton({ route, isFocused, onPress, tabWidth }: TabButtonProps) {
+  const activeProgress = useSharedValue(isFocused ? 1 : 0);
+
+  useEffect(() => {
+    activeProgress.value = withSpring(isFocused ? 1 : 0, {
+      damping: 18,
+      stiffness: 150,
+      mass: 0.8,
+    });
+  }, [isFocused, activeProgress]);
+
+  const animatedIconStyle = useAnimatedStyle(() => {
+    const translateY = activeProgress.value * 10;
+    return {
+      transform: [{ translateY }],
+    };
+  });
+
+  const animatedInactiveIconStyle = useAnimatedStyle(() => {
+    return {
+      opacity: 1 - activeProgress.value,
+    };
+  });
+
+  const animatedActiveIconStyle = useAnimatedStyle(() => {
+    return {
+      opacity: activeProgress.value,
+    };
+  });
+
+  const animatedLabelStyle = useAnimatedStyle(() => {
+    return {
+      opacity: 1 - activeProgress.value,
+      transform: [{ translateY: activeProgress.value * 5 }],
+    };
+  });
+
+  const iconNameInactive = getIconName(route.name, false);
+  const iconNameActive = getIconName(route.name, true);
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.8}
+      style={[styles.tabButton, { width: tabWidth }]}
+    >
+      <View style={styles.tabItemContainer}>
+        {/* Icon Container */}
+        <Animated.View style={[styles.iconContainer, animatedIconStyle]}>
+          {/* Inactive Icon */}
+          <Animated.View style={animatedInactiveIconStyle}>
+            <SymbolView name={iconNameInactive} size={24} tintColor="#9CA3AF" />
+          </Animated.View>
+          {/* Active Icon (overlayed) */}
+          <Animated.View style={[animatedActiveIconStyle, StyleSheet.absoluteFill, styles.activeIconOverlay]}>
+            <SymbolView name={iconNameActive} size={24} tintColor="#FFFFFF" />
+          </Animated.View>
+        </Animated.View>
+
+        {/* Label Container */}
+        <Animated.View style={[styles.labelContainer, animatedLabelStyle]}>
+          <Text style={styles.inactiveLabel}>{getLabel(route.name)}</Text>
+        </Animated.View>
+      </View>
+    </TouchableOpacity>
+  );
+}
 
 export default function CustomTabBar({ state, descriptors, navigation }: any) {
   const { width } = useWindowDimensions();
@@ -24,40 +138,6 @@ export default function CustomTabBar({ state, descriptors, navigation }: any) {
       transform: [{ translateX: translateX.value }],
     };
   });
-
-  const getEmoji = (name: string) => {
-    switch (name) {
-      case "index":
-        return "🏠";
-      case "learn":
-        return "📚";
-      case "ai-teacher":
-        return "🤖";
-      case "chat":
-        return "💬";
-      case "profile":
-        return "👤";
-      default:
-        return "❓";
-    }
-  };
-
-  const getLabel = (name: string) => {
-    switch (name) {
-      case "index":
-        return "Home";
-      case "learn":
-        return "Learn";
-      case "ai-teacher":
-        return "Teacher";
-      case "chat":
-        return "Chat";
-      case "profile":
-        return "Profile";
-      default:
-        return name;
-    }
-  };
 
   return (
     <View style={styles.outerContainer}>
@@ -91,23 +171,13 @@ export default function CustomTabBar({ state, descriptors, navigation }: any) {
           };
 
           return (
-            <TouchableOpacity
+            <TabButton
               key={route.key}
+              route={route}
+              isFocused={isFocused}
               onPress={onPress}
-              activeOpacity={0.8}
-              style={[styles.tabButton, { width: tabWidth }]}
-            >
-              {isFocused ? (
-                <View style={styles.activeIconContainer}>
-                  <Text style={styles.activeEmoji}>{getEmoji(route.name)}</Text>
-                </View>
-              ) : (
-                <View style={styles.inactiveContainer}>
-                  <Text style={styles.inactiveEmoji}>{getEmoji(route.name)}</Text>
-                  <Text style={styles.inactiveLabel}>{getLabel(route.name)}</Text>
-                </View>
-              )}
-            </TouchableOpacity>
+              tabWidth={tabWidth}
+            />
           );
         })}
       </View>
@@ -121,7 +191,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderTopWidth: 1.5,
     borderTopColor: "#F3F4F6",
-    paddingBottom: 16, // Extra spacing for native bottom bar area
+    paddingBottom: 24, // Padding for safe areas on mobile devices
   },
   container: {
     flexDirection: "row",
@@ -145,27 +215,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  activeIconContainer: {
-    width: 48,
-    height: 48,
+  tabItemContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+  },
+  iconContainer: {
+    width: 24,
+    height: 24,
+    position: "relative",
+  },
+  activeIconOverlay: {
     alignItems: "center",
     justifyContent: "center",
   },
-  activeEmoji: {
-    fontSize: 24,
-  },
-  inactiveContainer: {
+  labelContainer: {
+    marginTop: 4,
     alignItems: "center",
-    justifyContent: "center",
-  },
-  inactiveEmoji: {
-    fontSize: 22,
-    opacity: 0.6,
   },
   inactiveLabel: {
     fontSize: 11,
     fontFamily: "Poppins-Medium",
-    color: "#6B7280",
-    marginTop: 3,
+    color: "#9CA3AF",
+    textAlign: "center",
   },
 });

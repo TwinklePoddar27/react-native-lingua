@@ -88,14 +88,14 @@ export default function SignUp() {
         await signUp.finalize({
           navigate: () => {
             setShowModal(false);
-            router.replace("/index");
+            router.replace("/");
           }
         });
       } else if (error) {
         console.error(JSON.stringify(error, null, 2));
         if (isSessionExistsError(error)) {
           setShowModal(false);
-          router.replace("/index");
+          router.replace("/");
           return;
         }
         setVerificationError((error as any).errors?.[0]?.longMessage || error.message || "Invalid code");
@@ -104,7 +104,7 @@ export default function SignUp() {
       console.error(JSON.stringify(err, null, 2));
       if (isSessionExistsError(err)) {
         setShowModal(false);
-        router.replace("/index");
+        router.replace("/");
         return;
       }
       setVerificationError(err.errors?.[0]?.longMessage || err.message || "An error occurred");

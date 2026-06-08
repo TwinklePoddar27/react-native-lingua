@@ -10,6 +10,7 @@ import { ClerkProvider, ClerkLoaded, useAuth } from "@clerk/expo";
 import { tokenCache } from "@clerk/expo/token-cache";
 
 import { designTokens } from "@/theme";
+import { useLanguageStore } from "@/store/languageStore";
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -23,18 +24,30 @@ function InitialLayout() {
   const { isLoaded, isSignedIn } = useAuth();
   const segments = useSegments();
   const router = useRouter();
+  const { selectedLanguageId, _hasHydrated } = useLanguageStore();
 
   useEffect(() => {
-    if (!isLoaded) return;
+    if (!isLoaded || !_hasHydrated) return;
 
     const inAuthGroup = segments[0] === "signin" || segments[0] === "signup" || segments[0] === "onboarding";
+    const onChooseLanguage = segments[0] === "choose-language";
 
-    if (isSignedIn && inAuthGroup) {
-      router.replace("/index");
-    } else if (!isSignedIn && !inAuthGroup) {
-      router.replace("/onboarding");
+    if (isSignedIn) {
+      if (!selectedLanguageId) {
+        if (!onChooseLanguage) {
+          router.replace("/choose-language");
+        }
+      } else {
+        if (inAuthGroup) {
+          router.replace("/");
+        }
+      }
+    } else {
+      if (!inAuthGroup && !onChooseLanguage) {
+        router.replace("/onboarding");
+      }
     }
-  }, [isSignedIn, isLoaded, segments, router]);
+  }, [isSignedIn, isLoaded, _hasHydrated, selectedLanguageId, segments, router]);
 
   return <Slot />;
 }
