@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useAuth, useUser } from "@clerk/expo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link, useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import {
   Image,
   Pressable,
@@ -10,15 +12,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth, useUser } from "@clerk/expo";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SymbolView } from "expo-symbols";
 
 import { images } from "@/constants/images";
-import { useLanguageStore } from "@/store/languageStore";
 import { languages } from "@/data/languages";
-import { units } from "@/data/units";
 import { lessons } from "@/data/lessons";
+import { units } from "@/data/units";
+import { useLanguageStore } from "@/store/languageStore";
 
 const getGreeting = (langId: string) => {
   switch (langId) {
@@ -45,32 +44,24 @@ export default function Index() {
   const router = useRouter();
   const { selectedLanguageId, setLanguageId } = useLanguageStore();
 
-  // State to track interactive checkbox completion status for plan lessons
-  const [completedLessons, setCompletedLessons] = useState<Record<string, boolean>>({
-    "es-u1-l1": true,
-    "ja-u1-l1": true,
-    "fr-u1-l1": true,
-    "ko-u1-l1": true,
-    "de-u1-l1": true,
-    "zh-u1-l1": true,
-    "mock-lesson-1": true,
-  });
+  const { completedLessonIds, completeLesson, uncompleteLesson } = useLanguageStore();
+
+  // Toggle checklist checkbox state
+  const toggleLesson = (id: string) => {
+    if (completedLessonIds.includes(id)) {
+      uncompleteLesson(id);
+    } else {
+      completeLesson(id);
+    }
+  };
 
   // Find the selected language details
   const currentLanguage = languages.find((lang) => lang.id === selectedLanguageId);
-  
+
   // Find units and lessons for the current language
   const languageUnits = units.filter((u) => u.languageId === selectedLanguageId);
   const activeUnit = languageUnits.find((u) => u.order === 1) || languageUnits[0];
   const activeLessons = lessons.filter((l) => l.unitId === activeUnit?.id);
-
-  // Toggle checklist checkbox state
-  const toggleLesson = (id: string) => {
-    setCompletedLessons((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
 
   const handleClearStorage = async () => {
     try {
@@ -158,7 +149,7 @@ export default function Index() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View className="flex-1 max-w-[420px] mx-auto w-full px-6 pt-4">
-        
+
         {/* Top Header Row */}
         <View className="flex-row items-center justify-between mb-6">
           {/* Left side: Flag + Greeting */}
@@ -197,7 +188,7 @@ export default function Index() {
 
         {/* Scrollable Course Content */}
         <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-          
+
           {/* Daily Goal Card */}
           <View className="bg-[#FFF9F2] p-5 rounded-[24px] mb-6 flex-row items-center justify-between border border-[#FFF0E0]">
             <View className="flex-1 pr-4">
@@ -246,7 +237,7 @@ export default function Index() {
                 </Text>
               </TouchableOpacity>
             </View>
-            
+
             {/* Palace Image */}
             <Image
               source={images.palace}
@@ -271,8 +262,8 @@ export default function Index() {
             {/* Plan List */}
             <View className="gap-5">
               {planItems.map((item) => {
-                const isCompleted = !!completedLessons[item.id];
-                
+                const isCompleted = completedLessonIds.includes(item.id);
+
                 let emoji = "📖";
                 let bgColor = "bg-[#FAF0FF]";
                 if (item.type === "audio") {
@@ -287,13 +278,12 @@ export default function Index() {
                 }
 
                 return (
-                  <TouchableOpacity
-                    key={item.id}
-                    activeOpacity={0.8}
-                    onPress={() => toggleLesson(item.id)}
-                    className="flex-row items-center justify-between"
-                  >
-                    <View className="flex-row items-center gap-4 flex-1 pr-4">
+                  <View key={item.id} className="flex-row items-center justify-between">
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() => router.push(`/lesson/${item.id}` as any)}
+                      className="flex-row items-center gap-4 flex-1 pr-4"
+                    >
                       <View className={`w-12 h-12 rounded-[16px] ${bgColor} items-center justify-center`}>
                         <Text className="text-[22px]">{emoji}</Text>
                       </View>
@@ -305,10 +295,11 @@ export default function Index() {
                           {item.description}
                         </Text>
                       </View>
-                    </View>
-                    
+                    </TouchableOpacity>
+
                     {/* Interactive checkbox */}
-                    <View
+                    <TouchableOpacity
+                      onPress={() => toggleLesson(item.id)}
                       className={`w-6 h-6 rounded-full items-center justify-center ${
                         isCompleted ? "bg-[#5B3BF6]" : "border-2 border-neutral-300 bg-white"
                       }`}
@@ -316,8 +307,8 @@ export default function Index() {
                       {isCompleted && (
                         <Text className="text-[12px] text-white font-poppins-bold">✓</Text>
                       )}
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                  </View>
                 );
               })}
             </View>
@@ -336,7 +327,7 @@ export default function Index() {
                 Practice speaking
               </Text>
             </View>
-            
+
             {/* Avatar + Cam icon */}
             <View className="relative">
               <Image

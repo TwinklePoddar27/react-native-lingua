@@ -7,6 +7,7 @@ import { Link, useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import { useCallback, useState } from "react";
 import { Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -43,6 +44,7 @@ export default function SignUp() {
 
       const { createdSessionId, setActive } = await startOAuthFlow();
       if (createdSessionId) {
+        await AsyncStorage.setItem("just_signed_up", "true");
         setActive!({ session: createdSessionId });
       } else {
         // Handle next steps such as MFA
@@ -85,6 +87,7 @@ export default function SignUp() {
       });
       
       if (!error && signUp.status === "complete") {
+        await AsyncStorage.setItem("just_signed_up", "true");
         await signUp.finalize({
           navigate: () => {
             setShowModal(false);

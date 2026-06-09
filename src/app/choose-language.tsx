@@ -13,9 +13,11 @@ import { useRouter } from "expo-router";
 import { useLanguageStore } from "@/store/languageStore";
 import { languages } from "@/data/languages";
 import { images } from "@/constants/images";
+import { usePostHog } from "posthog-react-native";
 
 export default function ChooseLanguageScreen() {
   const router = useRouter();
+  const posthog = usePostHog();
   const [searchQuery, setSearchQuery] = useState("");
   const { selectedLanguageId, setLanguageId } = useLanguageStore();
   const [selectedId, setSelectedId] = useState<string | null>(selectedLanguageId);
@@ -26,6 +28,13 @@ export default function ChooseLanguageScreen() {
 
   const handleConfirm = () => {
     if (selectedId) {
+      const selectedLanguage = languages.find((lang) => lang.id === selectedId);
+      if (posthog && selectedLanguage) {
+        posthog.capture("language_selected", {
+          language_code: selectedLanguage.id,
+          language_name: selectedLanguage.name,
+        });
+      }
       setLanguageId(selectedId);
       router.replace("/");
     }
