@@ -1,0 +1,924 @@
+
+> duolingo@1.0.0 start
+> expo start --localhost --port 8082
+
+Starting project at C:\Users\tptwi\OneDrive\Desktop\duolingo
+Using src/app as the root directory for Expo Router.
+React Compiler enabled
+Starting Metro Bundler
+
+Waiting on http://localhost:8082
+Logs for your project will appear below.
+λ Bundled 8062ms node_modules\expo\node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (967 modules)
+Web Bundled 9893ms node_modules\expo-router\entry.js (932 modules)
+λ Bundled 2167ms node_modules\expo\node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+Web Bundled 5070ms node_modules\expo-router\entry.js (931 modules)
+Web Bundled 2761ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 54ms node_modules\expo-router\entry.js (1 module)
+Web  INFO  %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Web  LOG  Running application "main" with appParams:
+ {"hydrate": undefined, "rootTag": "#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+› Detected a change in metro.config.js. Restart the server to see the new results.
+λ Bundled 6916ms node_modules\expo\node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+Web Bundled 8780ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 160ms node_modules\expo-router\entry.js (1 module)
+Web  INFO  %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Web  LOG  Running application "main" with appParams:
+ {"hydrate": undefined, "rootTag": "#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+λ Bundled 228ms node_modules\expo\node_modules\@expo\cli\node_modules\@expo\router-server\node\render.js (1 module)
+Web Bundled 1473ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 98ms node_modules\expo-router\entry.js (1 module)
+Web  INFO  %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Web  LOG  Running application "main" with appParams:
+ {"hydrate": undefined, "rootTag": "#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
+[31m[7m[1m ERROR [22m[27m[39m SyntaxError: C:\Users\tptwi\OneDrive\Desktop\duolingo\src\app\onboarding.tsx: Unterminated JSX contents. (77:19)
+
+  75 |           </View>
+  76 |         </View>
+> 77 |     </SafeAreaView>
+     |                    ^
+  78 |   );
+  79 | }
+  80 |
+    at constructor (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:365:19)
+    at TypeScriptParserMixin.raise (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6616:19)
+    at TypeScriptParserMixin.jsxReadToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4460:20)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4786:12)
+    at TypeScriptParserMixin.getTokenFromCode (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10004:11)
+    at TypeScriptParserMixin.nextToken (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5799:10)
+    at TypeScriptParserMixin.next (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5709:10)
+    at TypeScriptParserMixin.eat (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:5713:12)
+    at TypeScriptParserMixin.expect (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6915:15)
+    at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4692:10)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4707:37)
+    at TypeScriptParserMixin.jsxParseElementAt (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4710:32)
+    at TypeScriptParserMixin.jsxParseElement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4761:17)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4771:19)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:39
+    at TypeScriptParserMixin.tryParse (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:6924:20)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9792:18)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12443:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10817:17)
+    at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12510:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11692:28)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11348:23)
+    at TypeScriptParserMixin.parseExprAtom (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11098:23)
+    at TypeScriptParserMixin.parseUpdate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11083:21)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:11063:23)
+    at TypeScriptParserMixin.parseMaybeUnary (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9854:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10916:61)
+    at TypeScriptParserMixin.parseExprOps (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10921:23)
+    at TypeScriptParserMixin.parseMaybeConditional (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10898:23)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10848:21)
+    at TypeScriptParserMixin.parseMaybeAssign (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9803:20)
+    at TypeScriptParserMixin.parseExpressionBase (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10801:23)
+    at C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:39
+    at TypeScriptParserMixin.allowInAnd (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12438:16)
+    at TypeScriptParserMixin.parseExpression (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:10797:17)
+    at TypeScriptParserMixin.parseReturnStatement (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:13159:28)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12815:21)
+    at TypeScriptParserMixin.parseStatementContent (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:9525:18)
+    at TypeScriptParserMixin.parseStatementLike (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12784:17)
+    at TypeScriptParserMixin.parseStatementListItem (C:\Users\tptwi\OneDrive\Desktop\duolingo\node_modules\@babel\parser\lib\index.js:12764:17)
