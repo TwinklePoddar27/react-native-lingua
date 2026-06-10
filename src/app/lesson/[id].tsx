@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/immutability */
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { usePostHog } from "posthog-react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -283,6 +284,9 @@ export default function AudioLessonScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { selectedLanguageId, completeLesson } = useLanguageStore();
+  const posthog = usePostHog();
+
+  const isCompletedRef = useRef<boolean>(false);
 
   const activeLanguageId = selectedLanguageId || "es";
   const lesson = lessons.find((l) => l.id === id);
@@ -301,6 +305,34 @@ export default function AudioLessonScreen() {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const currentPhrase = teacherContext.phrases[currentPhraseIndex] || teacherContext.phrases[0];
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
+  const currentPhraseIndexRef = useRef(currentPhraseIndex);
+  useEffect(() => {
+    currentPhraseIndexRef.current = currentPhraseIndex;
+  }, [currentPhraseIndex]);
+
+  // PostHog Lesson Started & Lesson Abandoned tracking
+  useEffect(() => {
+    const startTime = Date.now();
+    if (lesson && posthog) {
+      posthog.capture("lesson_started", {
+        lesson_id: lesson.id,
+        language: activeLanguageId,
+        lesson_number: lesson.order,
+      });
+    }
+
+    return () => {
+      if (lesson && posthog && !isCompletedRef.current) {
+        const timeIntoLesson = Math.round((Date.now() - startTime) / 1000);
+        posthog.capture("lesson_abandoned", {
+          lesson_id: lesson.id,
+          time_into_lesson_seconds: timeIntoLesson,
+          last_question_index: currentPhraseIndexRef.current,
+        });
+      }
+    };
+  }, [lesson, activeLanguageId, posthog]);
 
   // Feedback levels - Initialized to Excellent, Great, Good to match design reference on load
   const [speakingLevel, setSpeakingLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Excellent");
@@ -391,12 +423,14 @@ export default function AudioLessonScreen() {
   const handleEndCall = useCallback(() => {
     setStatus("ended");
     setShowCompletionOverlay(true);
+    isCompletedRef.current = true;
   }, []);
 
   const handleFinishLesson = useCallback(() => {
     if (lesson) {
       completeLesson(lesson.id);
     }
+    isCompletedRef.current = true;
     setShowCompletionOverlay(false);
     router.replace("/(tabs)/learn");
   }, [lesson, completeLesson, router]);

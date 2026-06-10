@@ -6,8 +6,7 @@ import { Slot, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import * as SystemUI from "expo-system-ui";
-import { ClerkProvider, ClerkLoaded, useAuth } from "@clerk/expo";
-import { tokenCache } from "@clerk/expo/token-cache";
+import { ClerkProvider, ClerkLoaded, useAuth, tokenCache, IS_MOCK_AUTH } from "@/lib/clerk";
 import { PostHogProvider, usePostHog } from "posthog-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -18,9 +17,9 @@ import { posthog } from "@/lib/posthog";
 
 void SplashScreen.preventAutoHideAsync();
 
-const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
 
-if (!publishableKey) {
+if (!publishableKey && !IS_MOCK_AUTH) {
   throw new Error("Add your Clerk Publishable Key to the .env file");
 }
 

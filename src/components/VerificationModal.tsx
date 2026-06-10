@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+import { IS_MOCK_AUTH } from "@/lib/clerk";
 
 type Props = {
   visible: boolean;
@@ -89,9 +90,15 @@ export default function VerificationModal({
               <Text className="font-poppins-semibold text-[18px] text-text-primary mb-2">
                 Enter verification code
               </Text>
-              <Text className="text-[14px] text-text-secondary mb-4">
-                We sent a 6-digit code to {email ?? "your email"}. Enter it below.
-              </Text>
+              {IS_MOCK_AUTH ? (
+                <Text className="text-[14px] text-text-secondary font-poppins-medium mb-4 bg-purple-50 p-2.5 rounded-lg border border-purple-100 text-[#5B3BF6]">
+                  ⚡ Demo Mode: Enter any 6-digit code (e.g. <Text className="font-poppins-bold">123456</Text>) to proceed.
+                </Text>
+              ) : (
+                <Text className="text-[14px] text-text-secondary mb-4">
+                  We sent a 6-digit code to {email ?? "your email"}. Enter it below.
+                </Text>
+              )}
 
               <View className="flex-row justify-center gap-2 mb-4">
                 {code.map((c, i) => (

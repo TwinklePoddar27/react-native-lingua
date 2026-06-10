@@ -25,6 +25,7 @@ class MockPostHog {
   hasOptedIn() { return true; }
   hasOptedOut() { return false; }
   _flush() { return Promise.resolve(); }
+  debug() {}
 }
 
 export const posthog = apiKey

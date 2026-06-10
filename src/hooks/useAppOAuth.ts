@@ -1,5 +1,4 @@
-import { useOAuth } from "@clerk/expo";
-import { useSignIn, useSignUp } from "@clerk/expo/legacy";
+import { useOAuth, useSignIn, useSignUp } from "@/lib/clerk";
 import { useCallback } from "react";
 import { Platform } from "react-native";
 
