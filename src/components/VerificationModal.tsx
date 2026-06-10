@@ -32,11 +32,13 @@ export default function VerificationModal({
   const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
   const refs = useRef<(TextInput | null)[]>([]);
   const [focusedIdx, setFocusedIdx] = useState(-1);
+  const submittedCodeRef = useRef<string>("");
 
   useEffect(() => {
     if (!visible) {
       const timer = setTimeout(() => {
         setCode(["", "", "", "", "", ""]);
+        submittedCodeRef.current = "";
       }, 0);
       return () => clearTimeout(timer);
     }
@@ -49,15 +51,18 @@ export default function VerificationModal({
   }, [visible]);
 
   useEffect(() => {
-    if (code.every((c) => c.length === 1)) {
-      setTimeout(() => {
+    const codeStr = code.join("");
+    if (code.every((c) => c.length === 1) && codeStr !== submittedCodeRef.current) {
+      submittedCodeRef.current = codeStr;
+      const timer = setTimeout(() => {
         if (onVerify) {
-          onVerify(code.join(""));
+          onVerify(codeStr);
         } else {
           router.push("/");
           onRequestClose?.();
         }
       }, 250);
+      return () => clearTimeout(timer);
     }
   }, [code, router, onVerify, onRequestClose]);
 

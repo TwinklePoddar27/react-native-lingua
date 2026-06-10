@@ -46,7 +46,7 @@ export default function SignIn() {
         // Handle next steps such as MFA
       }
     } catch (err) {
-      console.error("OAuth error", err);
+      console.warn("OAuth error", err);
     }
   }, [startGoogleOAuthFlow, startFacebookOAuthFlow, startAppleOAuthFlow]);
 
@@ -61,14 +61,14 @@ export default function SignIn() {
       if (!error) {
         setShowModal(true);
       } else {
-        console.error(JSON.stringify(error, null, 2));
+        console.warn(JSON.stringify(error, null, 2));
       }
     } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
+      console.warn(JSON.stringify(err, null, 2));
     }
   };
 
-  const onVerifyPress = async (code: string) => {
+  const onVerifyPress = useCallback(async (code: string) => {
     if (!signIn) return;
     try {
       setVerificationError("");
@@ -84,7 +84,7 @@ export default function SignIn() {
           }
         });
       } else if (error) {
-        console.error(JSON.stringify(error, null, 2));
+        console.warn(JSON.stringify(error, null, 2));
         if (isSessionExistsError(error)) {
           setShowModal(false);
           router.replace("/");
@@ -93,7 +93,7 @@ export default function SignIn() {
         setVerificationError((error as any).errors?.[0]?.longMessage || error.message || "Invalid code");
       }
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      console.warn(JSON.stringify(err, null, 2));
       if (isSessionExistsError(err)) {
         setShowModal(false);
         router.replace("/");
@@ -101,7 +101,7 @@ export default function SignIn() {
       }
       setVerificationError(err.errors?.[0]?.longMessage || err.message || "An error occurred");
     }
-  };
+  }, [signIn, router]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
