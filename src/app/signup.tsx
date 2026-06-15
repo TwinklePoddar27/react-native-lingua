@@ -50,7 +50,7 @@ export default function SignUp() {
         // Handle next steps such as MFA
       }
     } catch (err) {
-      console.warn("OAuth error", err);
+      console.error("OAuth error", err);
     }
   }, [startGoogleOAuthFlow, startFacebookOAuthFlow, startAppleOAuthFlow]);
 
@@ -68,17 +68,17 @@ export default function SignUp() {
         if (!sendError) {
           setShowModal(true);
         } else {
-          console.warn(JSON.stringify(sendError, null, 2));
+          console.error(JSON.stringify(sendError, null, 2));
         }
       } else {
-        console.warn(JSON.stringify(createError, null, 2));
+        console.error(JSON.stringify(createError, null, 2));
       }
     } catch (err) {
-      console.warn(JSON.stringify(err, null, 2));
+      console.error(JSON.stringify(err, null, 2));
     }
   };
 
-  const onVerifyPress = useCallback(async (code: string) => {
+  const onVerifyPress = async (code: string) => {
     if (!signUp) return;
     try {
       setVerificationError("");
@@ -95,7 +95,7 @@ export default function SignUp() {
           }
         });
       } else if (error) {
-        console.warn(JSON.stringify(error, null, 2));
+        console.error(JSON.stringify(error, null, 2));
         if (isSessionExistsError(error)) {
           setShowModal(false);
           router.replace("/");
@@ -104,7 +104,7 @@ export default function SignUp() {
         setVerificationError((error as any).errors?.[0]?.longMessage || error.message || "Invalid code");
       }
     } catch (err: any) {
-      console.warn(JSON.stringify(err, null, 2));
+      console.error(JSON.stringify(err, null, 2));
       if (isSessionExistsError(err)) {
         setShowModal(false);
         router.replace("/");
@@ -112,7 +112,7 @@ export default function SignUp() {
       }
       setVerificationError(err.errors?.[0]?.longMessage || err.message || "An error occurred");
     }
-  }, [signUp, router]);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>

@@ -1,0 +1,35 @@
+env: load .env
+env: export AGENT_SERVER_URL CLERK_SECRET_KEY EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY EXPO_PUBLIC_POSTHOG_API_KEY EXPO_PUBLIC_POSTHOG_HOST OPENAI_API_KEY STREAM_API_KEY STREAM_API_SECRET
+Starting project at C:\Users\student\AndroidStudioProjects\react-native-lingua
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+Using src/app as the root directory for Expo Router.
+React Compiler enabled
+Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+Starting Metro Bundler
+
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+› Opening exp://10.1.5.27:8082 on Pixel_9
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+Waiting on http://localhost:8082
+Logs for your project will appear below.
+✅ Clerk iOS plugin loaded
+✅ Clerk Android plugin loaded
+Android Bundled 18855ms node_modules\expo-router\entry.js (3242 modules)
+ WARN  Stream Video SDK not available in this environment
+ WARN  Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview
+ LOG  Fonts loaded successfully

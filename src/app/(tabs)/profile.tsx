@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth, useUser } from "@/lib/clerk";
 
 export default function ProfileScreen() {

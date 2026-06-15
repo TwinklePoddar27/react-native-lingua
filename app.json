@@ -39,7 +39,17 @@
       "@clerk/expo",
       "expo-secure-store",
       "expo-web-browser",
-      "expo-image"
+      "expo-image",
+      "@stream-io/video-react-native-sdk",
+      "@config-plugins/react-native-webrtc",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 24
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

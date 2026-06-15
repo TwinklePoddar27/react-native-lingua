@@ -204,11 +204,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "#5B3BF6", // bg-lingua-deep-purple
     top: 12, // (72 - 48) / 2 = 12
-    shadowColor: "#5B3BF6",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 3,
+    boxShadow: "0px 4px 8px rgba(91, 59, 246, 0.3)",
   },
   tabButton: {
     height: 72,

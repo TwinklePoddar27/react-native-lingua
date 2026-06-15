@@ -24,6 +24,13 @@ export const lessons: Lesson[] = [
         targetSkill: 'vocabulary',
       },
     ],
+    aiPrompt: {
+      teacherName: 'Sofía',
+      avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
+      systemPrompt: 'You are Sofía, an energetic Spanish teacher. Today you are teaching basic greetings: "Hola" (Hello), "Adiós" (Goodbye), and "Buenos días" (Good morning). Keep it simple and very encouraging!',
+      initialMessage: '¡Hola! I\'m Sofía, and I\'m so excited to be your Spanish teacher today! We\'re going to start with something fun: greetings. Let\'s try saying "Hola", which means "Hello". Can you repeat that for me?',
+      scenarioDescription: 'Learn simple greetings and introductions with Sofía.',
+    },
     vocabList: [
       {
         id: 'es-v-1',
@@ -100,9 +107,9 @@ export const lessons: Lesson[] = [
       teacherName: 'Sofía',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
       voiceId: 'es-ES-Neural2-F',
-      systemPrompt: 'You are Sofía, a friendly barista. Help the user order a drink.',
-      initialMessage: '¡Hola! Bienvenidos. ¿Qué te pongo hoy?',
-      scenarioDescription: 'Practice ordering a coffee from Sofía.',
+      systemPrompt: 'You are Sofía, a friendly and energetic barista. Help the user order a drink. Encourage them to use "Por favor" (Please).',
+      initialMessage: '¡Hola! Welcome to our little café! I\'m Sofía. What can I get for you today? Maybe you\'d like to start by saying "Un café, por favor"?',
+      scenarioDescription: 'Practice ordering a coffee from Sofía at a lively café.',
     },
     activities: [
       {
@@ -129,6 +136,13 @@ export const lessons: Lesson[] = [
         targetSkill: 'speaking',
       },
     ],
+    aiPrompt: {
+      teacherName: 'Sofía',
+      avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
+      systemPrompt: 'You are Sofía, an energetic teacher. Review café vocabulary: "café", "té", and "la cuenta". Ask the student to repeat these words.',
+      initialMessage: '¡Hola! It\'s great to see you again. Let\'s master ordering at a café! First, how do we say "coffee" in Spanish? It\'s "café". Can you try saying that?',
+      scenarioDescription: 'Master café ordering with Sofía.',
+    },
     activities: [
       {
         id: 'es-act-7',
@@ -154,6 +168,13 @@ export const lessons: Lesson[] = [
         targetSkill: 'listening',
       },
     ],
+    aiPrompt: {
+      teacherName: 'Sofía',
+      avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
+      systemPrompt: 'You are Sofía, a helpful local. Guide the student through directions: "Izquierda" (Left) and "Derecha" (Right).',
+      initialMessage: '¡Hola! Imagine we\'re in the beautiful streets of Madrid. If you want to go left, you say "Izquierda". Give it a try! Say "Izquierda".',
+      scenarioDescription: 'Learn directions with Sofía in Madrid.',
+    },
     activities: [
       {
         id: 'es-act-14',
@@ -262,6 +283,13 @@ export const lessons: Lesson[] = [
         targetSkill: 'vocabulary',
       },
     ],
+    aiPrompt: {
+      teacherName: 'Chloé',
+      avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
+      systemPrompt: 'You are Chloé, a warm French teacher. Teach "Bonjour" (Hello/Good morning) and "Salut" (Hi). Be very encouraging!',
+      initialMessage: 'Bonjour! I\'m Chloé, and I\'m so happy to be teaching you French today! Let\'s start with a classic. Can you say "Bonjour"? It means hello!',
+      scenarioDescription: 'Learn first French words with Chloé.',
+    },
     vocabList: [
       {
         id: 'fr-v-1',
@@ -326,8 +354,8 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Chloé',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Chloé, a friendly Parisian barista. Help the user order a croissant.',
-      initialMessage: 'Bonjour! Bienvenue. Qu\'est-ce que je vous sers?',
+      systemPrompt: 'You are Chloé, a friendly Parisian barista. Help the user order a croissant. Encourage them to use "S\'il vous plaît" (Please).',
+      initialMessage: 'Bonjour! Welcome to our café in Paris! I\'m Chloé. What would you like to order today? Maybe a delicious "croissant"?',
       scenarioDescription: 'Order coffee and a pastry at a beautiful Parisian café.',
     },
     activities: [
@@ -487,8 +515,8 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Kenji',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Kenji, a helpful server. Help the user order green tea.',
-      initialMessage: 'いらっしゃいませ！ご注文はお決まりですか？',
+      systemPrompt: 'You are Kenji, a helpful server. Help the user order green tea. Encourage them to use "Onegai shimasu" (Please).',
+      initialMessage: 'Irasshaimase! Welcome! I\'m Kenji. Are you ready to order? How about starting with "Ocha o onegai shimasu" for some green tea?',
       scenarioDescription: 'Order a cup of green tea (ocha) in Japanese.',
     },
     activities: [
@@ -648,8 +676,8 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Minjun',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Minjun, a friendly barista in Seoul. Help the user order an iced americano.',
-      initialMessage: '어서 오세요! 어떤 걸로 주문하시겠어요?',
+      systemPrompt: 'You are Minjun, a friendly barista in Seoul. Help the user order an iced americano. Encourage them to use "Juseyo" (Please/Give me).',
+      initialMessage: 'Eoseo oseyo! Welcome! I\'m Minjun. What can I get for you? Maybe an "Aiseu amerikanoh juseyo"?',
       scenarioDescription: 'Order an iced americano (아아) in Korean.',
     },
     activities: [
@@ -809,8 +837,8 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Lukas',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Lukas, a friendly Munich waiter. Help the user order a beer.',
-      initialMessage: 'Hallo! Willkommen. Was kann ich Ihnen bringen?',
+      systemPrompt: 'You are Lukas, a friendly Munich waiter. Help the user order a beer. Encourage them to use "Bitte" (Please).',
+      initialMessage: 'Hallo! Welcome to Munich! I\'m Lukas. What can I bring you today? A cold "Bier, bitte"?',
       scenarioDescription: 'Order a local beer (Bier) in German.',
     },
     activities: [
@@ -970,8 +998,8 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Mei',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Mei, a friendly tea house server in Beijing. Help the user order green tea.',
-      initialMessage: '您好！欢迎光临。请问您要喝点什么茶？',
+      systemPrompt: 'You are Mei, a friendly tea house server in Beijing. Help the user order green tea. Encourage them to use "Qǐng" (Please).',
+      initialMessage: 'Nǐ hǎo! Welcome to our tea house! I\'m Mei. What kind of tea would you like? Maybe some "Lǜchá"?',
       scenarioDescription: 'Order a cup of green tea (绿茶) in Chinese.',
     },
     activities: [

@@ -177,20 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     padding: 24,
     marginBottom: 24,
-    ...Platform.select({
-      ios: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 5,
-      },
-      web: {
-        boxShadow: "0px 2px 4px rgba(0,0,0,0.1)",
-      },
-    }),
+    boxShadow: "0px 2px 4px rgba(0,0,0,0.1)",
   },
   input: {
     flex: 1,

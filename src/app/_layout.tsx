@@ -1,11 +1,12 @@
 import "../../global.css";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Font from "expo-font";
 import { Slot, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import * as SystemUI from "expo-system-ui";
+import { View, ActivityIndicator, Text } from "react-native";
 import { ClerkProvider, ClerkLoaded, useAuth, tokenCache, IS_MOCK_AUTH } from "@/lib/clerk";
 import { PostHogProvider, usePostHog } from "posthog-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -112,12 +113,18 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (fontsLoaded) {
+      console.log("Fonts loaded successfully");
       void SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return null;
+    return (
+      <View style={{ flex: 1, backgroundColor: "#FFFFFF", alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+        <ActivityIndicator size="large" color="#5B3BF6" />
+        <Text style={{ fontFamily: 'System', color: '#6B7280' }}>Loading resources...</Text>
+      </View>
+    );
   }
 
   return (

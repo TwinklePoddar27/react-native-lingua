@@ -3,12 +3,13 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   Image,
   Platform,
+  ActivityIndicator,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { usePostHog } from "posthog-react-native";
@@ -22,6 +23,31 @@ import Animated, {
 import { useLanguageStore } from "@/store/languageStore";
 import { lessons } from "@/data/lessons";
 import { images } from "@/constants/images";
+import { useUser } from "@/lib/clerk";
+import { getStreamClient } from "@/lib/stream";
+import { startAgentSession, stopAgentSession } from "@/lib/vision-agent";
+
+// Native-only imports handled via conditional require to prevent SSR/Web crashes
+let StreamVideo: any = ({ children }: any) => <>{children}</>;
+let StreamCall: any = ({ children }: any) => <>{children}</>;
+let useCall: any = () => null;
+let useCallStateHooks: any = () => ({
+  useCallStatus: () => "joined",
+  useMicrophoneState: () => ({ isMuted: false }),
+  useParticipants: () => [],
+});
+
+if (Platform.OS !== "web") {
+  try {
+    const VideoSDK = require("@stream-io/video-react-native-sdk");
+    StreamVideo = VideoSDK.StreamVideo;
+    StreamCall = VideoSDK.StreamCall;
+    useCall = VideoSDK.useCall;
+    useCallStateHooks = VideoSDK.useCallStateHooks;
+  } catch (e) {
+    console.warn("Stream Video SDK not available in this environment");
+  }
+}
 
 // Helper to provide extended details (phrases, teacher, translations) for lessons
 interface CallPhrase {
@@ -92,149 +118,35 @@ const getExtendedLessonData = (lessonId: string, languageId: string): TeacherCon
 
   const defaultPhrases: Record<string, CallPhrase[]> = {
     es: [
-      {
-        id: "es-1",
-        text: "¡Hola! Buenas tardes.",
-        translation: "Hello! Good afternoon.",
-        pronunciation: "OH-lah BWEH-nas TAR-dehs",
-        context: "Polite greeting in the afternoon",
-      },
-      {
-        id: "es-2",
-        text: "Quiero un café con leche, por favor.",
-        translation: "I want a coffee with milk, please.",
-        pronunciation: "KYEH-ro oon kah-FEH kon LEH-cheh por fah-VOR",
-        context: "Ordering coffee at a shop",
-      },
-      {
-        id: "es-3",
-        text: "La cuenta, por favor.",
-        translation: "The bill, please.",
-        pronunciation: "lah KWEHN-tah por fah-VOR",
-        context: "Asking for the check politely",
-      },
-      {
-        id: "es-4",
-        text: "Muchas gracias, ¡adiós!",
-        translation: "Thank you very much, goodbye!",
-        pronunciation: "MOO-chahs GRAH-syahs ah-DYOHS",
-        context: "Leaving the shop",
-      },
+      { id: "es-1", text: "¡Hola! Buenas tardes.", translation: "Hello! Good afternoon.", pronunciation: "OH-lah BWEH-nas TAR-dehs", context: "Polite greeting in the afternoon" },
+      { id: "es-2", text: "Quiero un café con leche, por favor.", translation: "I want a coffee with milk, please.", pronunciation: "KYEH-ro oon kah-FEH kon LEH-cheh por fah-VOR", context: "Ordering coffee at a shop" },
+      { id: "es-3", text: "La cuenta, por favor.", translation: "The bill, please.", pronunciation: "lah KWEHN-tah por fah-VOR", context: "Asking for the check politely" },
+      { id: "es-4", text: "Muchas gracias, ¡adiós!", translation: "Thank you very much, goodbye!", pronunciation: "MOO-chahs GRAH-syahs ah-DYOHS", context: "Leaving the shop" },
     ],
     fr: [
-      {
-        id: "fr-1",
-        text: "Bonjour, s'il vous plaît.",
-        translation: "Hello, please.",
-        pronunciation: "bohn-ZHOOR seel voo pleh",
-        context: "Standard polite greeting",
-      },
-      {
-        id: "fr-2",
-        text: "Un café et un croissant, s'il vous plaît.",
-        translation: "A coffee and a croissant, please.",
-        pronunciation: "uhn kah-FEH ay uhn krwa-SAHN seel voo pleh",
-        context: "Ordering standard bakery items",
-      },
-      {
-        id: "fr-3",
-        text: "L'addition, s'il vous plaît.",
-        translation: "The bill, please.",
-        pronunciation: "lah-dee-SYOHN seel voo pleh",
-        context: "Asking for the check",
-      },
+      { id: "fr-1", text: "Bonjour, s'il vous plaît.", translation: "Hello, please.", pronunciation: "bohn-ZHOOR seel voo pleh", context: "Standard polite greeting" },
+      { id: "fr-2", text: "Un café et un croissant, s'il vous plaît.", translation: "A coffee and a croissant, please.", pronunciation: "uhn kah-FEH ay uhn krwa-SAHN seel voo pleh", context: "Ordering standard bakery items" },
+      { id: "fr-3", text: "L'addition, s'il vous plaît.", translation: "The bill, please.", pronunciation: "lah-dee-SYOHN seel voo pleh", context: "Asking for the check" },
     ],
     ja: [
-      {
-        id: "ja-1",
-        text: "こんにちは、お茶をお願いします。",
-        translation: "Hello, green tea please.",
-        pronunciation: "Konnichiwa, o-cha o onegai shimasu.",
-        context: "Greeting and ordering tea",
-      },
-      {
-        id: "ja-2",
-        text: "これはいくらですか？",
-        translation: "How much is this?",
-        pronunciation: "Kore wa ikura desu ka?",
-        context: "Asking about item price",
-      },
-      {
-        id: "ja-3",
-        text: "ありがとうございます。",
-        translation: "Thank you very much.",
-        pronunciation: "Arigatou gozaimasu.",
-        context: "Polite gratitude",
-      },
+      { id: "ja-1", text: "こんにちは、お茶をお願いします。", translation: "Hello, green tea please.", pronunciation: "Konnichiwa, o-cha o onegai shimasu.", context: "Greeting and ordering tea" },
+      { id: "ja-2", text: "これはいくらですか？", translation: "How much is this?", pronunciation: "Kore wa ikura desu ka?", context: "Asking about item price" },
+      { id: "ja-3", text: "ありがとうございます。", translation: "Thank you very much.", pronunciation: "Arigatou gozaimasu.", context: "Polite gratitude" },
     ],
     ko: [
-      {
-        id: "ko-1",
-        text: "안녕하세요! 커피 주세요.",
-        translation: "Hello! Coffee, please.",
-        pronunciation: "Annyeonghaseyo! Keopi juseyo.",
-        context: "Greeting and ordering",
-      },
-      {
-        id: "ko-2",
-        text: "아이스 아메리카노 하나 주세요.",
-        translation: "One iced americano, please.",
-        pronunciation: "Aiseu amerikanoh hana juseyo.",
-        context: "Ordering typical Korean coffee drink",
-      },
-      {
-        id: "ko-3",
-        text: "감사합니다. 안녕히 계세요.",
-        translation: "Thank you. Goodbye.",
-        pronunciation: "Gamsahabnida. Annyeonghi gyeseyo.",
-        context: "Polite leaving message",
-      },
+      { id: "ko-1", text: "안녕하세요! 커피 주세요.", translation: "Hello! Coffee, please.", pronunciation: "Annyeonghaseyo! Keopi juseyo.", context: "Greeting and ordering" },
+      { id: "ko-2", text: "아이스 아메리카노 하나 주세요.", translation: "One iced americano, please.", pronunciation: "Aiseu amerikanoh hana juseyo.", context: "Ordering typical Korean coffee drink" },
+      { id: "ko-3", text: "감사합니다. 안녕히 계세요.", translation: "Thank you. Goodbye.", pronunciation: "Gamsahabnida. Annyeonghi gyeseyo.", context: "Polite leaving message" },
     ],
     de: [
-      {
-        id: "de-1",
-        text: "Hallo! Guten Tag.",
-        translation: "Hello! Good day.",
-        pronunciation: "Hallo! Goot-en Tahg.",
-        context: "Standard german greeting",
-      },
-      {
-        id: "de-2",
-        text: "Ein Mineralwasser, bitte.",
-        translation: "A mineral water, please.",
-        pronunciation: "Ayn mee-neh-RAHL-vah-ser bit-teh",
-        context: "Ordering water",
-      },
-      {
-        id: "de-3",
-        text: "Vielen Dank, auf Wiedersehen!",
-        translation: "Thank you very much, goodbye!",
-        pronunciation: "Feel-en Dank owf vee-der-zayn!",
-        context: "Polite parting",
-      },
+      { id: "de-1", text: "Hallo! Guten Tag.", translation: "Hello! Good day.", pronunciation: "Hallo! Goot-en Tahg.", context: "Standard german greeting" },
+      { id: "de-2", text: "Ein Mineralwasser, bitte.", translation: "A mineral water, please.", pronunciation: "Ayn mee-neh-RAHL-vah-ser bit-teh", context: "Ordering water" },
+      { id: "de-3", text: "Vielen Dank, auf Wiedersehen!", translation: "Thank you very much, goodbye!", pronunciation: "Feel-en Dank owf vee-der-zayn!", context: "Polite parting" },
     ],
     default: [
-      {
-        id: "def-1",
-        text: "Hello! How are you doing today?",
-        translation: "Hello! How are you doing today?",
-        pronunciation: "Hello! How are you doing today?",
-        context: "General greeting",
-      },
-      {
-        id: "def-2",
-        text: "I want to practice my language skills.",
-        translation: "I want to practice my language skills.",
-        pronunciation: "I want to practice my language skills.",
-        context: "Expressing learning desire",
-      },
-      {
-        id: "def-3",
-        text: "Thank you for the lesson!",
-        translation: "Thank you for the lesson!",
-        pronunciation: "Thank you for the lesson!",
-        context: "Ending gratitude",
-      },
+      { id: "def-1", text: "Hello! How are you doing today?", translation: "Hello! How are you doing today?", pronunciation: "Hello! How are you doing today?", context: "General greeting" },
+      { id: "def-2", text: "I want to practice my language skills.", translation: "I want to practice my language skills.", pronunciation: "I want to practice my language skills.", context: "Expressing learning desire" },
+      { id: "def-3", text: "Thank you for the lesson!", translation: "Thank you for the lesson!", pronunciation: "Thank you for the lesson!", context: "Ending gratitude" },
     ],
   };
 
@@ -283,8 +195,158 @@ const getExtendedLessonData = (lessonId: string, languageId: string): TeacherCon
 export default function AudioLessonScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const { user } = useUser();
+  const [streamClient, setStreamClient] = useState<any>(null);
+  const [call, setCall] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [agentStatus, setAgentStatus] = useState<"idle" | "connecting" | "connected" | "failed">("idle");
+  const agentSessionIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    // Disable Stream on Web
+    if (Platform.OS === "web") return;
+    if (!user || !id) return;
+
+    let isMounted = true;
+    let currentCall: any = null;
+
+    const init = async () => {
+      try {
+        const client = await getStreamClient(
+          user.id,
+          user.firstName || user.id,
+          user.imageUrl || ""
+        );
+        if (!isMounted) return;
+        setStreamClient(client);
+
+        const callId = `lesson-${id.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
+        const newCall = client.call("default", callId);
+        await newCall.join({ create: true });
+
+        if (!isMounted) return;
+        setCall(newCall);
+        currentCall = newCall;
+
+        // Start the Vision Agent session
+        try {
+          setAgentStatus("connecting");
+          const languageId = useLanguageStore.getState().selectedLanguageId || "es";
+          const lessonData = lessons.find(l => l.id === id);
+          if (lessonData) {
+            const result = await startAgentSession(callId, languageId, lessonData);
+            agentSessionIdRef.current = result.session_id;
+            setAgentStatus("connected");
+            console.log(`Vision Agent session started: ${result.session_id} for call: ${callId}`);
+          }
+        } catch (agentError) {
+          console.error("Failed to start Vision Agent session:", agentError);
+          setAgentStatus("failed");
+        }
+      } catch (e: any) {
+        console.error("Stream initialization error:", e);
+        if (isMounted) setError(e.message);
+      }
+    };
+
+    init();
+
+    return () => {
+      isMounted = false;
+
+      // Cleanup agent session
+      if (currentCall && agentSessionIdRef.current) {
+        stopAgentSession(currentCall.id, agentSessionIdRef.current).catch(err => {
+            console.error("Error stopping agent on unmount:", err);
+        });
+      }
+
+      if (currentCall && currentCall.state.status !== "left") {
+        currentCall.leave();
+      }
+    };
+  }, [user, id]);
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View className="flex-1 items-center justify-center p-6 bg-white">
+          <SymbolView name={{ ios: "exclamationmark.triangle.fill", android: "warning", web: "warning" }} size={48} tintColor="#EF4444" />
+          <Text className="font-poppins-bold text-[18px] text-[#0D132B] mt-4">Connection Error</Text>
+          <Text className="font-poppins-medium text-[14px] text-[#6B7280] text-center mt-2 px-6">
+            {error}
+          </Text>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            className="mt-6 bg-[#5B3BF6] px-8 py-3 rounded-xl"
+          >
+            <Text className="font-poppins-bold text-white">Go Back</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // On web, we bypass the stream client requirement to avoid crashes
+  if (Platform.OS === "web") {
+    return <AudioLessonContent id={id} agentStatus="connected" onEndCall={async () => {}} />;
+  }
+
+  if (!streamClient || !call) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View className="flex-1 items-center justify-center p-6 bg-white gap-4">
+          <ActivityIndicator size="large" color="#5B3BF6" />
+          <Text className="font-poppins-bold text-[18px] text-[#0D132B]">Connecting to AI Teacher...</Text>
+          <Text className="font-poppins-medium text-[13px] text-[#6B7280]">Setting up your secure audio session</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <StreamVideo client={streamClient}>
+      <StreamCall call={call}>
+        <AudioLessonContent id={id} agentStatus={agentStatus} onEndCall={async () => {
+            if (agentSessionIdRef.current && call) {
+                await stopAgentSession(call.id, agentSessionIdRef.current).catch(console.error);
+                agentSessionIdRef.current = null;
+            }
+        }} />
+      </StreamCall>
+    </StreamVideo>
+  );
+}
+
+function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentStatus: string; onEndCall: () => Promise<void> }) {
+  const router = useRouter();
   const { selectedLanguageId, completeLesson } = useLanguageStore();
   const posthog = usePostHog();
+  const call = useCall();
+
+  const hooks = useCallStateHooks();
+  const callStatus = (call && hooks?.useCallStatus) ? hooks.useCallStatus() : "joined";
+  const participants = (call && hooks?.useParticipants) ? hooks.useParticipants() : [];
+
+  // Detect if the AI teacher is speaking
+  const teacherParticipant = participants.find((p: any) => p.userId === "teacher");
+  const isTeacherSpeaking = teacherParticipant?.isSpeaking || false;
+
+  // Detect if the local user is speaking
+  const localParticipant = participants.find((p: any) => p.isLocalParticipant);
+  const isLocalSpeaking = localParticipant?.isSpeaking || false;
+
+  // Use a local state fallback for mic toggling to ensure UI responsiveness
+  const [localMuted, setLocalMuted] = useState(false);
+  const remoteMicState = hooks?.useMicrophoneState ? hooks.useMicrophoneState() : null;
+  const micState = (call && remoteMicState) ? remoteMicState : { isMuted: localMuted };
+
+  // Automatically unmute mic on join
+  useEffect(() => {
+    if (call && call.microphone && micState.isMuted) {
+      call.microphone.enable();
+    }
+  }, [call, micState.isMuted]);
 
   const isCompletedRef = useRef<boolean>(false);
 
@@ -297,49 +359,49 @@ export default function AudioLessonScreen() {
   // Connection status & states
   const [status, setStatus] = useState<"connecting" | "online" | "ended">("connecting");
   const [callDuration, setCallDuration] = useState(0);
-  const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
+
+  const toggleCamera = useCallback(async () => {
+    console.log("Toggling camera...");
+    try {
+      if (call?.camera) {
+        await call.camera.toggle();
+        console.log("Stream camera toggled successfully");
+      }
+      setIsCameraOn((prev) => !prev);
+    } catch (err) {
+      console.error("Error toggling camera:", err);
+      setIsCameraOn((prev) => !prev);
+    }
+  }, [call]);
   const [showSubtitles, setShowSubtitles] = useState(true);
+
+  // Map Stream call status to local status
+  useEffect(() => {
+    if (callStatus === "joined") setStatus("online");
+    else if (callStatus === "joining") setStatus("connecting");
+  }, [callStatus]);
 
   // Speech bubble & phrases
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const currentPhrase = teacherContext.phrases[currentPhraseIndex] || teacherContext.phrases[0];
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   const currentPhraseIndexRef = useRef(currentPhraseIndex);
   useEffect(() => {
     currentPhraseIndexRef.current = currentPhraseIndex;
   }, [currentPhraseIndex]);
 
-  // PostHog Lesson Started & Lesson Abandoned tracking
-  useEffect(() => {
-    const startTime = Date.now();
-    if (lesson && posthog) {
-      posthog.capture("lesson_started", {
-        lesson_id: lesson.id,
-        language: activeLanguageId,
-        lesson_number: lesson.order,
-      });
-    }
-
-    return () => {
-      if (lesson && posthog && !isCompletedRef.current) {
-        const timeIntoLesson = Math.round((Date.now() - startTime) / 1000);
-        posthog.capture("lesson_abandoned", {
-          lesson_id: lesson.id,
-          time_into_lesson_seconds: timeIntoLesson,
-          last_question_index: currentPhraseIndexRef.current,
-        });
-      }
-    };
-  }, [lesson, activeLanguageId, posthog]);
-
-  // Feedback levels - Initialized to Excellent, Great, Good to match design reference on load
+  // Feedback levels
   const [speakingLevel, setSpeakingLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Excellent");
   const [pronunciationLevel, setPronunciationLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Great");
   const [grammarLevel, setGrammarLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Good");
   const [isSimulatingSpeech, setIsSimulatingSpeech] = useState(false);
   const [simulationTextOverride, setSimulationTextOverride] = useState<string | null>(null);
+  const [isSimulatedAudioPlaying, setIsSimulatedAudioPlaying] = useState(false);
+
+  // Real-time speaking state from Stream or local simulation
+  const isAudioPlaying = isTeacherSpeaking || isSimulatedAudioPlaying;
+  const isListening = !isAudioPlaying && !micState.isMuted;
 
   // Completion Reward Overlay State
   const [showCompletionOverlay, setShowCompletionOverlay] = useState(false);
@@ -354,52 +416,33 @@ export default function AudioLessonScreen() {
   // Stable callbacks
   const triggerAudioPlay = useCallback(() => {
     if (isAudioPlaying) return;
-    setIsAudioPlaying(true);
+    setIsSimulatedAudioPlaying(true);
     setTimeout(() => {
-      setIsAudioPlaying(false);
+      setIsSimulatedAudioPlaying(false);
     }, 2200);
   }, [isAudioPlaying]);
 
-  const toggleMic = useCallback(() => {
-    setIsMuted((prev) => !prev);
-  }, []);
+  const toggleMic = useCallback(async () => {
+    console.log("Toggling microphone...");
+    try {
+      if (call?.microphone) {
+        await call.microphone.toggle();
+        console.log("Stream microphone toggled successfully");
+      } else {
+        console.log("No active call/microphone, using local fallback toggle");
+        setLocalMuted((prev) => !prev);
+      }
+    } catch (err) {
+      console.error("Error toggling microphone:", err);
+      // Fallback to local state if SDK fails
+      setLocalMuted((prev) => !prev);
+    }
+  }, [call]);
 
   const handleSimulateSpeech = useCallback(() => {
-    if (isMuted || isSimulatingSpeech) return;
-
-    setIsSimulatingSpeech(true);
-    setSimulationTextOverride("🎙️ Listening to your response...");
-
-    setTimeout(() => {
-      setSimulationTextOverride("🧠 Analyzing pronunciation...");
-      setTimeout(() => {
-        // Randomly select score levels
-        const levels: ("Excellent" | "Great" | "Good")[] = ["Excellent", "Great", "Good"];
-        const randS = levels[Math.floor(Math.random() * levels.length)];
-        const randP = levels[Math.floor(Math.random() * levels.length)];
-        const randG = levels[Math.floor(Math.random() * levels.length)];
-
-        setSpeakingLevel(randS);
-        setPronunciationLevel(randP);
-        setGrammarLevel(randG);
-        setIsSimulatingSpeech(false);
-        setSimulationTextOverride("🎉 Excellent Pronunciation! Waving back.");
-
-        // Advance to next phrase or end call advice after short delay
-        setTimeout(() => {
-          setSimulationTextOverride(null);
-          if (currentPhraseIndex < teacherContext.phrases.length - 1) {
-            setCurrentPhraseIndex((prev) => prev + 1);
-            triggerAudioPlay();
-          } else {
-            setSimulationTextOverride("✨ Phrase complete! Tap End Call to finish.");
-            setTimeout(() => setSimulationTextOverride(null), 3000);
-          }
-        }, 2000);
-
-      }, 1500);
-    }, 1500);
-  }, [isMuted, isSimulatingSpeech, currentPhraseIndex, teacherContext.phrases.length, triggerAudioPlay]);
+    // We disable the manual simulation trigger as we want real interactivity
+    return;
+  }, []);
 
   // Audio Play Icon Animation Style
   const animatedStatusDotStyle = useAnimatedStyle(() => {
@@ -415,16 +458,22 @@ export default function AudioLessonScreen() {
   const animatedMicRipple = useAnimatedStyle(() => {
     return {
       transform: [{ scale: micRipple.value }],
-      opacity: isSimulatingSpeech && !isMuted ? 1 - (micRipple.value - 1) / 0.8 : 0,
+      opacity: isLocalSpeaking ? 1 - (micRipple.value - 1) / 0.8 : 0,
     };
   });
 
   // End Call functionality
-  const handleEndCall = useCallback(() => {
+  const handleEndCall = useCallback(async () => {
+    if (onEndCall) {
+        await onEndCall();
+    }
+    if (call) {
+      await call.leave();
+    }
     setStatus("ended");
     setShowCompletionOverlay(true);
     isCompletedRef.current = true;
-  }, []);
+  }, [call, onEndCall]);
 
   const handleFinishLesson = useCallback(() => {
     if (lesson) {
@@ -446,14 +495,7 @@ export default function AudioLessonScreen() {
   // Connecting transition
   useEffect(() => {
     statusScale.value = withRepeat(withTiming(1.3, { duration: 800 }), -1, true);
-
-    const timer = setTimeout(() => {
-      setStatus("online");
-      triggerAudioPlay();
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, [statusScale, triggerAudioPlay]);
+  }, [status, statusScale]);
 
   // Call duration counter
   useEffect(() => {
@@ -481,22 +523,14 @@ export default function AudioLessonScreen() {
 
   // Microphone pulsing ripple simulation
   useEffect(() => {
-    if (isSimulatingSpeech && !isMuted) {
+    if (isLocalSpeaking) {
       micRipple.value = withRepeat(withTiming(1.8, { duration: 1000 }), -1, false);
     } else {
       micRipple.value = withTiming(1);
     }
-  }, [isSimulatingSpeech, isMuted, micRipple]);
+  }, [isLocalSpeaking, micRipple]);
 
-  // Automatic speaking trigger when teacher stops speaking
-  useEffect(() => {
-    if (status === "online" && !isAudioPlaying && !isMuted && !isSimulatingSpeech && !simulationTextOverride) {
-      const timer = setTimeout(() => {
-        handleSimulateSpeech();
-      }, 800);
-      return () => clearTimeout(timer);
-    }
-  }, [status, isAudioPlaying, isMuted, isSimulatingSpeech, simulationTextOverride, handleSimulateSpeech]);
+  // Automatic speaking trigger removed as we now use the actual Vision Agent
 
   // Format seconds to MM:SS
   const formatTime = (totalSeconds: number) => {
@@ -545,12 +579,18 @@ export default function AudioLessonScreen() {
                 <Animated.View
                   style={[
                     styles.statusDot,
-                    { backgroundColor: status === "online" ? "#21C16B" : "#FF8A00" },
+                    {
+                        backgroundColor: agentStatus === "connected" ? "#21C16B" :
+                                       agentStatus === "connecting" ? "#FF8A00" :
+                                       agentStatus === "failed" ? "#EF4444" : "#9CA3AF"
+                    },
                     animatedStatusDotStyle,
                   ]}
                 />
                 <Text className="font-poppins-medium text-[13px] text-[#6B7280]">
-                  {status === "connecting" ? "Connecting..." : "Online"}
+                  {agentStatus === "connecting" ? "Agent Connecting..." :
+                   agentStatus === "connected" ? "Agent Online" :
+                   agentStatus === "failed" ? "Agent Failed" : "Agent Idle"}
                 </Text>
               </View>
             </View>
@@ -560,7 +600,7 @@ export default function AudioLessonScreen() {
           <View className="flex-row items-center gap-3">
             {/* Camera preview quick indicator */}
             <TouchableOpacity
-              onPress={() => setIsCameraOn(!isCameraOn)}
+              onPress={toggleCamera}
               activeOpacity={0.8}
               className="w-10 h-10 rounded-full border border-neutral-100 bg-white items-center justify-center"
             >
@@ -635,11 +675,14 @@ export default function AudioLessonScreen() {
             </View>
 
             {/* Speaking voice ripple visualizer next to mascot */}
-            {isAudioPlaying && (
+            {(isAudioPlaying || isLocalSpeaking) && (
               <View className="absolute top-4 left-4 flex-row items-center gap-1 bg-white/80 px-2.5 py-1.5 rounded-full border border-white/90">
                 <Animated.View style={[styles.visualizerBar, { height: 12 }, animatedWave1]} />
                 <Animated.View style={[styles.visualizerBar, { height: 18 }, animatedWave2]} />
                 <Animated.View style={[styles.visualizerBar, { height: 10 }, animatedWave3]} />
+                <Text className="ml-1 font-poppins-bold text-[10px] text-[#5B3BF6]">
+                  {isAudioPlaying ? teacherContext.name : "YOU"}
+                </Text>
               </View>
             )}
 
@@ -647,7 +690,10 @@ export default function AudioLessonScreen() {
             <View className="absolute bottom-6 left-4 right-4 bg-white rounded-[20px] p-4.5 shadow-md border border-neutral-100 flex-row items-center justify-between">
               <View className="flex-1 pr-3 gap-0.5">
                 <Text className="font-poppins-bold text-[17px] text-[#0D132B] leading-tight">
-                  {simulationTextOverride ? simulationTextOverride : currentPhrase.text}
+                  {isAudioPlaying ? (simulationTextOverride ? simulationTextOverride : currentPhrase.text) :
+                   isLocalSpeaking ? "Listening to you..." :
+                   isListening ? "Waiting for your input..." :
+                   "Muted"}
                 </Text>
                 
                 {showSubtitles && !simulationTextOverride && (
@@ -694,7 +740,7 @@ export default function AudioLessonScreen() {
             {/* Camera Action */}
             <View className="items-center gap-1.5">
               <TouchableOpacity
-                onPress={() => setIsCameraOn(!isCameraOn)}
+                onPress={toggleCamera}
                 activeOpacity={0.8}
                 className={`w-[54px] h-[54px] rounded-full items-center justify-center shadow-xs border ${
                   isCameraOn ? "bg-white border-neutral-100" : "bg-neutral-100 border-transparent"
@@ -713,10 +759,10 @@ export default function AudioLessonScreen() {
               <Text className="font-poppins-semibold text-[11px] text-[#8E94A8]">Camera</Text>
             </View>
 
-            {/* Mic Action - Interactive with pulsing speaking ripple overlay */}
+            {/* Mic Action - Interactive with Stream Integration */}
             <View className="items-center gap-1.5">
               <View className="relative items-center justify-center">
-                {isSimulatingSpeech && !isMuted && (
+                {isLocalSpeaking && (
                   <Animated.View
                     style={[
                       styles.micRippleOverlayControls,
@@ -728,21 +774,21 @@ export default function AudioLessonScreen() {
                   onPress={toggleMic}
                   activeOpacity={0.8}
                   className={`w-[54px] h-[54px] rounded-full items-center justify-center shadow-xs border ${
-                    isSimulatingSpeech && !isMuted
+                    isLocalSpeaking
                       ? "bg-[#5B3BF6] border-transparent"
-                      : !isMuted
+                      : !micState.isMuted
                       ? "bg-white border-neutral-100"
                       : "bg-red-50 border-red-200"
                   }`}
                 >
                   <SymbolView
                     name={{
-                      ios: !isMuted ? "mic.fill" : "mic.slash.fill",
-                      android: !isMuted ? "mic" : "mic_off",
-                      web: !isMuted ? "mic" : "mic_off",
+                      ios: !micState.isMuted ? "mic.fill" : "mic.slash.fill",
+                      android: !micState.isMuted ? "mic" : "mic_off",
+                      web: !micState.isMuted ? "mic" : "mic_off",
                     }}
                     size={20}
-                    tintColor={isSimulatingSpeech && !isMuted ? "#FFFFFF" : !isMuted ? "#0D132B" : "#EF4444"}
+                    tintColor={isLocalSpeaking ? "#FFFFFF" : !micState.isMuted ? "#0D132B" : "#EF4444"}
                   />
                 </TouchableOpacity>
               </View>

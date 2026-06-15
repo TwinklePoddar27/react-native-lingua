@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   Image,
   Platform,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 
@@ -330,20 +330,6 @@ const styles = StyleSheet.create({
     marginTop: -28,
   },
   cardShadow: {
-    ...Platform.select({
-      ios: {
-        shadowColor: "#0D132B",
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.05,
-        shadowRadius: 10,
-      },
-      android: {
-        elevation: 2,
-      },
-      web: {
-        // Use standard CSS boxShadow for Web compatibility to avoid deprecation warnings
-        boxShadow: "0px 3px 10px rgba(13, 19, 43, 0.05)",
-      } as any,
-    }),
+    boxShadow: "0px 3px 10px rgba(13, 19, 43, 0.05)",
   },
 });

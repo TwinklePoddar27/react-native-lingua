@@ -26,7 +26,7 @@ const MockAuthContext = createContext<{
 // Mock Clerk Provider
 export function ClerkProvider({ children, publishableKey, tokenCache }: any) {
   if (!IS_MOCK_AUTH) {
-    return React.createElement(ClerkReal.ClerkProvider, { publishableKey, tokenCache }, children);
+    return React.createElement(ClerkReal.ClerkProvider, { publishableKey, tokenCache, children });
   }
 
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -105,6 +105,8 @@ export function useUser() {
           id: userId || "mock_user_123",
           firstName: "Demo",
           lastName: "Learner",
+          fullName: "Demo Learner",
+          imageUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&q=80",
           primaryEmailAddress: { emailAddress: "demo@example.com" },
           emailAddresses: [{ emailAddress: "demo@example.com" }],
         }
@@ -113,7 +115,7 @@ export function useUser() {
 }
 
 // Mock useSignIn
-export function useSignIn() {
+export function useSignIn(): any {
   if (!IS_MOCK_AUTH) {
     return ClerkReal.useSignIn();
   }
@@ -162,11 +164,18 @@ export function useSignIn() {
       setUserId("mock_user_123");
     },
     fetchStatus: "idle",
+    firstFactorVerification: {
+      status: "complete",
+      externalVerificationRedirectURL: "http://localhost:8081/oauth-native-callback",
+    },
+    reload: async (args: any) => {
+      console.log("Mock reload sign-in:", args);
+    },
   };
 }
 
 // Mock useSignUp
-export function useSignUp() {
+export function useSignUp(): any {
   if (!IS_MOCK_AUTH) {
     return ClerkReal.useSignUp();
   }
@@ -185,6 +194,22 @@ export function useSignUp() {
         setUserId("mock_user_123");
         return { error: null };
       },
+    },
+    verifications: {
+      sendEmailCode: async () => {
+        console.log("Mock sending email code");
+        return { error: null };
+      },
+      verifyEmailCode: async ({ code }: { code: string }) => {
+        console.log("Mock verifying email code:", code);
+        setIsSignedIn(true);
+        setUserId("mock_user_123");
+        return { error: null };
+      },
+    },
+    password: async (args: any) => {
+      console.log("Mock sign up with password:", args);
+      return { error: null };
     },
     status: "complete",
     finalize: async ({ navigate }: { navigate: () => void }) => {
@@ -212,7 +237,7 @@ export function useSignUp() {
 }
 
 // Mock useOAuth
-export function useOAuth({ strategy }: { strategy: string }) {
+export function useOAuth({ strategy }: { strategy: any }) {
   if (!IS_MOCK_AUTH) {
     return ClerkReal.useOAuth({ strategy });
   }

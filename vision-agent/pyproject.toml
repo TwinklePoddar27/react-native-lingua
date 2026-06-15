@@ -1,0 +1,10 @@
+[project]
+name = "vision-agent"
+version = "0.1.0"
+description = "AI language teacher agent"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "vision-agents[getstream,openai]",
+    "python-dotenv",
+]

@@ -5,13 +5,13 @@ import { SymbolView } from "expo-symbols";
 import {
   Image,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "@/constants/images";
 import { languages } from "@/data/languages";
