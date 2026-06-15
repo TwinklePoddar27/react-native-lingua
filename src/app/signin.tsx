@@ -25,7 +25,7 @@ export default function SignIn() {
   const [showModal, setShowModal] = useState(false);
   const [verificationError, setVerificationError] = useState("");
   
-  const { signIn, fetchStatus } = useSignIn();
+  const { signIn, fetchStatus, setActive } = useSignIn();
   const router = useRouter();
 
   const { startOAuthFlow: startGoogleOAuthFlow } = useOAuth({ strategy: "oauth_google" });
@@ -54,17 +54,19 @@ export default function SignIn() {
     if (!signIn) return;
     try {
       setVerificationError("");
-      const { error } = await signIn.emailCode.sendCode({
-        emailAddress: email,
+      // Standard Clerk Sign-In flow
+      await signIn.create({
+        identifier: email,
       });
 
-      if (!error) {
-        setShowModal(true);
-      } else {
-        console.error(JSON.stringify(error, null, 2));
-      }
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
+      await signIn.prepareFirstFactor({
+        strategy: "email_code",
+      });
+
+      setShowModal(true);
+    } catch (err: any) {
+      console.error("Sign in error:", JSON.stringify(err, null, 2));
+      setVerificationError(err.errors?.[0]?.longMessage || err.message || "Failed to send code");
     }
   };
 
@@ -72,34 +74,29 @@ export default function SignIn() {
     if (!signIn) return;
     try {
       setVerificationError("");
-      const { error } = await signIn.emailCode.verifyCode({
+      // Standard Clerk Verification flow
+      const result = await signIn.attemptFirstFactor({
+        strategy: "email_code",
         code,
       });
       
-      if (!error && signIn.status === "complete") {
-        await signIn.finalize({
-          navigate: () => {
-            setShowModal(false);
-            router.replace("/");
-          }
-        });
-      } else if (error) {
-        console.error(JSON.stringify(error, null, 2));
-        if (isSessionExistsError(error)) {
+      if (result.status === "complete") {
+        if (setActive) {
+          await setActive({ session: result.createdSessionId });
           setShowModal(false);
           router.replace("/");
-          return;
         }
-        setVerificationError((error as any).errors?.[0]?.longMessage || error.message || "Invalid code");
+      } else {
+        console.warn("Sign in incomplete:", result.status);
       }
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      console.error("Verification error:", JSON.stringify(err, null, 2));
       if (isSessionExistsError(err)) {
         setShowModal(false);
         router.replace("/");
         return;
       }
-      setVerificationError(err.errors?.[0]?.longMessage || err.message || "An error occurred");
+      setVerificationError(err.errors?.[0]?.longMessage || err.message || "Invalid code");
     }
   };
 

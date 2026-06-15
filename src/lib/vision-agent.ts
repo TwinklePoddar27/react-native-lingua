@@ -55,6 +55,35 @@ export const startAgentSession = async (
 };
 
 /**
+ * Tells our API to interrupt the Vision Agent.
+ */
+export const interruptAgent = async (callId: string, sessionId: string) => {
+  try {
+    const baseUrl = getBaseUrl();
+    const response = await fetch(`${baseUrl}/api/agent/interrupt`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        callId,
+        sessionId,
+      }),
+    });
+
+    if (!response.ok) {
+      console.warn("Failed to interrupt agent session");
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error interrupting agent session:", error);
+    return false;
+  }
+};
+
+/**
  * Tells our API to stop a Vision Agent session.
  */
 export const stopAgentSession = async (callId: string, sessionId: string) => {

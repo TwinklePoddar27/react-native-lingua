@@ -6,15 +6,19 @@ import { Slot, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import * as SystemUI from "expo-system-ui";
-import { View, ActivityIndicator, Text } from "react-native";
+import { View, ActivityIndicator, Text, LogBox } from "react-native";
 import { ClerkProvider, ClerkLoaded, useAuth, tokenCache, IS_MOCK_AUTH } from "@/lib/clerk";
 import { PostHogProvider, usePostHog } from "posthog-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { designTokens } from "@/theme";
 import { useLanguageStore } from "@/store/languageStore";
 import { languages } from "@/data/languages";
 import { posthog } from "@/lib/posthog";
+
+// Ignore specific warnings if necessary
+LogBox.ignoreLogs(['Stream Video SDK not available']);
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -31,6 +35,19 @@ function InitialLayout() {
   const { selectedLanguageId, _hasHydrated } = useLanguageStore();
   const phClient = usePostHog();
   const lastIdentifiedRef = useRef<{ userId: string; languageId: string | null } | null>(null);
+
+  useEffect(() => {
+    if (__DEV__) {
+      console.log("[InitialLayout] State:", {
+        isLoaded,
+        isSignedIn,
+        userId,
+        _hasHydrated,
+        selectedLanguageId,
+        segments
+      });
+    }
+  }, [isLoaded, _hasHydrated, isSignedIn, segments, userId, selectedLanguageId]);
 
   useEffect(() => {
     if (!isLoaded || !_hasHydrated || !phClient) return;
@@ -80,25 +97,39 @@ function InitialLayout() {
     if (isSignedIn) {
       if (!selectedLanguageId) {
         if (!onChooseLanguage) {
+          console.log("[InitialLayout] Redirecting to choose-language");
           router.replace("/choose-language");
         }
       } else {
         if (inAuthGroup) {
+          console.log("[InitialLayout] Redirecting to Home (/)");
           router.replace("/");
         }
       }
     } else {
       if (!inAuthGroup && !onChooseLanguage) {
+        console.log("[InitialLayout] Redirecting to Onboarding");
         router.replace("/onboarding");
       }
     }
   }, [isSignedIn, isLoaded, _hasHydrated, selectedLanguageId, segments, router]);
 
+  if (!isLoaded || !_hasHydrated) {
+    return (
+      <View style={{ flex: 1, backgroundColor: "#FFFFFF", alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color="#5B3BF6" />
+        <Text style={{ marginTop: 16, fontFamily: 'Poppins-Medium', color: '#6B7280' }}>
+          {!_hasHydrated ? "Loading settings..." : "Initializing auth..."}
+        </Text>
+      </View>
+    );
+  }
+
   return <Slot />;
 }
 
 export default function RootLayout() {
-  const [fontsLoaded] = Font.useFonts({
+  const [fontsLoaded, fontError] = Font.useFonts({
     "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Medium": require("../../assets/fonts/Poppins-Medium.ttf"),
     "Poppins-SemiBold": require("../../assets/fonts/Poppins-SemiBold.ttf"),
@@ -112,6 +143,10 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
+    if (fontError) console.error("Error loading fonts:", fontError);
+  }, [fontError]);
+
+  useEffect(() => {
     if (fontsLoaded) {
       console.log("Fonts loaded successfully");
       void SplashScreen.hideAsync();
@@ -122,19 +157,21 @@ export default function RootLayout() {
     return (
       <View style={{ flex: 1, backgroundColor: "#FFFFFF", alignItems: 'center', justifyContent: 'center', gap: 10 }}>
         <ActivityIndicator size="large" color="#5B3BF6" />
-        <Text style={{ fontFamily: 'System', color: '#6B7280' }}>Loading resources...</Text>
+        <Text style={{ color: '#6B7280' }}>Loading resources...</Text>
       </View>
     );
   }
 
   return (
-    <PostHogProvider client={posthog}>
-      <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-        <ClerkLoaded>
-          <InitialLayout />
-          <StatusBar style="dark" />
-        </ClerkLoaded>
-      </ClerkProvider>
-    </PostHogProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <PostHogProvider client={posthog}>
+        <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+          <ClerkLoaded>
+            <InitialLayout />
+            <StatusBar style="dark" />
+          </ClerkLoaded>
+        </ClerkProvider>
+      </PostHogProvider>
+    </GestureHandlerRootView>
   );
 }

@@ -28,7 +28,7 @@ export default function SignUp() {
   const [showModal, setShowModal] = useState(false);
   const [verificationError, setVerificationError] = useState("");
 
-  const { signUp, fetchStatus } = useSignUp();
+  const { signUp, fetchStatus, setActive } = useSignUp();
   const router = useRouter();
 
   const { startOAuthFlow: startGoogleOAuthFlow } = useOAuth({ strategy: "oauth_google" });
@@ -58,23 +58,20 @@ export default function SignUp() {
     if (!signUp) return;
     try {
       setVerificationError("");
-      const { error: createError } = await signUp.password({
+      // Standard Clerk Sign-Up flow
+      await signUp.create({
         emailAddress: email,
         password,
       });
 
-      if (!createError) {
-        const { error: sendError } = await signUp.verifications.sendEmailCode();
-        if (!sendError) {
-          setShowModal(true);
-        } else {
-          console.error(JSON.stringify(sendError, null, 2));
-        }
-      } else {
-        console.error(JSON.stringify(createError, null, 2));
-      }
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
+      await signUp.prepareEmailAddressVerification({
+        strategy: "email_code",
+      });
+
+      setShowModal(true);
+    } catch (err: any) {
+      console.error("Sign up error:", JSON.stringify(err, null, 2));
+      setVerificationError(err.errors?.[0]?.longMessage || err.message || "Failed to start sign up");
     }
   };
 
@@ -82,35 +79,29 @@ export default function SignUp() {
     if (!signUp) return;
     try {
       setVerificationError("");
-      const { error } = await signUp.verifications.verifyEmailCode({
+      // Standard Clerk Verification flow
+      const result = await signUp.attemptEmailAddressVerification({
         code,
       });
       
-      if (!error && signUp.status === "complete") {
+      if (result.status === "complete") {
         await AsyncStorage.setItem("just_signed_up", "true");
-        await signUp.finalize({
-          navigate: () => {
-            setShowModal(false);
-            router.replace("/");
-          }
-        });
-      } else if (error) {
-        console.error(JSON.stringify(error, null, 2));
-        if (isSessionExistsError(error)) {
+        if (setActive) {
+          await setActive({ session: result.createdSessionId });
           setShowModal(false);
           router.replace("/");
-          return;
         }
-        setVerificationError((error as any).errors?.[0]?.longMessage || error.message || "Invalid code");
+      } else {
+        console.warn("Sign up incomplete:", result.status);
       }
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      console.error("Verification error:", JSON.stringify(err, null, 2));
       if (isSessionExistsError(err)) {
         setShowModal(false);
         router.replace("/");
         return;
       }
-      setVerificationError(err.errors?.[0]?.longMessage || err.message || "An error occurred");
+      setVerificationError(err.errors?.[0]?.longMessage || err.message || "Invalid code");
     }
   };
 

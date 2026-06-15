@@ -25,7 +25,7 @@ import { lessons } from "@/data/lessons";
 import { images } from "@/constants/images";
 import { useUser } from "@/lib/clerk";
 import { getStreamClient } from "@/lib/stream";
-import { startAgentSession, stopAgentSession } from "@/lib/vision-agent";
+import { startAgentSession, stopAgentSession, interruptAgent } from "@/lib/vision-agent";
 
 // Native-only imports handled via conditional require to prevent SSR/Web crashes
 let StreamVideo: any = ({ children }: any) => <View style={{ flex: 1 }}>{children}</View>;
@@ -68,130 +68,33 @@ interface TeacherContext {
 
 const getExtendedLessonData = (lessonId: string, languageId: string): TeacherContext => {
   const lesson = lessons.find((l) => l.id === lessonId);
-  const langId = languageId || "es";
 
-  const defaultTeachers: Record<string, { name: string; avatarUrl: string; scenario: string; initialMessage: string }> = {
-    es: {
-      name: "Sofía",
-      avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
-      scenario: "Practice ordering food & greetings at a local café.",
-      initialMessage: "¡Hola! Bienvenidos. ¿Qué te pongo hoy?",
-    },
-    fr: {
-      name: "Chloé",
-      avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
-      scenario: "Order croissants and coffee in standard French.",
-      initialMessage: "Bonjour ! Bienvenue. Qu'est-ce que je vous sers ?",
-    },
-    ja: {
-      name: "Kenji",
-      avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
-      scenario: "Learn to order green tea in Kyoto style.",
-      initialMessage: "いらっしゃいませ！ご注文はお決まりですか？",
-    },
-    ko: {
-      name: "Minjun",
-      avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
-      scenario: "Order an iced americano at a Seoul café.",
-      initialMessage: "어서 오세요! 어떤 걸로 주문하시겠어요?",
-    },
-    en: {
-      name: "Alex",
-      avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
-      scenario: "Practice ordering coffee and small talk at a New York cafe.",
-      initialMessage: "Hey! Welcome! What can I get for you today?",
-    },
-    de: {
-      name: "Emma",
-      avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
-      scenario: "Order pretzels and local beverages in Munich.",
-      initialMessage: "Hallo! Willkommen. Was möchtest du bestellen?",
-    },
-    default: {
-      name: "Alex",
-      avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
-      scenario: "Practice everyday conversation scenarios.",
-      initialMessage: "Hello! Welcome. How can I help you today?",
-    },
-  };
+  // Default values if lesson data is missing some fields
+  const teacherName = lesson?.aiPrompt?.teacherName || "Alex";
+  const avatarUrl = lesson?.aiPrompt?.avatarUrl || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80";
+  const initialMessage = lesson?.aiPrompt?.initialMessage || "Hello! Ready to start our lesson?";
+  const scenario = lesson?.aiPrompt?.scenarioDescription || "Language practice session.";
 
-  const activeTeacher = defaultTeachers[langId] || defaultTeachers.default;
+  // Transform phrases from lesson data
+  const phrases: CallPhrase[] = (lesson?.phrases || []).map((p) => ({
+    id: p.id,
+    text: p.text,
+    translation: p.translation,
+    pronunciation: p.pronunciation || p.text,
+    context: p.context || "Lesson phrase",
+  }));
 
-  const teacherName = lesson?.aiPrompt?.teacherName || activeTeacher.name;
-  const avatarUrl = lesson?.aiPrompt?.avatarUrl || activeTeacher.avatarUrl;
-  const initialMessage = lesson?.aiPrompt?.initialMessage || activeTeacher.initialMessage;
-  const scenario = lesson?.aiPrompt?.scenarioDescription || activeTeacher.scenario;
-
-  const defaultPhrases: Record<string, CallPhrase[]> = {
-    es: [
-      { id: "es-1", text: "¡Hola! Buenas tardes.", translation: "Hello! Good afternoon.", pronunciation: "OH-lah BWEH-nas TAR-dehs", context: "Polite greeting in the afternoon" },
-      { id: "es-2", text: "Quiero un café con leche, por favor.", translation: "I want a coffee with milk, please.", pronunciation: "KYEH-ro oon kah-FEH kon LEH-cheh por fah-VOR", context: "Ordering coffee at a shop" },
-      { id: "es-3", text: "La cuenta, por favor.", translation: "The bill, please.", pronunciation: "lah KWEHN-tah por fah-VOR", context: "Asking for the check politely" },
-      { id: "es-4", text: "Muchas gracias, ¡adiós!", translation: "Thank you very much, goodbye!", pronunciation: "MOO-chahs GRAH-syahs ah-DYOHS", context: "Leaving the shop" },
-    ],
-    fr: [
-      { id: "fr-1", text: "Bonjour, s'il vous plaît.", translation: "Hello, please.", pronunciation: "bohn-ZHOOR seel voo pleh", context: "Standard polite greeting" },
-      { id: "fr-2", text: "Un café et un croissant, s'il vous plaît.", translation: "A coffee and a croissant, please.", pronunciation: "uhn kah-FEH ay uhn krwa-SAHN seel voo pleh", context: "Ordering standard bakery items" },
-      { id: "fr-3", text: "L'addition, s'il vous plaît.", translation: "The bill, please.", pronunciation: "lah-dee-SYOHN seel voo pleh", context: "Asking for the check" },
-    ],
-    ja: [
-      { id: "ja-1", text: "こんにちは、お茶をお願いします。", translation: "Hello, green tea please.", pronunciation: "Konnichiwa, o-cha o onegai shimasu.", context: "Greeting and ordering tea" },
-      { id: "ja-2", text: "これはいくらですか？", translation: "How much is this?", pronunciation: "Kore wa ikura desu ka?", context: "Asking about item price" },
-      { id: "ja-3", text: "ありがとうございます。", translation: "Thank you very much.", pronunciation: "Arigatou gozaimasu.", context: "Polite gratitude" },
-    ],
-    ko: [
-      { id: "ko-1", text: "안녕하세요! 커피 주세요.", translation: "Hello! Coffee, please.", pronunciation: "Annyeonghaseyo! Keopi juseyo.", context: "Greeting and ordering" },
-      { id: "ko-2", text: "아이스 아메리카노 하나 주세요.", translation: "One iced americano, please.", pronunciation: "Aiseu amerikanoh hana juseyo.", context: "Ordering typical Korean coffee drink" },
-      { id: "ko-3", text: "감사합니다. 안녕히 계세요.", translation: "Thank you. Goodbye.", pronunciation: "Gamsahabnida. Annyeonghi gyeseyo.", context: "Polite leaving message" },
-    ],
-    de: [
-      { id: "de-1", text: "Hallo! Guten Tag.", translation: "Hello! Good day.", pronunciation: "Hallo! Goot-en Tahg.", context: "Standard german greeting" },
-      { id: "de-2", text: "Ein Mineralwasser, bitte.", translation: "A mineral water, please.", pronunciation: "Ayn mee-neh-RAHL-vah-ser bit-teh", context: "Ordering water" },
-      { id: "de-3", text: "Vielen Dank, auf Wiedersehen!", translation: "Thank you very much, goodbye!", pronunciation: "Feel-en Dank owf vee-der-zayn!", context: "Polite parting" },
-    ],
-    en: [
-      { id: "en-1", text: "Hello! How are you?", translation: "Hello! How are you?", pronunciation: "hel-OH HOW ar yoo", context: "Standard greeting" },
-      { id: "en-2", text: "I'd like a coffee, please.", translation: "I'd like a coffee, please.", pronunciation: "ayd lyk a KOH-fee pleez", context: "Ordering coffee" },
-      { id: "en-3", text: "Where is the nearest station?", translation: "Where is the nearest station?", pronunciation: "wair iz dhu NEER-ist STAY-shun", context: "Asking for directions" },
-    ],
-    default: [
-      { id: "def-1", text: "Hello! How are you doing today?", translation: "Hello! How are you doing today?", pronunciation: "Hello! How are you doing today?", context: "General greeting" },
-      { id: "def-2", text: "I want to practice my language skills.", translation: "I want to practice my language skills.", pronunciation: "I want to practice my language skills.", context: "Expressing learning desire" },
-      { id: "def-3", text: "Thank you for the lesson!", translation: "Thank you for the lesson!", pronunciation: "Thank you for the lesson!", context: "Ending gratitude" },
-    ],
-  };
-
-  if (lesson?.phrases && lesson.phrases.length > 0) {
-    return {
-      name: teacherName,
-      avatarUrl,
-      scenario,
-      initialMessage,
-      phrases: lesson.phrases.map((p) => ({
-        id: p.id,
-        text: p.text,
-        translation: p.translation,
-        pronunciation: p.pronunciation || p.text,
-        context: p.context || "Lesson phrase",
-      })),
-    };
-  }
-
-  if (lesson?.vocabList && lesson.vocabList.length > 0) {
-    const vocabPhrases = lesson.vocabList.map((v) => ({
-      id: v.id,
-      text: v.word,
-      translation: v.translation,
-      pronunciation: v.pronunciation || v.word,
-      context: v.exampleSentence || `Vocabulary: ${v.word}`,
-    }));
-    return {
-      name: teacherName,
-      avatarUrl,
-      scenario,
-      initialMessage,
-      phrases: vocabPhrases,
-    };
+  // Fallback to vocabulary if no phrases
+  if (phrases.length === 0 && lesson?.vocabList) {
+    lesson.vocabList.forEach((v) => {
+      phrases.push({
+        id: v.id,
+        text: v.word,
+        translation: v.translation,
+        pronunciation: v.pronunciation || v.word,
+        context: v.exampleSentence || `Vocabulary: ${v.word}`,
+      });
+    });
   }
 
   return {
@@ -199,7 +102,7 @@ const getExtendedLessonData = (lessonId: string, languageId: string): TeacherCon
     avatarUrl,
     scenario,
     initialMessage,
-    phrases: defaultPhrases[langId] || defaultPhrases.default,
+    phrases,
   };
 };
 
@@ -329,7 +232,11 @@ export default function AudioLessonScreen() {
   return (
     <StreamVideo client={streamClient}>
       <StreamCall call={call}>
-        <AudioLessonContent id={id} agentStatus={agentStatus} onEndCall={async () => {
+        <AudioLessonContent
+          id={id}
+          agentStatus={agentStatus}
+          agentSessionId={agentSessionIdRef.current}
+          onEndCall={async () => {
             if (agentSessionIdRef.current && call) {
                 await stopAgentSession(call.id, agentSessionIdRef.current).catch(console.error);
                 agentSessionIdRef.current = null;
@@ -340,7 +247,17 @@ export default function AudioLessonScreen() {
   );
 }
 
-function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentStatus: string; onEndCall: () => Promise<void> }) {
+function AudioLessonContent({
+  id,
+  agentStatus,
+  agentSessionId,
+  onEndCall
+}: {
+  id: string;
+  agentStatus: string;
+  agentSessionId: string | null;
+  onEndCall: () => Promise<void>
+}) {
   const router = useRouter();
   const { selectedLanguageId, completeLesson } = useLanguageStore();
   const posthog = usePostHog();
@@ -360,6 +277,7 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
   const [showCompletionOverlay, setShowCompletionOverlay] = useState(false);
   const [status, setStatus] = useState<"connecting" | "online" | "ended">("connecting");
   const [callDuration, setCallDuration] = useState(0);
+  const showSubtitles = true;
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [speakingLevel, setSpeakingLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Excellent");
   const [pronunciationLevel, setPronunciationLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Great");
@@ -372,6 +290,7 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
   const isCompletedRef = useRef<boolean>(false);
   const currentPhraseIndexRef = useRef(currentPhraseIndex);
   const startTimeRef = useRef<number>(Date.now());
+  const hasSaidInitialGreetingRef = useRef<boolean>(false);
 
   // 4. Derived values & Call state hooks
   const activeLanguageId = selectedLanguageId || "es";
@@ -417,34 +336,80 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
 
   const handleMicPressIn = useCallback(async () => {
     setIsMicHeld(true);
+    setSimulationTextOverride(null); // Clear any previous feedback
+
+    // 1. Interrupt the agent immediately so the user can speak in peace
+    if (Platform.OS === "web" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      setIsSimulatedAudioPlaying(false);
+    } else if (call && agentSessionId) {
+      // For the real agent session, we send an interrupt signal via our API
+      void interruptAgent(call.id, agentSessionId);
+    }
+
+    // 2. Enable microphone
     if (call?.microphone) {
       await call.microphone.enable();
     } else {
       setLocalMuted(false);
       if (recognitionRef.current) {
-        try { recognitionRef.current.start(); } catch (e) { console.warn(e); }
+        try {
+          recognitionRef.current.start();
+        } catch (e) {
+          console.warn("Speech recognition already started or failed:", e);
+        }
       }
     }
-  }, [call]);
+  }, [call, agentSessionId]);
 
   const handleMicPressOut = useCallback(async () => {
     setIsMicHeld(false);
+
+    // 1. Disable microphone
     if (call?.microphone) {
       await call.microphone.disable();
     } else {
       setLocalMuted(true);
       if (recognitionRef.current) {
         recognitionRef.current.stop();
+
+        // 2. SIMULATION: In web mode, we simulate the agent responding to what was heard
         if (Platform.OS === "web") {
+          const userSaid = liveCaption?.text?.toLowerCase() || "";
+
           setTimeout(() => {
-            setSimulationTextOverride("Great job! I heard you clearly. Let's keep going!");
+            // Simple keyword-based interactive responses for the simulation
+            let response = "Great job! I heard you clearly. Let's keep going!";
+
+            if (userSaid.includes("hello") || userSaid.includes("hi") || userSaid.includes("hola")) {
+              response = `Hello! It's great to hear you. I'm ${teacherContext.name}, your teacher for today. Ready for the next part?`;
+            } else if (userSaid.includes("how are you")) {
+              response = "I'm doing fantastic, thank you for asking! How about you?";
+            } else if (userSaid.includes("repeat") || userSaid.includes("again")) {
+              response = "Sure! I'll repeat that for you.";
+              // Don't advance index if they asked to repeat
+            } else if (userSaid.length > 3) {
+              response = `"${liveCaption?.text}"? Excellent pronunciation! You're getting the hang of this.`;
+            }
+
+            setSimulationTextOverride(response);
             triggerAudioPlay();
-            setTimeout(() => setSimulationTextOverride(null), 5000);
-          }, 1500);
+
+            // 3. Move to next phrase or clear override after feedback
+            setTimeout(() => {
+              setSimulationTextOverride(null);
+              const isRepeatRequest = userSaid.includes("repeat") || userSaid.includes("again");
+
+              if (!isRepeatRequest && currentPhraseIndex < teacherContext.phrases.length - 1) {
+                setCurrentPhraseIndex(prev => prev + 1);
+                hasSaidInitialGreetingRef.current = false;
+              }
+            }, 6000);
+          }, 1000);
         }
       }
     }
-  }, [call, triggerAudioPlay]);
+  }, [call, agentSessionId, liveCaption, teacherContext.name, teacherContext.phrases.length, currentPhraseIndex, triggerAudioPlay]);
 
   const handleEndCall = useCallback(async () => {
     if (onEndCall) await onEndCall();
@@ -561,11 +526,14 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
   }, [status]);
 
   useEffect(() => {
-    if (Platform.OS === "web" && status === "online" && !isAudioPlaying && currentPhrase) {
-      const timer = setTimeout(() => triggerAudioPlay(), 1000);
+    if (Platform.OS === "web" && status === "online" && !isAudioPlaying && !hasSaidInitialGreetingRef.current && currentPhrase) {
+      const timer = setTimeout(() => {
+        hasSaidInitialGreetingRef.current = true;
+        triggerAudioPlay();
+      }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [status, currentPhraseIndex, Platform.OS, triggerAudioPlay]);
+  }, [status, currentPhraseIndex, Platform.OS, triggerAudioPlay, isAudioPlaying]);
 
   useEffect(() => {
     if (isAudioPlaying || isLocalSpeaking) {

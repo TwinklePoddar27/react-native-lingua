@@ -4,6 +4,9 @@
 
 @import "nativewind/theme";
 
+@source "./src/app/**/*.{ts,tsx}";
+@source "./src/components/**/*.{ts,tsx}";
+
 @theme {
   --font-sans: "Poppins-Regular";
   --font-poppins: "Poppins-Regular";

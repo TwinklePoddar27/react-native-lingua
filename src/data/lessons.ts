@@ -2,7 +2,7 @@ import { Lesson } from '../types/learning';
 
 export const lessons: Lesson[] = [
   // ==========================================
-  // SPANISH LESSONS (Unit 1: Basics & Greetings)
+  // SPANISH LESSONS (Unit 1 & 2)
   // ==========================================
   {
     id: 'es-u1-l1',
@@ -19,17 +19,25 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Sofía',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Sofía, an energetic Spanish teacher. Today you are teaching basic greetings: "Hola" (Hello), "Adiós" (Goodbye), and "Buenos días" (Good morning). Keep it simple, speak mostly English, and be very encouraging! Ask the student to repeat words frequently.',
+      systemPrompt: 'You are Sofía, an energetic Spanish teacher. Today you are teaching basic greetings. Keep it simple, speak mostly English, and be very encouraging! Ask the student to repeat words frequently.',
       initialMessage: '¡Hola! I\'m Sofía, and I\'m so excited to be your teacher today! We\'re going to start with something fun: greetings. Let\'s try saying "Hola", which means "Hello". Can you try saying "Hola" for me?',
       scenarioDescription: 'Learn simple greetings and introductions with Sofía.',
     },
     vocabList: [
       { id: 'es-v-1', word: 'Hola', translation: 'Hello', pronunciation: 'OH-lah', partOfSpeech: 'interjection', exampleSentence: 'Hola, ¿cómo estás?', exampleTranslation: 'Hello, how are you?' },
       { id: 'es-v-2', word: 'Adiós', translation: 'Goodbye', pronunciation: 'ah-DYOHS', partOfSpeech: 'interjection', exampleSentence: 'Adiós, nos vemos mañana.', exampleTranslation: 'Goodbye, see you tomorrow.' },
-      { id: 'es-v-3', word: 'Buenos días', translation: 'Good morning', pronunciation: 'BWEH-nos DEE-ahs', partOfSpeech: 'phrase', exampleSentence: 'Buenos días, mamá.', exampleTranslation: 'Good morning, mom.' },
     ],
     phrases: [
-      { id: 'es-p-1', text: '¿Cómo estás?', translation: 'How are you?', pronunciation: 'KO-mo ehs-TAHS', context: 'A friendly greeting to ask about someone\'s well-being.' },
+      { id: 'es-p-1', text: 'Hola, ¿cómo estás?', translation: 'Hello, how are you?', pronunciation: 'OH-lah, KO-mo ehs-TAHS', context: 'Standard greeting' },
+      { id: 'es-p-2', text: 'Buenos días', translation: 'Good morning', pronunciation: 'BWEH-nos DEE-ahs', context: 'Morning greeting' },
+      { id: 'es-p-3', text: 'Buenas tardes', translation: 'Good afternoon', pronunciation: 'BWEH-nas TAR-dehs', context: 'Afternoon greeting' },
+      { id: 'es-p-4', text: 'Buenas noches', translation: 'Good night', pronunciation: 'BWEH-nas NO-chehs', context: 'Evening greeting' },
+      { id: 'es-p-5', text: 'Mucho gusto', translation: 'Nice to meet you', pronunciation: 'MOO-cho GOOS-to', context: 'Introductions' },
+      { id: 'es-p-6', text: '¿Cómo te llamas?', translation: 'What is your name?', pronunciation: 'KO-mo te YAH-mahs', context: 'Asking for name' },
+      { id: 'es-p-7', text: 'Me llamo...', translation: 'My name is...', pronunciation: 'me YAH-mo', context: 'Giving name' },
+      { id: 'es-p-8', text: 'Por favor', translation: 'Please', pronunciation: 'por fah-VOR', context: 'Politeness' },
+      { id: 'es-p-9', text: 'Gracias', translation: 'Thank you', pronunciation: 'GRAH-syahs', context: 'Politeness' },
+      { id: 'es-p-10', text: 'De nada', translation: 'You are welcome', pronunciation: 'de NAH-dah', context: 'Politeness' },
     ],
     activities: [
       { id: 'es-act-1', type: 'multiple_choice', prompt: 'Select the correct translation for "Hola"', options: ['Goodbye', 'Please', 'Hello', 'Thank you'], correctAnswer: 'Hello' },
@@ -47,12 +55,24 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Sofía',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Sofía, a friendly and energetic barista. Help the user order a drink. Encourage them to use "Por favor" (Please). Speak mostly English but introduce Spanish words slowly.',
-      initialMessage: '¡Hola! Welcome to our little café! I\'m Sofía. I\'d love to help you order a drink. Let\'s start by saying "Un café, por favor", which means "A coffee, please". Can you give that a try?',
+      systemPrompt: 'You are Sofía, a friendly barista. Help the user order a drink. Encourage them to use "Por favor".',
+      initialMessage: '¡Hola! Welcome to our café! I\'m Sofía. I\'d love to help you order a drink. Try saying "Un café, por favor"!',
       scenarioDescription: 'Practice ordering a coffee from Sofía at a lively café.',
     },
+    phrases: [
+      { id: 'es-c-1', text: 'Un café, por favor', translation: 'A coffee, please', pronunciation: 'oon kah-FEH, por fah-VOR', context: 'Ordering' },
+      { id: 'es-c-2', text: '¿Cuánto cuesta?', translation: 'How much does it cost?', pronunciation: 'KWAHN-to KWEHS-tah', context: 'Asking price' },
+      { id: 'es-c-3', text: 'Con leche', translation: 'With milk', pronunciation: 'kon LEH-cheh', context: 'Customizing drink' },
+      { id: 'es-c-4', text: 'Sin azúcar', translation: 'Without sugar', pronunciation: 'seen ah-SOO-kar', context: 'Customizing drink' },
+      { id: 'es-c-5', text: 'Un té, por favor', translation: 'A tea, please', pronunciation: 'oon TEH, por fah-VOR', context: 'Ordering' },
+      { id: 'es-c-6', text: 'Para llevar', translation: 'To go', pronunciation: 'PAH-rah ye-VAR', context: 'Order type' },
+      { id: 'es-c-7', text: 'Para aquí', translation: 'For here', pronunciation: 'PAH-rah ah-KEE', context: 'Order type' },
+      { id: 'es-c-8', text: 'La cuenta, por favor', translation: 'The check, please', pronunciation: 'lah KWEHN-tah, por fah-VOR', context: 'Paying' },
+      { id: 'es-c-9', text: '¿Aceptan tarjetas?', translation: 'Do you accept cards?', pronunciation: 'ah-SEHP-tan tar-HEH-tahs', context: 'Paying' },
+      { id: 'es-c-10', text: '¡Buen provecho!', translation: 'Enjoy your meal!', pronunciation: 'bwen pro-VE-cho', context: 'Dining' },
+    ],
     activities: [
-      { id: 'es-act-6', type: 'multiple_choice', prompt: 'Which phrase is the most natural way to ask for the bill?', options: ['Hola señor', 'La cuenta, por favor', '¿Dónde está el café?', 'Mucho gusto'], correctAnswer: 'La cuenta, por favor' },
+      { id: 'es-act-6', type: 'multiple_choice', prompt: 'Which phrase is used to ask for the bill?', options: ['Hola señor', 'La cuenta, por favor', '¿Dónde está el café?', 'Mucho gusto'], correctAnswer: 'La cuenta, por favor' },
     ],
   },
   {
@@ -67,14 +87,27 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Sofía',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Sofía, helping the student at a Madrid metro station. Teach "Metro" and "¿Dónde está?".',
-      initialMessage: '¡Hola! Let\'s navigate the Madrid Metro! To ask where it is, say "¿Dónde está el metro?". Can you try that?',
+      systemPrompt: 'You are Sofía, helping the student at a Madrid metro station.',
+      initialMessage: '¡Hola! Let\'s navigate the Madrid Metro! To ask where it is, say "¿Dónde está el metro?".',
       scenarioDescription: 'Navigate the Madrid metro station with Sofía.',
     },
+    phrases: [
+      { id: 'es-m-1', text: '¿Dónde está el metro?', translation: 'Where is the metro?', pronunciation: 'DON-de ehs-TAH el ME-tro', context: 'Directions' },
+      { id: 'es-m-2', text: 'Un billete, por favor', translation: 'A ticket, please', pronunciation: 'oon bee-YEH-te, por fah-VOR', context: 'Buying ticket' },
+      { id: 'es-m-3', text: '¿Cuál es la línea 1?', translation: 'Which one is line 1?', pronunciation: 'KWAL es la LEE-ne-ah OON-o', context: 'Navigation' },
+      { id: 'es-m-4', text: 'A la izquierda', translation: 'To the left', pronunciation: 'ah lah eeth-KYER-dah', context: 'Directions' },
+      { id: 'es-m-5', text: 'A la derecha', translation: 'To the right', pronunciation: 'ah lah de-RE-chah', context: 'Directions' },
+      { id: 'es-m-6', text: 'Todo recto', translation: 'Straight ahead', pronunciation: 'TO-do REK-to', context: 'Directions' },
+      { id: 'es-m-7', text: 'La próxima parada', translation: 'The next stop', pronunciation: 'lah PROK-see-mah pah-RAH-dah', context: 'Transit' },
+      { id: 'es-m-8', text: '¿Este tren va a Sol?', translation: 'Does this train go to Sol?', pronunciation: 'EHS-te tren vah ah SOL', context: 'Navigation' },
+      { id: 'es-m-9', text: 'Disculpe', translation: 'Excuse me', pronunciation: 'dees-KOOL-pe', context: 'Politeness' },
+      { id: 'es-m-10', text: '¿Dónde está la salida?', translation: 'Where is the exit?', pronunciation: 'DON-de ehs-TAH lah sah-LEE-dah', context: 'Directions' },
+    ],
+    activities: [],
   },
 
   // ==========================================
-  // ENGLISH LESSONS (Unit 1: English Essentials)
+  // ENGLISH LESSONS (Unit 1 & 2)
   // ==========================================
   {
     id: 'en-u1-l1',
@@ -88,13 +121,23 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Alex',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Alex, a friendly English teacher. Teach basic greetings like "Hello", "Hi", and "Welcome". Use natural conversational English and ask the student to repeat after you.',
-      initialMessage: 'Hi there! I\'m Alex, and I\'m excited to be your English teacher! Let\'s start with a simple "Hello". Can you say it?',
+      systemPrompt: 'You are Alex, a friendly English teacher. Teach basic greetings like "Hello", "Hi", and "Welcome".',
+      initialMessage: 'Hi there! I\'m Alex! Let\'s start with a simple "Hello". Can you say it?',
       scenarioDescription: 'Learn basic English greetings with Alex.',
     },
-    vocabList: [
-      { id: 'en-v-1', word: 'Hello', translation: 'Hello', pronunciation: 'hel-OH', partOfSpeech: 'interjection', exampleSentence: 'Hello, how can I help you?', exampleTranslation: 'Hello, how can I help you?' },
+    phrases: [
+      { id: 'en-g-1', text: 'Hello, how are you?', translation: 'Hello, how are you?', pronunciation: 'hel-OH, HOW ar yoo', context: 'Greeting' },
+      { id: 'en-g-2', text: 'I am doing well, thank you.', translation: 'I am doing well, thank you.', pronunciation: 'ay am DOO-ing wel, thank yoo', context: 'Response' },
+      { id: 'en-g-3', text: 'Nice to meet you', translation: 'Nice to meet you', pronunciation: 'NYS too meet yoo', context: 'Introduction' },
+      { id: 'en-g-4', text: 'What is your name?', translation: 'What is your name?', pronunciation: 'WOT iz yor NAYM', context: 'Asking name' },
+      { id: 'en-g-5', text: 'My name is...', translation: 'My name is...', pronunciation: 'my NAYM iz', context: 'Giving name' },
+      { id: 'en-g-6', text: 'Good morning', translation: 'Good morning', pronunciation: 'gud MOR-ning', context: 'Greeting' },
+      { id: 'en-g-7', text: 'Good evening', translation: 'Good evening', pronunciation: 'gud EEV-ning', context: 'Greeting' },
+      { id: 'en-g-8', text: 'Goodbye, see you later', translation: 'Goodbye, see you later', pronunciation: 'gud-BY, see yoo LAY-ter', context: 'Parting' },
+      { id: 'en-g-9', text: 'Have a nice day', translation: 'Have a nice day', pronunciation: 'hav a NYS day', context: 'Parting' },
+      { id: 'en-g-10', text: 'Pleased to meet you', translation: 'Pleased to meet you', pronunciation: 'pleezd too meet yoo', context: 'Formal intro' },
     ],
+    activities: [],
   },
   {
     id: 'en-u1-l2',
@@ -108,10 +151,23 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Alex',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Alex, a barista at a busy New York cafe. Help the user order their morning coffee. Use natural New York slang and keep it friendly!',
-      initialMessage: 'Hey! Welcome to Grounded Coffee. I\'m Alex. What can I get started for you today? Try saying "I\'d like a latte, please"!',
+      systemPrompt: 'You are Alex, a barista at a busy New York cafe. Help the user order coffee.',
+      initialMessage: 'Hey! Welcome to Grounded Coffee. I\'m Alex. What can I get for you? Try saying "I\'d like a latte, please"!',
       scenarioDescription: 'Order coffee and practice small talk in a New York cafe.',
     },
+    phrases: [
+      { id: 'en-c-1', text: 'I\'d like a latte, please', translation: 'I\'d like a latte, please', pronunciation: 'ayd lyk a LA-tay pleez', context: 'Ordering' },
+      { id: 'en-c-2', text: 'Can I have an iced coffee?', translation: 'Can I have an iced coffee?', pronunciation: 'kan ay hav an eyst KOH-fee', context: 'Ordering' },
+      { id: 'en-c-3', text: 'To go, please', translation: 'To go, please', pronunciation: 'too go, pleez', context: 'Order type' },
+      { id: 'en-c-4', text: 'For here, thanks', translation: 'For here, thanks', pronunciation: 'for heer, thanks', context: 'Order type' },
+      { id: 'en-c-5', text: 'With oat milk', translation: 'With oat milk', pronunciation: 'with oht milk', context: 'Customizing' },
+      { id: 'en-c-6', text: 'No sugar, please', translation: 'No sugar, please', pronunciation: 'noh SHU-ger pleez', context: 'Customizing' },
+      { id: 'en-c-7', text: 'How much is that?', translation: 'How much is that?', pronunciation: 'how MUCH iz dhat', context: 'Paying' },
+      { id: 'en-c-8', text: 'Keep the change', translation: 'Keep the change', pronunciation: 'keep dhu chaynj', context: 'Tipping' },
+      { id: 'en-c-9', text: 'Where is the restroom?', translation: 'Where is the restroom?', pronunciation: 'WAIR iz dhu REST-room', context: 'Directions' },
+      { id: 'en-c-10', text: 'Thanks, have a good one!', translation: 'Thanks, have a good one!', pronunciation: 'thanks, hav a gud wun', context: 'Politeness' },
+    ],
+    activities: [],
   },
   {
     id: 'en-u1-l3',
@@ -125,10 +181,23 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Alex',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Alex, meeting the student at a party. Teach them to say "My name is...".',
-      initialMessage: 'Hey! I\'m Alex. Nice to meet you! To introduce yourself, you can say "My name is" and then your name. Give it a try!',
+      systemPrompt: 'You are Alex, meeting the student at a party. Teach them to introduce themselves.',
+      initialMessage: 'Hey! I\'m Alex. Nice to meet you! Tell me, what\'s your name?',
       scenarioDescription: 'Socialize at a friendly gathering with Alex.',
     },
+    phrases: [
+      { id: 'en-f-1', text: 'Hi, I\'m [Name].', translation: 'Hi, I\'m [Name].', pronunciation: 'hy, aym...', context: 'Introduction' },
+      { id: 'en-f-2', text: 'What do you do for work?', translation: 'What do you do for work?', pronunciation: 'wot doo yoo doo for werk', context: 'Small talk' },
+      { id: 'en-f-3', text: 'Where are you from?', translation: 'Where are you from?', pronunciation: 'wair ar yoo from', context: 'Small talk' },
+      { id: 'en-f-4', text: 'I\'m from [City/Country].', translation: 'I\'m from [City/Country].', pronunciation: 'aym from...', context: 'Small talk' },
+      { id: 'en-f-5', text: 'What are your hobbies?', translation: 'What are your hobbies?', pronunciation: 'wot ar yor HOB-eez', context: 'Small talk' },
+      { id: 'en-f-6', text: 'I like listening to music', translation: 'I like listening to music', pronunciation: 'ay lyk LIS-ning too MYOO-zik', context: 'Hobbies' },
+      { id: 'en-f-7', text: 'Do you have any siblings?', translation: 'Do you have any siblings?', pronunciation: 'doo yoo hav EN-ee SIB-lingz', context: 'Family' },
+      { id: 'en-f-8', text: 'It was great talking to you', translation: 'It was great talking to you', pronunciation: 'it woz grayt TAWK-ing too yoo', context: 'Parting' },
+      { id: 'en-f-9', text: 'Are you on Instagram?', translation: 'Are you on Instagram?', pronunciation: 'ar yoo on IN-sta-gram', context: 'Socials' },
+      { id: 'en-f-10', text: 'Let\'s stay in touch!', translation: 'Let\'s stay in touch!', pronunciation: 'lets stay in tuch', context: 'Parting' },
+    ],
+    activities: [],
   },
   {
     id: 'en-u2-l1',
@@ -143,9 +212,22 @@ export const lessons: Lesson[] = [
       teacherName: 'Alex',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
       systemPrompt: 'You are Alex, a senior manager. Help the student introduce themselves in a meeting.',
-      initialMessage: 'Good morning! Welcome to the team. Let\'s practice your elevator pitch. Start by saying "I\'m the new developer here".',
+      initialMessage: 'Good morning! Welcome to the team. Start by saying "I\'m the new developer here".',
       scenarioDescription: 'Navigate professional introductions at a modern office.',
     },
+    phrases: [
+      { id: 'en-o-1', text: 'I\'m the new developer here', translation: 'I\'m the new developer here', pronunciation: 'aym dhu nyoo de-VEL-o-per heer', context: 'Office' },
+      { id: 'en-o-2', text: 'This is my colleague, Sarah', translation: 'This is my colleague, Sarah', pronunciation: 'dhis iz my KOL-eeg SAIR-ah', context: 'Office' },
+      { id: 'en-o-3', text: 'I work in the marketing department', translation: 'I work in the marketing department', pronunciation: 'ay werk in dhu MAR-ke-ting de-PART-ment', context: 'Office' },
+      { id: 'en-o-4', text: 'Nice to meet you all', translation: 'Nice to meet you all', pronunciation: 'nys too meet yoo awl', context: 'Office' },
+      { id: 'en-o-5', text: 'What is your role here?', translation: 'What is your role here?', pronunciation: 'wot iz yor rohl heer', context: 'Office' },
+      { id: 'en-o-6', text: 'I am responsible for the budget', translation: 'I am responsible for the budget', pronunciation: 'ay am re-SPON-si-bul for dhu BUD-jet', context: 'Office' },
+      { id: 'en-o-7', text: 'Let\'s get down to business', translation: 'Let\'s get down to business', pronunciation: 'lets get down too BIZ-ness', context: 'Office' },
+      { id: 'en-o-8', text: 'Can you repeat that, please?', translation: 'Can you repeat that, please?', pronunciation: 'kan yoo re-PEET dhat pleez', context: 'Office' },
+      { id: 'en-o-9', text: 'I look forward to working with you', translation: 'I look forward to working with you', pronunciation: 'ay luk FOR-ward too WERK-ing with yoo', context: 'Office' },
+      { id: 'en-o-10', text: 'Let\'s schedule a follow-up', translation: 'Let\'s schedule a follow-up', pronunciation: 'lets SKED-zhool a FOL-oh-up', context: 'Office' },
+    ],
+    activities: [],
   },
   {
     id: 'en-u2-l2',
@@ -159,14 +241,27 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Alex',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Alex, helping the student write an email to a client. Teach "I am writing to inform you...".',
-      initialMessage: 'Hi! Let\'s polish your business writing. When starting a formal email, you can say "I am writing to inform you". Try saying that out loud!',
+      systemPrompt: 'You are Alex, helping the student write an email to a client.',
+      initialMessage: 'Hi! Let\'s polish your business writing. Try saying "I am writing to inform you".',
       scenarioDescription: 'Draft professional emails with Alex in a corporate setting.',
     },
+    phrases: [
+      { id: 'en-e-1', text: 'I am writing to inform you', translation: 'I am writing to inform you', pronunciation: 'ay am RYT-ing too in-FORM yoo', context: 'Email' },
+      { id: 'en-e-2', text: 'Dear [Name],', translation: 'Dear [Name],', pronunciation: 'deer...', context: 'Email' },
+      { id: 'en-e-3', text: 'Thank you for your quick response', translation: 'Thank you for your quick response', pronunciation: 'thank yoo for yor kwik re-SPONS', context: 'Email' },
+      { id: 'en-e-4', text: 'Please find the attachment below', translation: 'Please find the attachment below', pronunciation: 'pleez fynd dhu a-TACH-ment be-LOH', context: 'Email' },
+      { id: 'en-e-5', text: 'I would like to request a meeting', translation: 'I would like to request a meeting', pronunciation: 'ay wud lyk too re-KWEST a MEET-ing', context: 'Email' },
+      { id: 'en-e-6', text: 'Could you please clarify this?', translation: 'Could you please clarify this?', pronunciation: 'kud yoo pleez KLAIR-i-fy dhis', context: 'Email' },
+      { id: 'en-e-7', text: 'I am available on Tuesday', translation: 'I am available on Tuesday', pronunciation: 'ay am a-VAY-la-bul on TYOOZ-day', context: 'Email' },
+      { id: 'en-e-8', text: 'Thank you for your cooperation', translation: 'Thank you for your cooperation', pronunciation: 'thank yoo for yor koh-op-er-AY-shun', context: 'Email' },
+      { id: 'en-e-9', text: 'Best regards,', translation: 'Best regards,', pronunciation: 'best re-GARDZ', context: 'Email' },
+      { id: 'en-e-10', text: 'Looking forward to hearing from you', translation: 'Looking forward to hearing from you', pronunciation: 'LUK-ing FOR-ward too HEER-ing from yoo', context: 'Email' },
+    ],
+    activities: [],
   },
 
   // ==========================================
-  // FRENCH LESSONS (Unit 2: Dining & Food)
+  // FRENCH LESSONS (Unit 1 & 2)
   // ==========================================
   {
     id: 'fr-u1-l1',
@@ -180,10 +275,23 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Chloé',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Chloé, a warm French teacher. Teach "Bonjour" (Hello) and "Salut" (Hi). Speak mostly English and be very encouraging! Ask the student to repeat words.',
-      initialMessage: 'Bonjour! I\'m Chloé, and I\'m so happy to be teaching you French today! Let\'s start with a classic. Can you say "Bonjour"? It means hello!',
+      systemPrompt: 'You are Chloé, a warm French teacher. Teach "Bonjour" and "Salut".',
+      initialMessage: 'Bonjour! I\'m Chloé! Let\'s start with a classic. Can you say "Bonjour"?',
       scenarioDescription: 'Learn first French words with Chloé.',
     },
+    phrases: [
+      { id: 'fr-g-1', text: 'Bonjour, comment ça va ?', translation: 'Hello, how is it going?', pronunciation: 'bohn-ZHOOR, ko-MAHN sah VAH', context: 'Greeting' },
+      { id: 'fr-g-2', text: 'Ça va bien, merci', translation: 'It is going well, thank you', pronunciation: 'sah vah BYAHN, mair-SEE', context: 'Response' },
+      { id: 'fr-g-3', text: 'Je m\'appelle...', translation: 'My name is...', pronunciation: 'zhuh mah-PEL', context: 'Introduction' },
+      { id: 'fr-g-4', text: 'Enchanté(e)', translation: 'Nice to meet you', pronunciation: 'ahn-shahn-TAY', context: 'Introduction' },
+      { id: 'fr-g-5', text: 'S\'il vous plaît', translation: 'Please (formal)', pronunciation: 'seel voo PLEH', context: 'Politeness' },
+      { id: 'fr-g-6', text: 'Merci beaucoup', translation: 'Thank you very much', pronunciation: 'mair-SEE bo-KOO', context: 'Politeness' },
+      { id: 'fr-g-7', text: 'De rien', translation: 'You are welcome', pronunciation: 'duh RYAHN', context: 'Politeness' },
+      { id: 'fr-g-8', text: 'Excusez-moi', translation: 'Excuse me', pronunciation: 'ex-koo-ZAY mwah', context: 'Politeness' },
+      { id: 'fr-g-9', text: 'Au revoir', translation: 'Goodbye', pronunciation: 'o reh-VWAHR', context: 'Parting' },
+      { id: 'fr-g-10', text: 'À bientôt', translation: 'See you soon', pronunciation: 'ah BYAHN-toh', context: 'Parting' },
+    ],
+    activities: [],
   },
   {
     id: 'fr-u2-l1',
@@ -197,14 +305,27 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Chloé',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Chloé, a restaurant hostess in Lyon. Teach "Une table pour deux" (A table for two).',
-      initialMessage: 'Bonsoir! Welcome to Le Petit Bistro. To ask for a table, say "Une table pour deux, s\'il vous plaît". Try it!',
+      systemPrompt: 'You are Chloé, a restaurant hostess in Lyon. Teach "Une table pour deux".',
+      initialMessage: 'Bonsoir! Welcome to Le Petit Bistro. To ask for a table, say "Une table pour deux, s\'il vous plaît".',
       scenarioDescription: 'Arrive at a French bistro and ask for a table.',
     },
+    phrases: [
+      { id: 'fr-r-1', text: 'Une table pour deux, s\'il vous plaît', translation: 'A table for two, please', pronunciation: 'oon TAH-bluh poor DUH, seel voo PLEH', context: 'Arriving' },
+      { id: 'fr-r-2', text: 'J\'ai une réservation', translation: 'I have a reservation', pronunciation: 'zhay oon ray-zair-vah-SYOHN', context: 'Arriving' },
+      { id: 'fr-r-3', text: 'La carte, s\'il vous plaît', translation: 'The menu, please', pronunciation: 'lah KART, seel voo PLEH', context: 'Ordering' },
+      { id: 'fr-r-4', text: 'Qu\'est-ce que vous recommandez ?', translation: 'What do you recommend?', pronunciation: 'kes kuh voo ruh-ko-mahn-DAY', context: 'Ordering' },
+      { id: 'fr-r-5', text: 'Je voudrais le vin rouge', translation: 'I would like the red wine', pronunciation: 'zhuh voo-DREH luh van ROOZH', context: 'Ordering' },
+      { id: 'fr-r-6', text: 'C\'est délicieux !', translation: 'It is delicious!', pronunciation: 'say day-lee-SYUH', context: 'Dining' },
+      { id: 'fr-r-7', text: 'L\'addition, s\'il vous plaît', translation: 'The check, please', pronunciation: 'lah-dee-SYOHN, seel voo PLEH', context: 'Paying' },
+      { id: 'fr-r-8', text: 'Où sont les toilettes ?', translation: 'Where are the toilets?', pronunciation: 'oo sohn lay twah-LET', context: 'Directions' },
+      { id: 'fr-r-9', text: 'Santé !', translation: 'Cheers!', pronunciation: 'sahn-TAY', context: 'Dining' },
+      { id: 'fr-r-10', text: 'C\'était parfait, merci', translation: 'It was perfect, thank you', pronunciation: 'say-TEH par-FEH, mair-SEE', context: 'Dining' },
+    ],
+    activities: [],
   },
 
   // ==========================================
-  // JAPANESE LESSONS (Unit 2: City Exploration)
+  // JAPANESE LESSONS (Unit 1 & 2)
   // ==========================================
   {
     id: 'ja-u1-l3',
@@ -218,10 +339,23 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Kenji',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Kenji, a helpful server. Help the user order green tea. Speak mostly English and encourage them to use "Onegai shimasu" (Please). Ask them to repeat phrases.',
-      initialMessage: 'Irasshaimase! Welcome! I\'m Kenji. Are you ready to order? Let\'s try saying "Ocha o onegai shimasu" for some green tea!',
+      systemPrompt: 'You are Kenji, a helpful server. Help the user order green tea.',
+      initialMessage: 'Irasshaimase! Welcome! I\'m Kenji. Try saying "Ocha o onegai shimasu"!',
       scenarioDescription: 'Order a cup of green tea (ocha) in Japanese.',
     },
+    phrases: [
+      { id: 'ja-c-1', text: 'お茶をお願いします', translation: 'Green tea, please', pronunciation: 'Ocha o onegai shimasu', context: 'Ordering' },
+      { id: 'ja-c-2', text: 'メニューをください', translation: 'Menu, please', pronunciation: 'Menyuu o kudasai', context: 'Ordering' },
+      { id: 'ja-c-3', text: 'これは何ですか？', translation: 'What is this?', pronunciation: 'Kore wa nan desu ka?', context: 'Asking' },
+      { id: 'ja-c-4', text: '美味しいです', translation: 'It is delicious', pronunciation: 'Oishii desu', context: 'Dining' },
+      { id: 'ja-c-5', text: 'お会計をお願いします', pronunciation: 'O-kaikei o onegai shimasu', translation: 'The check, please', context: 'Paying' },
+      { id: 'ja-c-6', text: 'いくらですか？', translation: 'How much is it?', pronunciation: 'Ikura desu ka?', context: 'Asking price' },
+      { id: 'ja-c-7', text: 'コーヒーもお願いします', translation: 'Coffee also, please', pronunciation: 'Koohii mo onegai shimasu', context: 'Ordering' },
+      { id: 'ja-c-8', text: 'ごちそうさまでした', translation: 'Thank you for the meal', pronunciation: 'Gochisousama deshita', context: 'Politeness' },
+      { id: 'ja-c-9', text: 'すみません', translation: 'Excuse me', pronunciation: 'Sumimasen', context: 'Politeness' },
+      { id: 'ja-c-10', text: 'いらっしゃいませ', translation: 'Welcome (to shop)', pronunciation: 'Irasshaimase', context: 'Shop talk' },
+    ],
+    activities: [],
   },
   {
     id: 'ja-u2-l1',
@@ -235,14 +369,27 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Kenji',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Kenji, a local in Shibuya. Teach "Eki wa doko desu ka?" (Where is the station?).',
-      initialMessage: 'Sumimasen! Need help? If you\'re looking for the train station, say "Eki wa doko desu ka?". Give it a try!',
+      systemPrompt: 'You are Kenji, a local in Shibuya. Teach "Eki wa doko desu ka?".',
+      initialMessage: 'Sumimasen! Need help? If you\'re looking for the train station, say "Eki wa doko desu ka?".',
       scenarioDescription: 'Navigate the busy streets of Shibuya with Kenji.',
     },
+    phrases: [
+      { id: 'ja-s-1', text: '駅はどこですか？', translation: 'Where is the station?', pronunciation: 'Eki wa doko desu ka?', context: 'Directions' },
+      { id: 'ja-s-2', text: '真っ直ぐ行ってください', translation: 'Please go straight', pronunciation: 'Massugu itte kudasai', context: 'Directions' },
+      { id: 'ja-s-3', text: '右に曲がってください', translation: 'Please turn right', pronunciation: 'Migi ni magatte kudasai', context: 'Directions' },
+      { id: 'ja-s-4', text: '左に曲がってください', translation: 'Please turn left', pronunciation: 'Hidari ni magatte kudasai', context: 'Directions' },
+      { id: 'ja-s-5', text: '近いです', translation: 'It is near', pronunciation: 'Chikai desu', context: 'Distance' },
+      { id: 'ja-s-6', text: '遠いですか？', translation: 'Is it far?', pronunciation: 'Tooi desu ka?', context: 'Distance' },
+      { id: 'ja-s-7', text: '切符売り場はどこですか？', translation: 'Where is the ticket office?', pronunciation: 'Kippu uriba wa doko desu ka?', context: 'Navigation' },
+      { id: 'ja-s-8', text: 'タクシー乗り場', translation: 'Taxi stand', pronunciation: 'Takushii noriba', context: 'Transport' },
+      { id: 'ja-s-9', text: '地下鉄', translation: 'Subway', pronunciation: 'Chikatetsu', context: 'Transport' },
+      { id: 'ja-s-10', text: 'ありがとうございます', translation: 'Thank you very much', pronunciation: 'Arigatou gozaimasu', context: 'Politeness' },
+    ],
+    activities: [],
   },
 
   // ==========================================
-  // KOREAN LESSONS (Unit 2: Daily Socializing)
+  // KOREAN LESSONS (Unit 1 & 2)
   // ==========================================
   {
     id: 'ko-u1-l3',
@@ -256,10 +403,23 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Minjun',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Minjun, a friendly barista in Seoul. Help the user order an iced americano. Speak mostly English and encourage them to use "Juseyo" (Please/Give me).',
-      initialMessage: 'Eoseo oseyo! Welcome! I\'m Minjun. I can help you order. Why don\'t you try saying "Aiseu amerikanoh juseyo"?',
+      systemPrompt: 'You are Minjun, a friendly barista in Seoul. Help the user order an iced americano.',
+      initialMessage: 'Eoseo oseyo! Welcome! I\'m Minjun. Try saying "Aiseu amerikanoh juseyo"!',
       scenarioDescription: 'Order an iced americano (아아) in Korean.',
     },
+    phrases: [
+      { id: 'ko-c-1', text: '아이스 아메리카노 주세요', translation: 'Iced americano, please', pronunciation: 'Aiseu amerikanoh juseyo', context: 'Ordering' },
+      { id: 'ko-c-2', text: '메뉴판 좀 보여주세요', translation: 'Please show me the menu', pronunciation: 'Menyupan jom boyeojuseyo', context: 'Ordering' },
+      { id: 'ko-c-3', text: '얼마예요?', translation: 'How much is it?', pronunciation: 'Olmayeyo?', context: 'Asking price' },
+      { id: 'ko-c-4', text: '따뜻한 거로 주세요', translation: 'Give me a hot one', pronunciation: 'Tatteut-han goro juseyo', context: 'Customizing' },
+      { id: 'ko-c-5', text: '포장해 주세요', translation: 'To go, please', pronunciation: 'Pojang-hae juseyo', context: 'Order type' },
+      { id: 'ko-c-6', text: '여기서 마실게요', translation: 'I will drink it here', pronunciation: 'Yeogiseo masilgeyo', context: 'Order type' },
+      { id: 'ko-c-7', text: '설탕은 빼주세요', translation: 'Please leave out the sugar', pronunciation: 'Soltangeun ppaejuseyo', context: 'Customizing' },
+      { id: 'ko-c-8', text: '와이파이 비밀번호가 뭐예요?', translation: 'What is the wifi password?', pronunciation: 'Waipai bimilbeonhoga mwoyeyo?', context: 'Service' },
+      { id: 'ko-c-9', text: '맛있어요!', translation: 'It is delicious!', pronunciation: 'Mas-is-soyo!', context: 'Dining' },
+      { id: 'ko-c-10', text: '수고하세요', translation: 'Keep up the good work (goodbye)', pronunciation: 'Sugohaseyo', context: 'Parting' },
+    ],
+    activities: [],
   },
   {
     id: 'ko-u2-l1',
@@ -273,14 +433,27 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Minjun',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Minjun, meeting the student at a university club. Teach "Ireumi mwoyeyo?" (What is your name?).',
-      initialMessage: 'Annyeong! I\'m Minjun. To ask someone\'s name, say "Ireumi mwoyeyo?". Can you try that?',
+      systemPrompt: 'You are Minjun, meeting the student at a university club. Teach "Ireumi mwoyeyo?".',
+      initialMessage: 'Annyeong! I\'m Minjun. To ask someone\'s name, say "Ireumi mwoyeyo?".',
       scenarioDescription: 'Socialize at a Hongdae university meetup with Minjun.',
     },
+    phrases: [
+      { id: 'ko-s-1', text: '이름이 뭐예요?', translation: 'What is your name?', pronunciation: 'Ireumi mwoyeyo?', context: 'Meeting' },
+      { id: 'ko-s-2', text: '제 이름은 [Name]입니다', translation: 'My name is [Name]', pronunciation: 'Je ireumeun... imnida', context: 'Meeting' },
+      { id: 'ko-s-3', text: '만나서 반가워요', translation: 'Nice to meet you', pronunciation: 'Mannaso bangawoyo', context: 'Meeting' },
+      { id: 'ko-s-4', text: '어디서 왔어요?', translation: 'Where are you from?', pronunciation: 'Odiseo wassoyo?', context: 'Meeting' },
+      { id: 'ko-s-5', text: '학생이에요?', translation: 'Are you a student?', pronunciation: 'Haksaeng-ieyo?', context: 'Meeting' },
+      { id: 'ko-s-6', text: '한국말 조금 할 수 있어요', translation: 'I can speak a little Korean', pronunciation: 'Hanguk-mal jogum hal su issoyo', context: 'Language' },
+      { id: 'ko-s-7', text: '인스타그램 하세요?', translation: 'Are you on Instagram?', pronunciation: 'Inseutagram haseyo?', context: 'Socials' },
+      { id: 'ko-s-8', text: '번호 좀 알려주세요', translation: 'Please give me your number', pronunciation: 'Beonho jom allyeojuseyo', context: 'Contact' },
+      { id: 'ko-s-9', text: '다음에 또 봐요', translation: 'See you again next time', pronunciation: 'Da-eume tto bwayo', context: 'Parting' },
+      { id: 'ko-s-10', text: '연락할게요', translation: 'I will be in touch', pronunciation: 'Yollak-halgeyo', context: 'Parting' },
+    ],
+    activities: [],
   },
 
   // ==========================================
-  // GERMAN LESSONS (Unit 2: Shopping & Home)
+  // GERMAN LESSONS (Unit 1 & 2)
   // ==========================================
   {
     id: 'de-u1-l3',
@@ -294,10 +467,23 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Lukas',
       avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-      systemPrompt: 'You are Lukas, a friendly Munich waiter. Help the user order a beer. Speak mostly English and encourage them to use "Bitte" (Please).',
-      initialMessage: 'Hallo! Welcome to Munich! I\'m Lukas. I\'d love to take your order. How about starting with "Ein Bier, bitte"?',
+      systemPrompt: 'You are Lukas, a friendly Munich waiter. Help the user order a beer.',
+      initialMessage: 'Hallo! Welcome to Munich! I\'m Lukas. How about starting with "Ein Bier, bitte"?',
       scenarioDescription: 'Order a local beer (Bier) in German.',
     },
+    phrases: [
+      { id: 'de-c-1', text: 'Ein Bier, bitte', translation: 'A beer, please', pronunciation: 'ayn BEER bit-teh', context: 'Ordering' },
+      { id: 'de-c-2', text: 'Einen Kaffee, bitte', translation: 'A coffee, please', pronunciation: 'AY-nen KAF-ay bit-teh', context: 'Ordering' },
+      { id: 'de-c-3', text: 'Die Speisekarte, bitte', translation: 'The menu, please', pronunciation: 'dee SPY-ze-kar-teh bit-teh', context: 'Ordering' },
+      { id: 'de-c-4', text: 'Was kostet das?', translation: 'What does that cost?', pronunciation: 'vas KOS-tet das', context: 'Asking price' },
+      { id: 'de-c-5', text: 'Mit Milch und Zucker', translation: 'With milk and sugar', pronunciation: 'mit MILKH unt TSUK-er', context: 'Customizing' },
+      { id: 'de-c-6', text: 'Schwarz, bitte', translation: 'Black, please', pronunciation: 'shvarts bit-teh', context: 'Customizing' },
+      { id: 'de-c-7', text: 'Noch eins, bitte', translation: 'Another one, please', pronunciation: 'nokh AYNS bit-teh', context: 'Ordering' },
+      { id: 'de-c-8', text: 'Die Rechnung, bitte', translation: 'The bill, please', pronunciation: 'dee REKH-nung bit-teh', context: 'Paying' },
+      { id: 'de-c-9', text: 'Zahlen, bitte', translation: 'Pay, please', pronunciation: 'TSA-len bit-teh', context: 'Paying' },
+      { id: 'de-c-10', text: 'Prost!', translation: 'Cheers!', pronunciation: 'prohst', context: 'Drinking' },
+    ],
+    activities: [],
   },
   {
     id: 'de-u2-l1',
@@ -311,14 +497,27 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Emma',
       avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80',
-      systemPrompt: 'You are Emma, a shop assistant. Teach "Ich suche..." (I am looking for...).',
-      initialMessage: 'Hallo! Can I help you find something? To say you are looking for milk, say "Ich suche Milch". Try it!',
+      systemPrompt: 'You are Emma, a shop assistant. Teach "Ich suche...".',
+      initialMessage: 'Hallo! Can I help you find something? To say you are looking for milk, say "Ich suche Milch".',
       scenarioDescription: 'Find items and shop at a modern German supermarket.',
     },
+    phrases: [
+      { id: 'de-s-1', text: 'Ich suche Milch', translation: 'I am looking for milk', pronunciation: 'ikh ZOOKH-e MILKH', context: 'Shopping' },
+      { id: 'de-s-2', text: 'Wo ist das Brot?', translation: 'Where is the bread?', pronunciation: 'voh ist das BROHT', context: 'Shopping' },
+      { id: 'de-s-3', text: 'Haben Sie Eier?', translation: 'Do you have eggs?', pronunciation: 'HA-ben zee AY-er', context: 'Shopping' },
+      { id: 'de-s-4', text: 'Ist das im Angebot?', translation: 'Is this on sale?', pronunciation: 'ist das im AN-ge-boht', context: 'Shopping' },
+      { id: 'de-s-5', text: 'Wo ist die Kasse?', translation: 'Where is the checkout?', pronunciation: 'voh ist dee KAS-seh', context: 'Shopping' },
+      { id: 'de-s-6', text: 'Brauchen Sie eine Tüte?', translation: 'Do you need a bag?', pronunciation: 'BROW-khen zee AY-ne TYOO-teh', context: 'Checkout' },
+      { id: 'de-s-7', text: 'Mit Karte, bitte', translation: 'With card, please', pronunciation: 'mit KAR-teh bit-teh', context: 'Paying' },
+      { id: 'de-s-8', text: 'Kassenbon, bitte', translation: 'Receipt, please', pronunciation: 'KAS-sen-bon bit-teh', context: 'Checkout' },
+      { id: 'de-s-9', text: 'Schönen Tag noch!', translation: 'Have a nice day!', pronunciation: 'SHU-nen TAHG nokh', context: 'Politeness' },
+      { id: 'de-s-10', text: 'Entschuldigung', translation: 'Excuse me / Sorry', pronunciation: 'ent-SHOOL-dee-gung', context: 'Politeness' },
+    ],
+    activities: [],
   },
 
   // ==========================================
-  // CHINESE LESSONS (Unit 2: Meeting People)
+  // CHINESE LESSONS (Unit 1 & 2)
   // ==========================================
   {
     id: 'zh-u1-l3',
@@ -332,16 +531,29 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Mei',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Mei, a friendly tea house server in Beijing. Help the user order green tea. Speak mostly English and encourage them to use "Qǐng" (Please).',
-      initialMessage: 'Nǐ hǎo! Welcome to our tea house! I\'m Mei. I can help you order some tea. Why don\'t you try saying "Qǐng gěi wǒ lǜchá"?',
+      systemPrompt: 'You are Mei, a friendly tea house server in Beijing. Help the user order green tea.',
+      initialMessage: 'Nǐ hǎo! Welcome! I\'m Mei. Try saying "Qǐng gěi wǒ lǜchá"!',
       scenarioDescription: 'Order a cup of green tea (绿茶) in Chinese.',
     },
+    phrases: [
+      { id: 'zh-c-1', text: '请给我绿茶', translation: 'Please give me green tea', pronunciation: 'Qǐng gěi wǒ lǜchá', context: 'Ordering' },
+      { id: 'zh-c-2', text: '我们要菜单', translation: 'We want the menu', pronunciation: 'Wǒmen yào càidān', context: 'Ordering' },
+      { id: 'zh-c-3', text: '这个多少钱？', translation: 'How much is this?', pronunciation: 'Zhège duōshǎo qián?', context: 'Asking price' },
+      { id: 'zh-c-4', text: '太贵了！', translation: 'Too expensive!', pronunciation: 'Tài guìle!', context: 'Bargaining' },
+      { id: 'zh-c-5', text: '好吃吗？', translation: 'Is it delicious?', pronunciation: 'Hǎo chī ma?', context: 'Asking' },
+      { id: 'zh-c-6', text: '买单', translation: 'The bill (please)', pronunciation: 'Mǎidān', context: 'Paying' },
+      { id: 'zh-c-7', text: '谢谢你', translation: 'Thank you', pronunciation: 'Xièxiè nǐ', context: 'Politeness' },
+      { id: 'zh-c-8', text: '不用谢', translation: 'You are welcome', pronunciation: 'Bùyòng xiè', context: 'Politeness' },
+      { id: 'zh-c-9', text: '对不起', translation: 'I am sorry', pronunciation: 'Duìbùqǐ', context: 'Politeness' },
+      { id: 'zh-c-10', text: '没关系', translation: 'It is okay', pronunciation: 'Méiguānxì', context: 'Politeness' },
+    ],
+    activities: [],
   },
   {
     id: 'zh-u2-l1',
     unitId: 'zh-unit-2',
     title: 'Introducing Family',
-    description: 'Learn to talk about your family members in Chinese.',
+    description: 'Talk about your family members in Chinese.',
     order: 1,
     xp: 20,
     type: 'audio',
@@ -349,9 +561,22 @@ export const lessons: Lesson[] = [
     aiPrompt: {
       teacherName: 'Mei',
       avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-      systemPrompt: 'You are Mei, visiting the student\'s home. Teach "Zhè shì wǒ de..." (This is my...).',
-      initialMessage: 'Nǐ hǎo! I\'d love to meet your family. To say "This is my mother", say "Zhè shì wǒ de māmā". Give it a go!',
+      systemPrompt: 'You are Mei, visiting the student\'s home. Teach "Zhè shì wǒ de...".',
+      initialMessage: 'Nǐ hǎo! I\'d love to meet your family. Try saying "Zhè shì wǒ de māmā"!',
       scenarioDescription: 'Host Mei at your home and introduce your family.',
     },
+    phrases: [
+      { id: 'zh-f-1', text: '这是我的妈妈', translation: 'This is my mother', pronunciation: 'Zhè shì wǒ de māmā', context: 'Family' },
+      { id: 'zh-f-2', text: '这是我的爸爸', translation: 'This is my father', pronunciation: 'Zhè shì wǒ de bàba', context: 'Family' },
+      { id: 'zh-f-3', text: '你有哥哥吗？', translation: 'Do you have an older brother?', pronunciation: 'Nǐ yǒu gēgē ma?', context: 'Family' },
+      { id: 'zh-f-4', text: '我没有姐姐', translation: 'I don\'t have an older sister', pronunciation: 'Wǒ méiyǒu jiějiě', context: 'Family' },
+      { id: 'zh-f-5', text: '你家有几口人？', translation: 'How many people in your family?', pronunciation: 'Nǐ jiā yǒu jǐ kǒu rén?', context: 'Family' },
+      { id: 'zh-f-6', text: '我爱我的家人', translation: 'I love my family', pronunciation: 'Wǒ ài wǒ de jiārén', context: 'Family' },
+      { id: 'zh-f-7', text: '他是我的弟弟', translation: 'He is my younger brother', pronunciation: 'Tā shì wǒ de dìdi', context: 'Family' },
+      { id: 'zh-f-8', text: '她是我的妹妹', translation: 'She is my younger sister', pronunciation: 'Tā shì wǒ de mèimei', context: 'Family' },
+      { id: 'zh-f-9', text: '欢迎来我家', translation: 'Welcome to my home', pronunciation: 'Huānyíng lái wǒjiā', context: 'Social' },
+      { id: 'zh-f-10', text: '请坐', translation: 'Please sit down', pronunciation: 'Qǐng zuò', context: 'Social' },
+    ],
+    activities: [],
   },
 ];

@@ -1,14 +1,36 @@
 import * as ClerkReal from "@clerk/expo";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 
 // Determine if we should use mock auth.
-// We use mock auth if the Clerk Publishable Key is missing, has placeholder values, or starts with test.
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-export const IS_MOCK_AUTH = !publishableKey || publishableKey.includes("your_clerk") || publishableKey.startsWith("pk_test_dGVzd");
 
-// Re-export tokenCache from the real package
-export { tokenCache } from "@clerk/expo/token-cache";
+// We use mock auth if the key is missing or is the placeholder.
+export const IS_MOCK_AUTH = !publishableKey || publishableKey === "your_clerk_publishable_key";
+
+if (__DEV__) {
+  console.log("[Auth] Clerk Publishable Key present:", !!publishableKey);
+  console.log("[Auth] Mode:", IS_MOCK_AUTH ? "MOCK" : "PRODUCTION (CLERK)");
+}
+
+// Secure token cache for Clerk
+export const tokenCache = {
+  async getToken(key: string) {
+    try {
+      return SecureStore.getItemAsync(key);
+    } catch (err) {
+      return null;
+    }
+  },
+  async saveToken(key: string, value: string) {
+    try {
+      return SecureStore.setItemAsync(key, value);
+    } catch (err) {
+      return;
+    }
+  },
+};
 
 // Mock context for mock auth state
 const MockAuthContext = createContext<{
@@ -123,35 +145,21 @@ export function useSignIn(): any {
   const { setIsSignedIn, setUserId } = useContext(MockAuthContext);
 
   const signInObject = {
-    emailCode: {
-      sendCode: async ({ emailAddress }: { emailAddress: string }) => {
-        console.log("Mock signing in with emailAddress:", emailAddress);
-        return { error: null };
-      },
-      verifyCode: async ({ code }: { code: string }) => {
-        console.log("Mock verifying code:", code);
-        setIsSignedIn(true);
-        setUserId("mock_user_123");
-        return { error: null };
-      },
+    status: "needs_identifier",
+    create: async ({ identifier }: any) => {
+      console.log("[Mock] Created sign-in for:", identifier);
+      return { status: "needs_first_factor" };
     },
-    status: "complete",
-    finalize: async ({ navigate }: { navigate: () => void }) => {
+    prepareFirstFactor: async ({ strategy }: any) => {
+      console.log("[Mock] Prepared first factor:", strategy);
+      return { status: "needs_attempt" };
+    },
+    attemptFirstFactor: async ({ strategy, code }: any) => {
+      console.log("[Mock] Attempted verification with code:", code);
+      return { status: "complete", createdSessionId: "mock_session_123" };
+    },
+    finalize: async ({ navigate }: any) => {
       navigate();
-    },
-    create: async (args: any) => {
-      console.log("Mock signing in with OAuth/social:", args);
-      setIsSignedIn(true);
-      setUserId("mock_user_123");
-      return { status: "complete" };
-    },
-    firstFactorVerification: {
-      status: "complete",
-      externalVerificationRedirectURL: "http://localhost:8081/oauth-native-callback",
-    },
-    createdSessionId: "mock_session_123",
-    reload: async (args: any) => {
-      console.log("Mock reload sign-in:", args);
     },
   };
 
@@ -159,18 +167,11 @@ export function useSignIn(): any {
     isLoaded: true,
     signIn: signInObject,
     setActive: async (args: any) => {
-      console.log("Mock setActive sign-in session:", args);
+      console.log("[Mock] setActive sign-in session:", args);
       setIsSignedIn(true);
       setUserId("mock_user_123");
     },
     fetchStatus: "idle",
-    firstFactorVerification: {
-      status: "complete",
-      externalVerificationRedirectURL: "http://localhost:8081/oauth-native-callback",
-    },
-    reload: async (args: any) => {
-      console.log("Mock reload sign-in:", args);
-    },
   };
 }
 
@@ -183,52 +184,29 @@ export function useSignUp(): any {
   const { setIsSignedIn, setUserId } = useContext(MockAuthContext);
 
   const signUpObject = {
-    emailCode: {
-      sendCode: async ({ emailAddress }: { emailAddress: string }) => {
-        console.log("Mock signing up with emailAddress:", emailAddress);
-        return { error: null };
-      },
-      verifyCode: async ({ code }: { code: string }) => {
-        console.log("Mock verifying signup code:", code);
-        setIsSignedIn(true);
-        setUserId("mock_user_123");
-        return { error: null };
-      },
+    status: "needs_identifier",
+    create: async ({ emailAddress, password }: any) => {
+      console.log("[Mock] Created sign-up for:", emailAddress);
+      return { status: "needs_verification" };
     },
-    verifications: {
-      sendEmailCode: async () => {
-        console.log("Mock sending email code");
-        return { error: null };
-      },
-      verifyEmailCode: async ({ code }: { code: string }) => {
-        console.log("Mock verifying email code:", code);
-        setIsSignedIn(true);
-        setUserId("mock_user_123");
-        return { error: null };
-      },
+    prepareEmailAddressVerification: async ({ strategy }: any) => {
+      console.log("[Mock] Prepared email verification:", strategy);
+      return { status: "needs_attempt" };
     },
-    password: async (args: any) => {
-      console.log("Mock sign up with password:", args);
-      return { error: null };
+    attemptEmailAddressVerification: async ({ code }: any) => {
+      console.log("[Mock] Attempted verification with code:", code);
+      return { status: "complete", createdSessionId: "mock_session_123" };
     },
-    status: "complete",
-    finalize: async ({ navigate }: { navigate: () => void }) => {
+    finalize: async ({ navigate }: any) => {
       navigate();
     },
-    create: async (args: any) => {
-      console.log("Mock signing up with transfer/OAuth:", args);
-      setIsSignedIn(true);
-      setUserId("mock_user_123");
-      return { status: "complete" };
-    },
-    createdSessionId: "mock_session_123",
   };
 
   return {
     isLoaded: true,
     signUp: signUpObject,
     setActive: async (args: any) => {
-      console.log("Mock setActive signup session:", args);
+      console.log("[Mock] setActive signup session:", args);
       setIsSignedIn(true);
       setUserId("mock_user_123");
     },
@@ -245,13 +223,13 @@ export function useOAuth({ strategy }: { strategy: any }) {
   const { setIsSignedIn, setUserId } = useContext(MockAuthContext);
 
   const startOAuthFlow = async () => {
-    console.log("Mocking startOAuthFlow for strategy:", strategy);
+    console.log("[Mock] Starting OAuth flow for:", strategy);
     setIsSignedIn(true);
     setUserId("mock_user_123");
     return {
       createdSessionId: "mock_session_123",
       setActive: async (args: any) => {
-        console.log("Mock setActive session:", args);
+        console.log("[Mock] setActive session:", args);
         setIsSignedIn(true);
         setUserId("mock_user_123");
       },
