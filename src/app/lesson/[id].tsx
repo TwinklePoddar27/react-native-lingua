@@ -28,8 +28,8 @@ import { getStreamClient } from "@/lib/stream";
 import { startAgentSession, stopAgentSession } from "@/lib/vision-agent";
 
 // Native-only imports handled via conditional require to prevent SSR/Web crashes
-let StreamVideo: any = ({ children }: any) => <>{children}</>;
-let StreamCall: any = ({ children }: any) => <>{children}</>;
+let StreamVideo: any = ({ children }: any) => <View style={{ flex: 1 }}>{children}</View>;
+let StreamCall: any = ({ children }: any) => <View style={{ flex: 1 }}>{children}</View>;
 let useCall: any = () => null;
 let useCallStateHooks: any = () => ({
   useCallStatus: () => "joined",
@@ -95,6 +95,12 @@ const getExtendedLessonData = (lessonId: string, languageId: string): TeacherCon
       scenario: "Order an iced americano at a Seoul café.",
       initialMessage: "어서 오세요! 어떤 걸로 주문하시겠어요?",
     },
+    en: {
+      name: "Alex",
+      avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+      scenario: "Practice ordering coffee and small talk at a New York cafe.",
+      initialMessage: "Hey! Welcome! What can I get for you today?",
+    },
     de: {
       name: "Emma",
       avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
@@ -142,6 +148,11 @@ const getExtendedLessonData = (lessonId: string, languageId: string): TeacherCon
       { id: "de-1", text: "Hallo! Guten Tag.", translation: "Hello! Good day.", pronunciation: "Hallo! Goot-en Tahg.", context: "Standard german greeting" },
       { id: "de-2", text: "Ein Mineralwasser, bitte.", translation: "A mineral water, please.", pronunciation: "Ayn mee-neh-RAHL-vah-ser bit-teh", context: "Ordering water" },
       { id: "de-3", text: "Vielen Dank, auf Wiedersehen!", translation: "Thank you very much, goodbye!", pronunciation: "Feel-en Dank owf vee-der-zayn!", context: "Polite parting" },
+    ],
+    en: [
+      { id: "en-1", text: "Hello! How are you?", translation: "Hello! How are you?", pronunciation: "hel-OH HOW ar yoo", context: "Standard greeting" },
+      { id: "en-2", text: "I'd like a coffee, please.", translation: "I'd like a coffee, please.", pronunciation: "ayd lyk a KOH-fee pleez", context: "Ordering coffee" },
+      { id: "en-3", text: "Where is the nearest station?", translation: "Where is the nearest station?", pronunciation: "wair iz dhu NEER-ist STAY-shun", context: "Asking for directions" },
     ],
     default: [
       { id: "def-1", text: "Hello! How are you doing today?", translation: "Hello! How are you doing today?", pronunciation: "Hello! How are you doing today?", context: "General greeting" },
@@ -228,6 +239,17 @@ export default function AudioLessonScreen() {
         setCall(newCall);
         currentCall = newCall;
 
+        // Start real-time captions and transcription
+        try {
+          const langId = useLanguageStore.getState().selectedLanguageId || "es";
+          await Promise.all([
+            newCall.startTranscription({ language: langId }),
+            newCall.startClosedCaptions({ language: langId })
+          ]);
+        } catch (ccError) {
+          console.warn("Failed to start captions/transcription:", ccError);
+        }
+
         // Start the Vision Agent session
         try {
           setAgentStatus("connecting");
@@ -277,7 +299,7 @@ export default function AudioLessonScreen() {
             {error}
           </Text>
           <TouchableOpacity
-            onPress={() => router.back()}
+            onPress={() => router.canGoBack() ? router.back() : router.replace("/(tabs)/learn")}
             className="mt-6 bg-[#5B3BF6] px-8 py-3 rounded-xl"
           >
             <Text className="font-poppins-bold text-white">Go Back</Text>
@@ -324,215 +346,248 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
   const posthog = usePostHog();
   const call = useCall();
 
-  const hooks = useCallStateHooks();
-  const callStatus = (call && hooks?.useCallStatus) ? hooks.useCallStatus() : "joined";
-  const participants = (call && hooks?.useParticipants) ? hooks.useParticipants() : [];
-
-  // Detect if the AI teacher is speaking
-  const teacherParticipant = participants.find((p: any) => p.userId === "teacher");
-  const isTeacherSpeaking = teacherParticipant?.isSpeaking || false;
-
-  // Detect if the local user is speaking
-  const localParticipant = participants.find((p: any) => p.isLocalParticipant);
-  const isLocalSpeaking = localParticipant?.isSpeaking || false;
-
-  // Use a local state fallback for mic toggling to ensure UI responsiveness
-  const [localMuted, setLocalMuted] = useState(false);
-  const remoteMicState = hooks?.useMicrophoneState ? hooks.useMicrophoneState() : null;
-  const micState = (call && remoteMicState) ? remoteMicState : { isMuted: localMuted };
-
-  // Automatically unmute mic on join
-  useEffect(() => {
-    if (call && call.microphone && micState.isMuted) {
-      call.microphone.enable();
-    }
-  }, [call, micState.isMuted]);
-
-  const isCompletedRef = useRef<boolean>(false);
-
-  const activeLanguageId = selectedLanguageId || "es";
-  const lesson = lessons.find((l) => l.id === id);
-
-  // Extended hardcoded learning data mapped dynamically
-  const teacherContext = getExtendedLessonData(id || "", activeLanguageId);
-
-  // Connection status & states
-  const [status, setStatus] = useState<"connecting" | "online" | "ended">("connecting");
-  const [callDuration, setCallDuration] = useState(0);
-  const [isCameraOn, setIsCameraOn] = useState(true);
-
-  const toggleCamera = useCallback(async () => {
-    console.log("Toggling camera...");
-    try {
-      if (call?.camera) {
-        await call.camera.toggle();
-        console.log("Stream camera toggled successfully");
-      }
-      setIsCameraOn((prev) => !prev);
-    } catch (err) {
-      console.error("Error toggling camera:", err);
-      setIsCameraOn((prev) => !prev);
-    }
-  }, [call]);
-  const [showSubtitles, setShowSubtitles] = useState(true);
-
-  // Map Stream call status to local status
-  useEffect(() => {
-    if (callStatus === "joined") setStatus("online");
-    else if (callStatus === "joining") setStatus("connecting");
-  }, [callStatus]);
-
-  // Speech bubble & phrases
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const currentPhrase = teacherContext.phrases[currentPhraseIndex] || teacherContext.phrases[0];
-
-  const currentPhraseIndexRef = useRef(currentPhraseIndex);
-  useEffect(() => {
-    currentPhraseIndexRef.current = currentPhraseIndex;
-  }, [currentPhraseIndex]);
-
-  // Feedback levels
-  const [speakingLevel, setSpeakingLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Excellent");
-  const [pronunciationLevel, setPronunciationLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Great");
-  const [grammarLevel, setGrammarLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Good");
-  const [isSimulatingSpeech, setIsSimulatingSpeech] = useState(false);
-  const [simulationTextOverride, setSimulationTextOverride] = useState<string | null>(null);
-  const [isSimulatedAudioPlaying, setIsSimulatedAudioPlaying] = useState(false);
-
-  // Real-time speaking state from Stream or local simulation
-  const isAudioPlaying = isTeacherSpeaking || isSimulatedAudioPlaying;
-  const isListening = !isAudioPlaying && !micState.isMuted;
-
-  // Completion Reward Overlay State
-  const [showCompletionOverlay, setShowCompletionOverlay] = useState(false);
-
-  // Shared values for micro-animations
+  // 1. Shared values (REANIMATED)
   const statusScale = useSharedValue(1);
   const wave1 = useSharedValue(1);
   const wave2 = useSharedValue(1);
   const wave3 = useSharedValue(1);
   const micRipple = useSharedValue(1);
 
-  // Stable callbacks
+  // 2. React State
+  const [localMuted, setLocalMuted] = useState(true);
+  const [isMicHeld, setIsMicHeld] = useState(false);
+  const [liveCaption, setLiveCaption] = useState<{ userId: string; text: string; timestamp: number } | null>(null);
+  const [showCompletionOverlay, setShowCompletionOverlay] = useState(false);
+  const [status, setStatus] = useState<"connecting" | "online" | "ended">("connecting");
+  const [callDuration, setCallDuration] = useState(0);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [speakingLevel, setSpeakingLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Excellent");
+  const [pronunciationLevel, setPronunciationLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Great");
+  const [grammarLevel, setGrammarLevel] = useState<"Excellent" | "Great" | "Good" | "—">("Good");
+  const [simulationTextOverride, setSimulationTextOverride] = useState<string | null>(null);
+  const [isSimulatedAudioPlaying, setIsSimulatedAudioPlaying] = useState(false);
+
+  // 3. Refs
+  const recognitionRef = useRef<any>(null);
+  const isCompletedRef = useRef<boolean>(false);
+  const currentPhraseIndexRef = useRef(currentPhraseIndex);
+  const startTimeRef = useRef<number>(Date.now());
+
+  // 4. Derived values & Call state hooks
+  const activeLanguageId = selectedLanguageId || "es";
+  const lesson = lessons.find((l) => l.id === id);
+  const teacherContext = getExtendedLessonData(id || "", activeLanguageId);
+  const currentPhrase = teacherContext.phrases[currentPhraseIndex] || teacherContext.phrases[0];
+
+  const hooks = useCallStateHooks();
+  const callStatus = hooks.useCallStatus();
+  const participants = hooks.useParticipants();
+  const remoteMicState = hooks.useMicrophoneState();
+  const micState = remoteMicState || { isMuted: localMuted };
+
+  const teacherParticipant = participants.find((p: any) => p.userId === "teacher");
+  const isTeacherSpeaking = teacherParticipant?.isSpeaking || false;
+  const localParticipant = participants.find((p: any) => p.isLocalParticipant);
+  const isLocalSpeaking = localParticipant?.isSpeaking || false;
+
+  const isAudioPlaying = isTeacherSpeaking || isSimulatedAudioPlaying;
+
+  // 5. Callbacks (Declared before use)
   const triggerAudioPlay = useCallback(() => {
     if (isAudioPlaying) return;
-    setIsSimulatedAudioPlaying(true);
-    setTimeout(() => {
-      setIsSimulatedAudioPlaying(false);
-    }, 2200);
-  }, [isAudioPlaying]);
+    if (Platform.OS === "web" && "speechSynthesis" in window) {
+      const text = simulationTextOverride || currentPhrase.text;
+      const utterance = new SpeechSynthesisUtterance(text);
+      const langMap: Record<string, string> = {
+        es: "es-ES",
+        fr: "fr-FR",
+        ja: "ja-JP",
+        ko: "ko-KR",
+        de: "de-DE",
+      };
+      utterance.lang = langMap[activeLanguageId] || "en-US";
+      utterance.onstart = () => setIsSimulatedAudioPlaying(true);
+      utterance.onend = () => setIsSimulatedAudioPlaying(false);
+      window.speechSynthesis.speak(utterance);
+    } else {
+      setIsSimulatedAudioPlaying(true);
+      setTimeout(() => setIsSimulatedAudioPlaying(false), 2200);
+    }
+  }, [isAudioPlaying, simulationTextOverride, currentPhrase.text, activeLanguageId]);
 
-  const toggleMic = useCallback(async () => {
-    console.log("Toggling microphone...");
-    try {
-      if (call?.microphone) {
-        await call.microphone.toggle();
-        console.log("Stream microphone toggled successfully");
-      } else {
-        console.log("No active call/microphone, using local fallback toggle");
-        setLocalMuted((prev) => !prev);
+  const handleMicPressIn = useCallback(async () => {
+    setIsMicHeld(true);
+    if (call?.microphone) {
+      await call.microphone.enable();
+    } else {
+      setLocalMuted(false);
+      if (recognitionRef.current) {
+        try { recognitionRef.current.start(); } catch (e) { console.warn(e); }
       }
-    } catch (err) {
-      console.error("Error toggling microphone:", err);
-      // Fallback to local state if SDK fails
-      setLocalMuted((prev) => !prev);
     }
   }, [call]);
 
-  const handleSimulateSpeech = useCallback(() => {
-    // We disable the manual simulation trigger as we want real interactivity
-    return;
-  }, []);
+  const handleMicPressOut = useCallback(async () => {
+    setIsMicHeld(false);
+    if (call?.microphone) {
+      await call.microphone.disable();
+    } else {
+      setLocalMuted(true);
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+        if (Platform.OS === "web") {
+          setTimeout(() => {
+            setSimulationTextOverride("Great job! I heard you clearly. Let's keep going!");
+            triggerAudioPlay();
+            setTimeout(() => setSimulationTextOverride(null), 5000);
+          }, 1500);
+        }
+      }
+    }
+  }, [call, triggerAudioPlay]);
 
-  // Audio Play Icon Animation Style
-  const animatedStatusDotStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: statusScale.value }],
-    };
-  });
-
-  const animatedWave1 = useAnimatedStyle(() => ({ transform: [{ scale: wave1.value }], opacity: isAudioPlaying ? 0.35 : 0 }));
-  const animatedWave2 = useAnimatedStyle(() => ({ transform: [{ scale: wave2.value }], opacity: isAudioPlaying ? 0.25 : 0 }));
-  const animatedWave3 = useAnimatedStyle(() => ({ transform: [{ scale: wave3.value }], opacity: isAudioPlaying ? 0.15 : 0 }));
-
-  const animatedMicRipple = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: micRipple.value }],
-      opacity: isLocalSpeaking ? 1 - (micRipple.value - 1) / 0.8 : 0,
-    };
-  });
-
-  // End Call functionality
   const handleEndCall = useCallback(async () => {
-    if (onEndCall) {
-        await onEndCall();
-    }
-    if (call) {
-      await call.leave();
-    }
+    if (onEndCall) await onEndCall();
+    if (call) await call.leave();
+    isCompletedRef.current = true;
     setStatus("ended");
     setShowCompletionOverlay(true);
-    isCompletedRef.current = true;
   }, [call, onEndCall]);
 
   const handleFinishLesson = useCallback(() => {
-    if (lesson) {
-      completeLesson(lesson.id);
-    }
+    if (lesson) completeLesson(lesson.id);
     isCompletedRef.current = true;
     setShowCompletionOverlay(false);
     router.replace("/(tabs)/learn");
   }, [lesson, completeLesson, router]);
 
-  const playAudioSimulation = useCallback(() => {
-    triggerAudioPlay();
-  }, [triggerAudioPlay]);
+  const playAudioSimulation = useCallback(() => triggerAudioPlay(), [triggerAudioPlay]);
+  const handleTabNavigation = useCallback((tabRoute: string) => router.replace(tabRoute as any), [router]);
 
-  const handleTabNavigation = useCallback((tabRoute: string) => {
-    router.replace(tabRoute as any);
-  }, [router]);
+  // 6. Animated Styles (Worklets)
+  const animatedStatusDotStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: statusScale.value }],
+  }));
 
-  // Connecting transition
+  const animatedWave1 = useAnimatedStyle(() => ({ transform: [{ scale: wave1.value }], opacity: isAudioPlaying ? 0.35 : 0 }));
+  const animatedWave2 = useAnimatedStyle(() => ({ transform: [{ scale: wave2.value }], opacity: isAudioPlaying ? 0.25 : 0 }));
+  const animatedWave3 = useAnimatedStyle(() => ({ transform: [{ scale: wave3.value }], opacity: isAudioPlaying ? 0.15 : 0 }));
+
+  const animatedMicRipple = useAnimatedStyle(() => ({
+    transform: [{ scale: micRipple.value }],
+    opacity: isLocalSpeaking ? 1 - (micRipple.value - 1) / 0.8 : 0,
+  }));
+
+  // 7. Effects
   useEffect(() => {
-    statusScale.value = withRepeat(withTiming(1.3, { duration: 800 }), -1, true);
-  }, [status, statusScale]);
+    currentPhraseIndexRef.current = currentPhraseIndex;
+  }, [currentPhraseIndex]);
 
-  // Call duration counter
+  useEffect(() => {
+    if (posthog && lesson) {
+      posthog.capture("lesson_started", {
+        lesson_id: lesson.id,
+        language: activeLanguageId,
+        lesson_number: lesson.order,
+      });
+    }
+    return () => {
+      if (!isCompletedRef.current && posthog && lesson) {
+        const durationSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
+        posthog.capture("lesson_abandoned", {
+          lesson_id: lesson.id,
+          time_into_lesson_seconds: durationSeconds,
+          last_question_index: currentPhraseIndexRef.current,
+        });
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!call) return;
+    const unsubs = [
+      call.on("call.transcription_message_received", (event: any) => {
+        const { text, user_id } = event.transcription || {};
+        if (text) setLiveCaption({ userId: user_id, text, timestamp: Date.now() });
+      }),
+      call.on("call.closed_caption", (event: any) => {
+        const { text, speaker_id } = event.closed_caption || {};
+        if (text) setLiveCaption({ userId: speaker_id, text, timestamp: Date.now() });
+      })
+    ];
+    return () => unsubs.forEach(unsub => unsub());
+  }, [call]);
+
+  useEffect(() => {
+    if (Platform.OS === "web" && (window as any).webkitSpeechRecognition) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = activeLanguageId === "en" ? "en-US" :
+                        activeLanguageId === "es" ? "es-ES" :
+                        activeLanguageId === "fr" ? "fr-FR" : "en-US";
+      recognition.onresult = (event: any) => {
+        const transcript = Array.from(event.results).map((r: any) => r[0].transcript).join("");
+        setLiveCaption({ userId: "local-user", text: transcript, timestamp: Date.now() });
+      };
+      recognitionRef.current = recognition;
+    }
+  }, [activeLanguageId]);
+
+  useEffect(() => {
+    if (!liveCaption) return;
+    const timer = setTimeout(() => {
+      const speakerId = liveCaption.userId;
+      const isStillSpeaking = participants.find((p: any) => p.userId === speakerId || p.sessionId === speakerId)?.isSpeaking;
+      if (!isStillSpeaking) setLiveCaption(null);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [liveCaption, participants]);
+
+  useEffect(() => {
+    if (callStatus === "joined") setStatus("online");
+    else if (callStatus === "joining") setStatus("connecting");
+  }, [callStatus]);
+
+  useEffect(() => {
+    statusScale.value = withRepeat(withTiming(1.2, { duration: 1200 }), -1, true);
+  }, [status]);
+
   useEffect(() => {
     if (status !== "online") return;
-
-    const interval = setInterval(() => {
-      setCallDuration((prev) => prev + 1);
-    }, 1000);
-
+    const interval = setInterval(() => setCallDuration((prev) => prev + 1), 1000);
     return () => clearInterval(interval);
   }, [status]);
 
-  // Audio playing wave simulation
   useEffect(() => {
-    if (isAudioPlaying) {
-      wave1.value = withRepeat(withTiming(1.6, { duration: 400 }), -1, true);
-      wave2.value = withRepeat(withTiming(1.4, { duration: 500 }), -1, true);
-      wave3.value = withRepeat(withTiming(1.5, { duration: 450 }), -1, true);
+    if (Platform.OS === "web" && status === "online" && !isAudioPlaying && currentPhrase) {
+      const timer = setTimeout(() => triggerAudioPlay(), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [status, currentPhraseIndex, Platform.OS, triggerAudioPlay]);
+
+  useEffect(() => {
+    if (isAudioPlaying || isLocalSpeaking) {
+      wave1.value = withRepeat(withTiming(1.4, { duration: 600 }), -1, true);
+      wave2.value = withRepeat(withTiming(1.2, { duration: 700 }), -1, true);
+      wave3.value = withRepeat(withTiming(1.3, { duration: 650 }), -1, true);
     } else {
       wave1.value = withTiming(1);
       wave2.value = withTiming(1);
       wave3.value = withTiming(1);
     }
-  }, [isAudioPlaying, wave1, wave2, wave3]);
+  }, [isAudioPlaying, isLocalSpeaking]);
 
-  // Microphone pulsing ripple simulation
   useEffect(() => {
-    if (isLocalSpeaking) {
-      micRipple.value = withRepeat(withTiming(1.8, { duration: 1000 }), -1, false);
-    } else {
-      micRipple.value = withTiming(1);
-    }
-  }, [isLocalSpeaking, micRipple]);
+    if (isLocalSpeaking) micRipple.value = withRepeat(withTiming(1.8, { duration: 1000 }), -1, false);
+    else micRipple.value = withTiming(1);
+  }, [isLocalSpeaking]);
 
-  // Automatic speaking trigger removed as we now use the actual Vision Agent
+  useEffect(() => {
+    if (call && call.microphone) call.microphone.disable();
+  }, [call]);
 
-  // Format seconds to MM:SS
   const formatTime = (totalSeconds: number) => {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -557,13 +612,13 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
+      <View style={styles.container} className="max-w-[420px] mx-auto w-full">
         
         {/* ================= HEADER SECTION ================= */}
         <View className="flex-row items-center justify-between px-6 pt-4 pb-3 bg-white border-b border-neutral-100/30">
           {/* Back chevron + Title */}
           <View className="flex-row items-center gap-3">
-            <TouchableOpacity onPress={() => router.back()} className="p-1 justify-center items-center">
+            <TouchableOpacity onPress={() => router.canGoBack() ? router.back() : router.replace("/(tabs)/learn")} className="p-1 justify-center items-center">
               <SymbolView
                 name={{ ios: "chevron.left", android: "arrow_back", web: "arrow_back" }}
                 size={22}
@@ -597,38 +652,18 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
           </View>
 
           {/* Right Header Buttons */}
-          <View className="flex-row items-center gap-3">
-            {/* Camera preview quick indicator */}
-            <TouchableOpacity
-              onPress={toggleCamera}
-              activeOpacity={0.8}
-              className="w-10 h-10 rounded-full border border-neutral-100 bg-white items-center justify-center"
-            >
-              <SymbolView
-                name={{
-                  ios: isCameraOn ? "video.fill" : "video.slash.fill",
-                  android: isCameraOn ? "videocam" : "videocam_off",
-                  web: isCameraOn ? "videocam" : "videocam_off",
-                }}
-                size={16}
-                tintColor="#0D132B"
-              />
-            </TouchableOpacity>
-
-            {/* Streak count indicator */}
-            <View className="w-10 h-10 rounded-full border border-neutral-100 bg-white items-center justify-center">
-              <Text className="font-poppins-bold text-[14px] text-[#FF8A00]">12</Text>
-            </View>
-
-            {/* Teacher profile circle button */}
-            <View className="w-10 h-10 rounded-full border border-neutral-100 bg-white items-center justify-center">
-              <SymbolView
-                name={{ ios: "person.crop.circle.fill", android: "account_circle", web: "account_circle" }}
-                size={18}
-                tintColor="#0D132B"
-              />
-            </View>
-          </View>
+          <TouchableOpacity
+            onPress={handleEndCall}
+            activeOpacity={0.8}
+            className="bg-red-50 px-4 py-2 rounded-full border border-red-100 flex-row items-center gap-2"
+          >
+            <SymbolView
+              name={{ ios: "phone.down.fill", android: "call_end", web: "call_end" }}
+              size={14}
+              tintColor="#EF4444"
+            />
+            <Text className="font-poppins-bold text-[13px] text-[#EF4444]">End Call</Text>
+          </TouchableOpacity>
         </View>
 
         {/* ================= MAIN FLEX CONTENT AREA ================= */}
@@ -659,29 +694,14 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
               />
             </View>
 
-            {/* Student Picture-in-Picture Floating View */}
-            <View className="absolute top-4 right-4 w-[76px] h-[104px] rounded-[16px] overflow-hidden border-2 border-white bg-neutral-800 shadow-sm shadow-black/10">
-              {isCameraOn ? (
-                <Image
-                  source={{ uri: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&q=80" }}
-                  style={{ width: "100%", height: "100%" }}
-                  resizeMode="cover"
-                />
-              ) : (
-                <View className="flex-1 items-center justify-center bg-neutral-800">
-                  <SymbolView name={{ ios: "video.slash.fill", android: "videocam_off", web: "videocam_off" }} size={18} tintColor="#D4D4D4" />
-                </View>
-              )}
-            </View>
-
             {/* Speaking voice ripple visualizer next to mascot */}
-            {(isAudioPlaying || isLocalSpeaking) && (
+            {(isAudioPlaying || isMicHeld || isLocalSpeaking) && (
               <View className="absolute top-4 left-4 flex-row items-center gap-1 bg-white/80 px-2.5 py-1.5 rounded-full border border-white/90">
                 <Animated.View style={[styles.visualizerBar, { height: 12 }, animatedWave1]} />
                 <Animated.View style={[styles.visualizerBar, { height: 18 }, animatedWave2]} />
                 <Animated.View style={[styles.visualizerBar, { height: 10 }, animatedWave3]} />
                 <Text className="ml-1 font-poppins-bold text-[10px] text-[#5B3BF6]">
-                  {isAudioPlaying ? teacherContext.name : "YOU"}
+                  {isMicHeld || isLocalSpeaking ? "YOU" : teacherContext.name}
                 </Text>
               </View>
             )}
@@ -690,13 +710,21 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
             <View className="absolute bottom-6 left-4 right-4 bg-white rounded-[20px] p-4.5 shadow-md border border-neutral-100 flex-row items-center justify-between">
               <View className="flex-1 pr-3 gap-0.5">
                 <Text className="font-poppins-bold text-[17px] text-[#0D132B] leading-tight">
-                  {isAudioPlaying ? (simulationTextOverride ? simulationTextOverride : currentPhrase.text) :
-                   isLocalSpeaking ? "Listening to you..." :
-                   isListening ? "Waiting for your input..." :
-                   "Muted"}
+                  {liveCaption ? (
+                    <Text>
+                        <Text className={(liveCaption.userId === 'teacher' || liveCaption.userId.includes('teacher')) ? "text-[#5B3BF6]" : "text-[#21C16B]"}>
+                            {(liveCaption.userId === 'teacher' || liveCaption.userId.includes('teacher')) ? `${teacherContext.name}: ` : 'You: '}
+                        </Text>
+                        {liveCaption.text}
+                    </Text>
+                  ) : (
+                    isMicHeld ? (isLocalSpeaking ? "Listening to you..." : "Go ahead, I'm listening...") :
+                    isAudioPlaying ? (simulationTextOverride ? simulationTextOverride : currentPhrase.text) :
+                    "Waiting for your input..."
+                  )}
                 </Text>
                 
-                {showSubtitles && !simulationTextOverride && (
+                {showSubtitles && !simulationTextOverride && !liveCaption && (
                   <View className="mt-1 border-t border-neutral-50 pt-1">
                     <Text className="font-poppins-medium text-[12.5px] text-[#5B3BF6] leading-tight">
                       {currentPhrase.pronunciation}
@@ -735,99 +763,42 @@ function AudioLessonContent({ id, agentStatus, onEndCall }: { id: string; agentS
             </View>
           </View>
 
-          {/* ================= AUDIO CALL ACTION CONTROLS ================= */}
-          <View className="flex-row justify-around items-center px-4 my-4">
-            {/* Camera Action */}
-            <View className="items-center gap-1.5">
+          {/* ================= PUSH TO TALK CONTROLS ================= */}
+          <View className="items-center justify-center py-6">
+            <View className="relative items-center justify-center">
+              {(isMicHeld || isLocalSpeaking) && (
+                <Animated.View
+                  style={[
+                    styles.micRippleLarge,
+                    animatedMicRipple,
+                  ]}
+                />
+              )}
               <TouchableOpacity
-                onPress={toggleCamera}
-                activeOpacity={0.8}
-                className={`w-[54px] h-[54px] rounded-full items-center justify-center shadow-xs border ${
-                  isCameraOn ? "bg-white border-neutral-100" : "bg-neutral-100 border-transparent"
+                onPressIn={handleMicPressIn}
+                onPressOut={handleMicPressOut}
+                activeOpacity={0.9}
+                className={`w-[110px] h-[110px] rounded-full items-center justify-center shadow-lg ${
+                  isMicHeld ? "bg-[#5B3BF6]" : "bg-white border-2 border-[#EAE8F7]"
                 }`}
               >
                 <SymbolView
                   name={{
-                    ios: isCameraOn ? "video.fill" : "video.slash.fill",
-                    android: isCameraOn ? "videocam" : "videocam_off",
-                    web: isCameraOn ? "videocam" : "videocam_off",
+                    ios: "mic.fill",
+                    android: "mic",
+                    web: "mic",
                   }}
-                  size={20}
-                  tintColor={isCameraOn ? "#0D132B" : "#8E94A8"}
+                  size={42}
+                  tintColor={isMicHeld ? "#FFFFFF" : "#5B3BF6"}
                 />
               </TouchableOpacity>
-              <Text className="font-poppins-semibold text-[11px] text-[#8E94A8]">Camera</Text>
             </View>
-
-            {/* Mic Action - Interactive with Stream Integration */}
-            <View className="items-center gap-1.5">
-              <View className="relative items-center justify-center">
-                {isLocalSpeaking && (
-                  <Animated.View
-                    style={[
-                      styles.micRippleOverlayControls,
-                      animatedMicRipple,
-                    ]}
-                  />
-                )}
-                <TouchableOpacity
-                  onPress={toggleMic}
-                  activeOpacity={0.8}
-                  className={`w-[54px] h-[54px] rounded-full items-center justify-center shadow-xs border ${
-                    isLocalSpeaking
-                      ? "bg-[#5B3BF6] border-transparent"
-                      : !micState.isMuted
-                      ? "bg-white border-neutral-100"
-                      : "bg-red-50 border-red-200"
-                  }`}
-                >
-                  <SymbolView
-                    name={{
-                      ios: !micState.isMuted ? "mic.fill" : "mic.slash.fill",
-                      android: !micState.isMuted ? "mic" : "mic_off",
-                      web: !micState.isMuted ? "mic" : "mic_off",
-                    }}
-                    size={20}
-                    tintColor={isLocalSpeaking ? "#FFFFFF" : !micState.isMuted ? "#0D132B" : "#EF4444"}
-                  />
-                </TouchableOpacity>
-              </View>
-              <Text className="font-poppins-semibold text-[11px] text-[#8E94A8]">Mic</Text>
-            </View>
-
-            {/* Subtitles Action */}
-            <View className="items-center gap-1.5">
-              <TouchableOpacity
-                onPress={() => setShowSubtitles(!showSubtitles)}
-                activeOpacity={0.8}
-                className={`w-[54px] h-[54px] rounded-full items-center justify-center shadow-xs border ${
-                  showSubtitles ? "bg-white border-neutral-100" : "bg-neutral-100 border-transparent"
-                }`}
-              >
-                <SymbolView
-                  name={{ ios: "character.duallanguage" as any, android: "translate", web: "translate" }}
-                  size={20}
-                  tintColor={showSubtitles ? "#0D132B" : "#8E94A8"}
-                />
-              </TouchableOpacity>
-              <Text className="font-poppins-semibold text-[11px] text-[#8E94A8]">Subtitles</Text>
-            </View>
-
-            {/* End Call Action */}
-            <View className="items-center gap-1.5">
-              <TouchableOpacity
-                onPress={handleEndCall}
-                activeOpacity={0.85}
-                className="w-[54px] h-[54px] rounded-full bg-[#EF4444] items-center justify-center shadow-md shadow-red-500/20"
-              >
-                <SymbolView
-                  name={{ ios: "phone.down.fill", android: "call_end", web: "call_end" }}
-                  size={20}
-                  tintColor="#FFFFFF"
-                />
-              </TouchableOpacity>
-              <Text className="font-poppins-semibold text-[11px] text-[#8E94A8]">End Call</Text>
-            </View>
+            <Text className="font-poppins-bold text-[16px] text-[#0D132B] mt-6">
+              {isMicHeld ? "Listening..." : "Hold to Speak"}
+            </Text>
+            <Text className="font-poppins-medium text-[13px] text-[#8E94A8] mt-1">
+              Teacher will listen while you hold
+            </Text>
           </View>
 
           {/* ================= REAL-TIME RATINGS FEEDBACK ================= */}
@@ -948,9 +919,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    maxWidth: 420,
     width: "100%",
-    alignSelf: "center",
     backgroundColor: "#FFFFFF",
   },
   statusDot: {
@@ -969,12 +938,12 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: "#5B3BF6", // bg-lingua-deep-purple
   },
-  micRippleOverlayControls: {
+  micRippleLarge: {
     position: "absolute",
-    width: 54,
-    height: 54,
-    borderRadius: 27,
-    backgroundColor: "rgba(91, 59, 246, 0.2)",
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    backgroundColor: "rgba(91, 59, 246, 0.25)",
   },
   tabBar: {
     height: 66,

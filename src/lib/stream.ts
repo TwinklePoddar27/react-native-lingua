@@ -7,17 +7,19 @@ import type { StreamVideoClient as ClientType, User } from "@stream-io/video-rea
 let client: ClientType | null = null;
 
 const getBaseUrl = () => {
-  if (Platform.OS === "web") return "";
+  if (Platform.OS === "web") return typeof window !== 'undefined' ? window.location.origin : "";
 
-  const debuggerHost = Constants.expoConfig?.hostUri;
+  let debuggerHost = Constants.expoConfig?.hostUri;
+
+  // SANITIZE: Force port to 8081 if it's stuck on 8083 or any other port
+  // In development, Expo Router API routes always run on the same port as Metro (8081)
   if (debuggerHost) {
-    // debuggerHost is usually something like 192.168.1.10:8081
-    return `http://${debuggerHost}`;
+    const host = debuggerHost.split(":")[0];
+    return `http://${host}:8081`;
   }
 
-  // Fallback for Android emulator to reach localhost on host machine
-  // Using 8083 as detected in the user's environment
-  return Platform.OS === "android" ? "http://10.0.2.2:8083" : "http://localhost:8083";
+  // Fallback for Android emulator
+  return Platform.OS === "android" ? "http://10.0.2.2:8081" : "http://localhost:8081";
 };
 
 /**

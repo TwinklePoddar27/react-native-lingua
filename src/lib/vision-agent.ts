@@ -3,19 +3,18 @@ import Constants from "expo-constants";
 import { Lesson } from "@/types/learning";
 
 const getBaseUrl = () => {
-  if (Platform.OS === "web") return "";
+  if (Platform.OS === "web") return typeof window !== 'undefined' ? window.location.origin : "";
 
-  const debuggerHost = Constants.expoConfig?.hostUri;
+  let debuggerHost = Constants.expoConfig?.hostUri;
+
+  // SANITIZE: Force port to 8081 if it's stuck on 8083 or any other port
   if (debuggerHost) {
-    // debuggerHost is usually something like 192.168.1.10:8081
     const host = debuggerHost.split(":")[0];
-    // We assume the Expo server is running on the same host
-    // Expo Router API routes are served by the same dev server
-    return `http://${debuggerHost}`;
+    return `http://${host}:8081`;
   }
 
-  // Fallback for Android emulator to reach localhost on host machine
-  return Platform.OS === "android" ? "http://10.0.2.2:8083" : "http://localhost:8083";
+  // Fallback for Android emulator
+  return Platform.OS === "android" ? "http://10.0.2.2:8081" : "http://localhost:8081";
 };
 
 /**

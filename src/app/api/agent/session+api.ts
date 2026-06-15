@@ -2,11 +2,15 @@ import { StreamClient } from '@stream-io/node-sdk';
 
 const apiKey = process.env.STREAM_API_KEY || "";
 const apiSecret = process.env.STREAM_API_SECRET || "";
-const AGENT_SERVER_URL = process.env.AGENT_SERVER_URL || "http://localhost:8000";
 
 export async function POST(request: Request) {
   try {
     const { callId, callType = "default", lesson, languageId } = await request.json();
+
+    // Infer Agent Server URL: .env > localhost:8000 (standard for development)
+    // We use localhost because the agent runs on the same machine as this API route.
+    const agentServerUrl = process.env.AGENT_SERVER_URL || "http://localhost:8000";
+    const cleanAgentUrl = agentServerUrl.replace(/\/$/, "");
 
     if (!apiKey || !apiSecret) {
       return Response.json({ error: "Stream API Key or Secret not configured" }, { status: 500 });
@@ -21,8 +25,21 @@ export async function POST(request: Request) {
     // 1. Pack lesson data into Stream call custom data and ensure permissions
     const call = client.video.call(callType, callId);
 
+    // Get or Create the call to ensure it exists before triggering the agent
+    await call.getOrCreate({
+      data: {
+        created_by_id: "teacher",
+      }
+    });
+
     // We update the call with custom data and also ensure the teacher has the right role
     await call.update({
+      settings_override: {
+        transcription: {
+          mode: 'auto-on',
+          closed_caption_mode: 'auto-on',
+        }
+      },
       custom: lesson ? {
         lesson_id: lesson.id,
         lesson_title: lesson.title,
@@ -50,8 +67,8 @@ export async function POST(request: Request) {
     });
 
     // 3. Proxy to Vision Agent server
-    console.log(`Proxying session request to agent server: ${AGENT_SERVER_URL}/calls/${callId}/sessions`);
-    const response = await fetch(`${AGENT_SERVER_URL}/calls/${callId}/sessions`, {
+    console.log(`[Agent Proxy] Triggering session: ${cleanAgentUrl}/calls/${callId}/sessions`);
+    const response = await fetch(`${cleanAgentUrl}/calls/${callId}/sessions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -84,7 +101,10 @@ export async function DELETE(request: Request) {
       return Response.json({ error: "callId and sessionId are required" }, { status: 400 });
     }
 
-    const response = await fetch(`${AGENT_SERVER_URL}/calls/${callId}/sessions/${sessionId}`, {
+    const agentServerUrl = process.env.AGENT_SERVER_URL || "http://localhost:8000";
+    const cleanAgentUrl = agentServerUrl.replace(/\/$/, "");
+
+    const response = await fetch(`${cleanAgentUrl}/calls/${callId}/sessions/${sessionId}`, {
       method: "DELETE",
     });
 

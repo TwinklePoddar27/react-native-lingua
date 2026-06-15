@@ -38,6 +38,15 @@ export const languages: Language[] = [
     learnersCount: "9.3M learners",
   },
   {
+    id: "en",
+    name: "English",
+    nativeName: "English",
+    code: "en",
+    flagIcon: "https://flagcdn.com/w160/us.png",
+    description: "Master the global language of business, travel, and technology to connect with the world.",
+    learnersCount: "42.1M learners",
+  },
+  {
     id: "de",
     name: "German",
     nativeName: "Deutsch",
