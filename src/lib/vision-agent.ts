@@ -1,21 +1,6 @@
 import { Platform } from "react-native";
-import Constants from "expo-constants";
 import { Lesson } from "@/types/learning";
-
-const getBaseUrl = () => {
-  if (Platform.OS === "web") return typeof window !== 'undefined' ? window.location.origin : "";
-
-  let debuggerHost = Constants.expoConfig?.hostUri;
-
-  // SANITIZE: Force port to 8081 if it's stuck on 8083 or any other port
-  if (debuggerHost) {
-    const host = debuggerHost.split(":")[0];
-    return `http://${host}:8081`;
-  }
-
-  // Fallback for Android emulator
-  return Platform.OS === "android" ? "http://10.0.2.2:8081" : "http://localhost:8081";
-};
+import { getBackendBaseUrl } from "./config";
 
 /**
  * Tells our API to start a Vision Agent session.
@@ -28,7 +13,7 @@ export const startAgentSession = async (
   callType: string = "default"
 ) => {
   try {
-    const baseUrl = getBaseUrl();
+    const baseUrl = getBackendBaseUrl();
     const response = await fetch(`${baseUrl}/api/agent/session`, {
       method: "POST",
       headers: {
@@ -59,7 +44,7 @@ export const startAgentSession = async (
  */
 export const interruptAgent = async (callId: string, sessionId: string) => {
   try {
-    const baseUrl = getBaseUrl();
+    const baseUrl = getBackendBaseUrl();
     const response = await fetch(`${baseUrl}/api/agent/interrupt`, {
       method: "POST",
       headers: {
@@ -88,7 +73,7 @@ export const interruptAgent = async (callId: string, sessionId: string) => {
  */
 export const stopAgentSession = async (callId: string, sessionId: string) => {
   try {
-    const baseUrl = getBaseUrl();
+    const baseUrl = getBackendBaseUrl();
     // We use query params for DELETE proxying
     const response = await fetch(`${baseUrl}/api/agent/session?callId=${callId}&sessionId=${sessionId}`, {
       method: "DELETE",
