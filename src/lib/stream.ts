@@ -35,7 +35,9 @@ export const getStreamClient = async (
 
   // Fetch token and API key from our API route
   const baseUrl = getBackendBaseUrl();
-  const response = await fetch(`${baseUrl}/api/stream/token`, {
+  const endpoint = baseUrl.includes('vercel.app') ? '/api/stream-token' : '/api/stream/token';
+
+  const response = await fetch(`${baseUrl}${endpoint}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

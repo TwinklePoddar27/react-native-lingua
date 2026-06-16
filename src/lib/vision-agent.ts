@@ -14,7 +14,9 @@ export const startAgentSession = async (
 ) => {
   try {
     const baseUrl = getBackendBaseUrl();
-    const response = await fetch(`${baseUrl}/api/agent/session`, {
+    const endpoint = baseUrl.includes('vercel.app') ? '/api/agent-session' : '/api/agent/session';
+
+    const response = await fetch(`${baseUrl}${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +47,9 @@ export const startAgentSession = async (
 export const interruptAgent = async (callId: string, sessionId: string) => {
   try {
     const baseUrl = getBackendBaseUrl();
-    const response = await fetch(`${baseUrl}/api/agent/interrupt`, {
+    const endpoint = baseUrl.includes('vercel.app') ? '/api/agent-interrupt' : '/api/agent/interrupt';
+
+    const response = await fetch(`${baseUrl}${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,8 +78,10 @@ export const interruptAgent = async (callId: string, sessionId: string) => {
 export const stopAgentSession = async (callId: string, sessionId: string) => {
   try {
     const baseUrl = getBackendBaseUrl();
+    const endpoint = baseUrl.includes('vercel.app') ? '/api/agent-session' : '/api/agent/session';
+
     // We use query params for DELETE proxying
-    const response = await fetch(`${baseUrl}/api/agent/session?callId=${callId}&sessionId=${sessionId}`, {
+    const response = await fetch(`${baseUrl}${endpoint}?callId=${callId}&sessionId=${sessionId}`, {
       method: "DELETE",
     });
 
