@@ -1,21 +1,25 @@
 import { StreamClient } from '@stream-io/node-sdk';
 
-export default async function handler(request: Request) {
+export default async function handler(req: any, res: any) {
   const apiKey = process.env.STREAM_API_KEY || "";
   const apiSecret = process.env.STREAM_API_SECRET || "";
   const agentServerUrl = process.env.AGENT_SERVER_URL || "http://localhost:8000";
   const cleanAgentUrl = agentServerUrl.replace(/\/$/, "");
 
-  if (request.method === 'POST') {
+  if (req.method === 'GET') {
+    return res.status(200).json({ status: 'Agent Session API is Online' });
+  }
+
+  if (req.method === 'POST') {
     try {
-      const { callId, callType = "default", lesson, languageId } = await request.json();
+      const { callId, callType = "default", lesson, languageId } = req.body;
 
       if (!apiKey || !apiSecret) {
-        return new Response(JSON.stringify({ error: "Stream API Key or Secret not configured" }), { status: 500 });
+        return res.status(500).json({ error: "Stream API Key or Secret not configured" });
       }
 
       if (!callId) {
-        return new Response(JSON.stringify({ error: "callId is required" }), { status: 400 });
+        return res.status(400).json({ error: "callId is required" });
       }
 
       const client = new StreamClient(apiKey, apiSecret);
@@ -24,9 +28,7 @@ export default async function handler(request: Request) {
       await call.getOrCreate({ data: { created_by_id: "teacher" } });
 
       await call.update({
-        settings_override: {
-          transcription: { mode: 'auto-on', closed_caption_mode: 'auto-on' }
-        },
+        settings_override: { transcription: { mode: 'auto-on', closed_caption_mode: 'auto-on' } },
         custom: lesson ? {
           lesson_id: lesson.id,
           lesson_title: lesson.title,
@@ -43,39 +45,31 @@ export default async function handler(request: Request) {
       await client.upsertUsers([{ id: "teacher", name: "AI Teacher", role: "admin" }]);
       await call.updateCallMembers({ update_members: [{ user_id: "teacher", role: "admin" }] });
 
-      const response = await fetch(`${cleanAgentUrl}/calls/${callId}/sessions`, {
+      const agentResponse = await fetch(`${cleanAgentUrl}/calls/${callId}/sessions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ call_type: callType, language_id: languageId }),
       });
 
-      const data = await response.json();
-      return new Response(JSON.stringify(data), { status: response.status, headers: { 'Content-Type': 'application/json' } });
-
+      const data = await agentResponse.json();
+      return res.status(agentResponse.status).json(data);
     } catch (error: any) {
-      return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+      return res.status(500).json({ error: error.message });
     }
   }
 
-  if (request.method === 'DELETE') {
+  if (req.method === 'DELETE') {
     try {
-      const url = new URL(request.url);
-      const callId = url.searchParams.get("callId");
-      const sessionId = url.searchParams.get("sessionId");
-
+      const { callId, sessionId } = req.query;
       if (!callId || !sessionId) {
-        return new Response(JSON.stringify({ error: "callId and sessionId are required" }), { status: 400 });
+        return res.status(400).json({ error: "callId and sessionId are required" });
       }
-
-      const response = await fetch(`${cleanAgentUrl}/calls/${callId}/sessions/${sessionId}`, {
-        method: "DELETE",
-      });
-
-      return new Response(JSON.stringify({ success: response.ok }), { status: response.status });
+      const agentResponse = await fetch(`${cleanAgentUrl}/calls/${callId}/sessions/${sessionId}`, { method: "DELETE" });
+      return res.status(agentResponse.status).json({ success: agentResponse.ok });
     } catch (error: any) {
-      return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+      return res.status(500).json({ error: error.message });
     }
   }
 
-  return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });
+  return res.status(405).json({ error: 'Method Not Allowed' });
 }

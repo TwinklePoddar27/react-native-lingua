@@ -1,8 +1,13 @@
 import { StreamClient } from '@stream-io/node-sdk';
 
-export default async function handler(request: Request) {
-  if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });
+export default async function handler(req: any, res: any) {
+  // Allow browser to check if server is alive
+  if (req.method === 'GET') {
+    return res.status(200).json({ status: 'Lingua API is Online', message: 'Send a POST request with userId to get a token.' });
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   const apiKey = process.env.STREAM_API_KEY || "";
@@ -10,44 +15,27 @@ export default async function handler(request: Request) {
 
   try {
     if (!apiKey || !apiSecret) {
-      return new Response(
-        JSON.stringify({ error: "Stream API Key or Secret not configured on server" }),
-        { status: 500 }
-      );
+      return res.status(500).json({ error: "Stream API Key or Secret not configured on server" });
     }
 
-    const { userId, name, image, callId } = await request.json();
+    const { userId, name, image, callId } = req.body;
 
     if (!userId) {
-      return new Response(JSON.stringify({ error: "userId is required" }), { status: 400 });
+      return res.status(400).json({ error: "userId is required" });
     }
 
     const client = new StreamClient(apiKey, apiSecret);
-
-    // Upsert the user to ensure they have a name and image in Stream
-    await client.upsertUsers([
-        { id: userId, name: name || userId, image: image || "" },
-    ]);
-
-    // Generate token valid for 1 hour
+    await client.upsertUsers([{ id: userId, name: name || userId, image: image || "" }]);
     const token = client.generateUserToken({ user_id: userId, validity_in_seconds: 3600 });
 
-    // If callId is provided, ensure the call is created
     if (callId) {
       const call = client.video.call("default", callId);
-      await call.getOrCreate({
-        data: {
-          created_by_id: userId,
-        },
-      });
+      await call.getOrCreate({ data: { created_by_id: userId } });
     }
 
-    return new Response(JSON.stringify({ token, apiKey }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return res.status(200).json({ token, apiKey });
   } catch (error: any) {
     console.error("Error in Stream API route:", error);
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    return res.status(500).json({ error: error.message });
   }
 }
