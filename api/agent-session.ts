@@ -1,9 +1,5 @@
 import { StreamClient } from '@stream-io/node-sdk';
 
-export const config = {
-  runtime: 'edge',
-};
-
 export default async function handler(request: Request) {
   const apiKey = process.env.STREAM_API_KEY || "";
   const apiSecret = process.env.STREAM_API_SECRET || "";

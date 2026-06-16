@@ -1,9 +1,5 @@
 import { StreamClient } from '@stream-io/node-sdk';
 
-export const config = {
-  runtime: 'edge',
-};
-
 export default async function handler(request: Request) {
   if (request.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });

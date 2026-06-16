@@ -1,0 +1,22 @@
+{
+  "functions": {
+    "api/*.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/stream-token",
+      "dest": "/api/stream-token.ts"
+    },
+    {
+      "src": "/api/agent-session",
+      "dest": "/api/agent-session.ts"
+    },
+    {
+      "src": "/api/agent-interrupt",
+      "dest": "/api/agent-interrupt.ts"
+    }
+  ]
+}
